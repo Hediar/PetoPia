@@ -52,6 +52,7 @@ export default Main;
 
 const Headerarea = styled.div`
   background-color: #ffe066;
+  width: 100%;
   margin: 0 auto;
   padding: 10px;
 `;
