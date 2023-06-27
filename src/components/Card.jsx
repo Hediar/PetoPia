@@ -4,14 +4,15 @@ import React from 'react';
 function Card() {
   return (
     <FidCardBox>
-      <h2>Fid Cards</h2>
-      <div>Card image</div>
       <Fidmainbox>
+        <h2>Fid Cards</h2>
+        <div>Card image</div>
         <div>
           <h4
             style={{
               display: 'block',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              margin: '10px 0 10px 0'
             }}
           >
             제목
@@ -31,7 +32,10 @@ export default Card;
 const FidCardBox = styled.div`
   background-color: white;
   border: 3px solid rgb(221, 221, 221);
+  border-radius: 10px;
   margin: 1rem;
+  &: hover {
+    cursor: pointer;
 `;
 const Fidmainbox = styled.div`
   padding: 1rem;
@@ -40,7 +44,7 @@ const Fidmainbox = styled.div`
   flex-direction: column;
 `;
 const Fidcontext = styled.div`
-  margin: 0px 0px 1.5rem;
+  margin: 0 0 8px 0;
   font-size: 0.875rem;
   line-height: 1.5;
   height: 3.9375rem;
@@ -50,7 +54,7 @@ const Fidcontext = styled.div`
 
 const Cardfooter = styled.div`
   padding: 0.625rem 1rem;
-  border-top: 1px solid #f1f3f5;
+  border-top: 4px dashed #f1f3f5;
   display: flex;
   font-size: 0.75rem;
   line-height: 1.5;
