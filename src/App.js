@@ -1,12 +1,16 @@
+import LoginPage from './pages/LoginPage';
 import Main from './pages/Main';
+import SignupPage from './pages/SignupPage';
 import './reset.css';
 import { styled } from 'styled-components';
 
 function App() {
   return (
     <div>
-      <Main />
+      {/* <Main /> */}
       {/* <MainWrapper>TEST</MainWrapper> */}
+      <LoginPage />
+      {/* <SignupPage /> */}
     </div>
   );
 }
