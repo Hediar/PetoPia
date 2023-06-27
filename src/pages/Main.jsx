@@ -5,7 +5,9 @@ import Card from '../components/Card';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
 import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
+
 import BottomCardTab from '../components/BottomCardTab';
+
 // import { Link } from 'react-router-dom';
 function Main() {
   return (
@@ -58,6 +60,7 @@ const MainBox = styled.div`
   width: 1200px;
   margin: 0 auto;
   padding: 30px;
+
 `;
 
 const Cardsarea = styled.div`
