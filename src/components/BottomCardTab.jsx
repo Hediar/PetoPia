@@ -11,7 +11,7 @@ function BottomCardTab() {
         </CoreImg>
         <SideImg>
           <InnerSide>
-            <Img src="/imgs/cuteCat.png" width="240" border-radius="30" alt="Image1" />
+            <Img src="/imgs/cuteCat.png" width="240" alt="Image1" />
             <Ptext>
               <BottomTitle>초밥이였던 고양이</BottomTitle>
               <br />
@@ -20,7 +20,7 @@ function BottomCardTab() {
             </Ptext>
           </InnerSide>
           <InnerSide>
-            <Img src="/imgs/cuteLizzard.jpg" width="240" border-radius="30" alt="Image1" />
+            <Img src="/imgs/cuteLizzard.jpg" width="240" alt="Image1" />
             <Ptext>
               <BottomTitle>따뜻한 파충류</BottomTitle>
               <br />
