@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { FaAlignJustify } from 'react-icons/fa';
+
 import { useRef } from 'react';
 
+import { useNavigate } from 'react-router';
+
+
 function Header() {
+  const navigate = useNavigate();
   // 햄버거 버튼 제어변수
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
@@ -28,7 +33,13 @@ function Header() {
         </ImgHeader>
         <div></div>
         <Hamburger>
-          <LoginBtn>Login / Join us</LoginBtn>
+          <LoginBtn
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            Login / Join us
+          </LoginBtn>
           <BtnHamburger onClick={handleButtonClick}>
             <FaAlignJustify size="40" color="#eb9307" />
           </BtnHamburger>
@@ -48,6 +59,7 @@ function Header() {
         </Hamburger>
       </HeaderTop>
       <FormTag>
+
         <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
         <FormBtn type="submit">검색</FormBtn>
         <RegisterBtn type="submit">게시글 작성하기</RegisterBtn>
@@ -85,7 +97,8 @@ const LoginBtn = styled.button`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  &: hover {
+  &:hover {
+
     cursor: pointer;
     background-color: #ff8f05;
     color: black;
@@ -98,7 +111,8 @@ const BtnHamburger = styled.button`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  &: hover {
+
+  &:hover {
     cursor: pointer;
     color: black;
   }
@@ -109,7 +123,9 @@ const NavUl = styled.ul`
   top: 50px;
   right: 20px;
   border: none;
+
   border-radius: 18px 0 18px 18px;
+
   background-color: white;
   padding: 10px;
   box-shadow: 4px 10px 20px gray;
@@ -130,6 +146,7 @@ const InnerHamburger = styled.div`
   font-size: 20px;
   padding: 4px;
   z-index: 999;
+
 `;
 
 const FormTag = styled.div`

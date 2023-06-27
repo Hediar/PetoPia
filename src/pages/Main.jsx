@@ -60,7 +60,6 @@ const MainBox = styled.div`
   width: 1200px;
   margin: 0 auto;
   padding: 30px;
-
 `;
 
 const Cardsarea = styled.div`
@@ -78,7 +77,7 @@ const BtnBest = styled.button`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  &: hover {
+  &:hover {
     cursor: pointer;
     background-color: #ff8f05;
     color: black;
