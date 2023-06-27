@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import Card from '../components/Card';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
+import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
 
 // import { Link } from 'react-router-dom';
 function Main() {
@@ -53,10 +54,6 @@ function Main() {
 
 export default Main;
 
-const MainWrapper = styled.div`
-  width: 1400px;
-  margin: 0 auto;
-`;
 const Headerarea = styled.div`
   background-color: #ffe066;
   margin: 0 auto;
@@ -66,49 +63,6 @@ const MainBox = styled.div`
   width: 1200px;
   margin: 0 auto;
   padding: 0 30px;
-`;
-
-// const FormTag = styled.div`
-//   width: 100%;
-//   margin: 0 auto;
-//   margin-top: 20px;
-//   margin-bottom: 20px;
-//   padding: 10px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   position: relative;
-// `;
-// const FormBtn = styled.button`
-//   //   width: 500px;
-//   height: 50px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: white;
-//   position: absolute;
-//   margin-left: -60px;
-// `;
-// const RegisterBtn = styled.button`
-//   //   width: 500px;
-//   margin-left: 20px;
-//   height: 50px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: white;
-//   color: #ed9a15;
-//   font-weight: 600;
-// `;
-
-const Footerarea = styled.div`
-  background-color: #ffe066;
-
-  width: 100%;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
 `;
 
 const Cardsarea = styled.div`
