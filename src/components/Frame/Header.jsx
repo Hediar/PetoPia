@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { FaAlignJustify } from 'react-icons/fa';
+import { useRef } from 'react';
 
 function Header() {
   // 햄버거 버튼 제어변수
@@ -12,6 +13,13 @@ function Header() {
     // 펫 종류 []
     // const pets = ['강아지', '고양이', '물고기', '조류', '파충류', '양서류', '기타'];
   };
+
+  // autoCursor
+  const cursorRef = useRef();
+  useEffect(() => {
+    cursorRef.current.focus();
+  }, []);
+
   return (
     <>
       <HeaderTop>
@@ -40,7 +48,7 @@ function Header() {
         </Hamburger>
       </HeaderTop>
       <FormTag>
-        <Forminput placeholder="검색어를 입력해 주세요." />
+        <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
         <FormBtn type="submit">검색</FormBtn>
         <RegisterBtn type="submit">게시글 작성하기</RegisterBtn>
       </FormTag>
@@ -51,6 +59,7 @@ function Header() {
 export default Header;
 
 const HeaderTop = styled.div`
+  width: 1400px;
   margin: 0 auto;
   padding-top: 60px;
   display: flex;
@@ -100,7 +109,7 @@ const NavUl = styled.ul`
   top: 50px;
   right: 20px;
   border: none;
-  border-radius: 14px;
+  border-radius: 18px 0 18px 18px;
   background-color: white;
   padding: 10px;
   box-shadow: 4px 10px 20px gray;
@@ -108,18 +117,19 @@ const NavUl = styled.ul`
 const NavLi = styled.li`
   // width: 100%;
   margin: 10px 0 10px 0;
-  border-radius: 14px;
   padding: 10px;
   font-size: 20px;
   font-weight: 600;
   &: hover {
     background-color: gray;
+    border-radius: 10px;
     cursor: pointer;
   }
 `;
 const InnerHamburger = styled.div`
   font-size: 20px;
   padding: 4px;
+  z-index: 999;
 `;
 
 const FormTag = styled.div`
