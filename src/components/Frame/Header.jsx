@@ -74,7 +74,8 @@ const HeaderTop = styled.div`
 `;
 
 const ImgHeader = styled.div`
-  margin-left: 80px;
+  width: 400px;
+  text-align: center;
 `;
 
 const Hamburger = styled.div`
@@ -127,7 +128,8 @@ const NavLi = styled.li`
   font-size: 20px;
   font-weight: 600;
   &: hover {
-    background-color: gray;
+    background-color: #ff8f05;
+    color: white;
     border-radius: 10px;
     cursor: pointer;
   }

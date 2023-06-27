@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 function Footer() {
   return (
     <>
-      <div>
+      <InnerFooter>
         <Fspan>PetoPia Copyright 2023, All Rights Reserved</Fspan>
         <br />
         <Fspan>서울시 성북구 82-9 | 페토피아</Fspan>
@@ -15,15 +15,19 @@ function Footer() {
         <br />
         <BannerImg src="/PetoPia-Logo/text-Logo.png" width="180" alt="PetoPia 로고" />
         <ImgFooter>
-          <img src="/imgs/icon-appstore-badge.png" width="200" alt="구글" />
-          <img src="/imgs/icon-playstore.png" width="200" alt="구글" />
+          <Astore src="/imgs/icon-appstore-badge.png" width="200" alt="구글" />
+          <Gplay src="/imgs/icon-playstore.png" width="200" alt="구글" />
         </ImgFooter>
-      </div>
+      </InnerFooter>
     </>
   );
 }
 
 export default Footer;
+
+const InnerFooter = styled.div`
+  width: 900px;
+`;
 const Fspan = styled.p`
   margin-bottom: 10px;
   font-size: 20px;
@@ -38,6 +42,15 @@ const BannerImg = styled.img`
   margin-bottom: 40px;
 `;
 const ImgFooter = styled.div`
-  width: 400px;
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
+`;
+const Astore = styled.img`
+  width: 280px;
+  padding: 0 8px;
+`;
+const Gplay = styled.img`
+  width: 280px;
+  padding: 0 8px;
 `;
