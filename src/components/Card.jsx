@@ -41,13 +41,9 @@ const Fidmainbox = styled.div`
 `;
 const Fidcontext = styled.div`
   margin: 0px 0px 1.5rem;
-  word-break: break-word;
-  overflow-wrap: break-word;
   font-size: 0.875rem;
   line-height: 1.5;
   height: 3.9375rem;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
@@ -58,6 +54,5 @@ const Cardfooter = styled.div`
   display: flex;
   font-size: 0.75rem;
   line-height: 1.5;
-  -webkit-box-pack: justify;
   justify-content: space-between;
 `;
