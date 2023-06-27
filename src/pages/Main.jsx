@@ -109,8 +109,8 @@ function Main() {
           <Fspan>발행 : 5조 | 편집 : 5조</Fspan>
           <br />
           <ImgFooter>
-            <AppStoreIcon src="/imgs/icon-appstore-badge.png" alt="구글" />
-            <PlayStoreIcon src="/imgs/icon-playstore.png" alt="구글" />
+            <AppStoreIcon src="/imgs/icon-appstore-badge.png" width="200" alt="구글" />
+            <PlayStoreIcon src="/imgs/icon-playstore.png" width="200" alt="구글" />
           </ImgFooter>
         </div>
       </Footer>
