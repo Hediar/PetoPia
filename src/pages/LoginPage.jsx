@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,6 +20,15 @@ function LoginPage() {
 
   const signUp = (event) => {
     event.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // 회원가입 성공시
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        // 회원가입 실패시
+        console.error(error);
+      });
   };
   const signIn = (event) => {
     event.preventDefault();
