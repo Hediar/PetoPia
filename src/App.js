@@ -1,6 +1,6 @@
 import Main from './pages/Main';
 import './reset.css';
-import { styled } from 'styled-components';
+// import { styled } from 'styled-components';
 
 function App() {
   return (
@@ -12,8 +12,3 @@ function App() {
 }
 
 export default App;
-
-// const MainWrapper = styled.div`
-//   width: 1400px;
-//   margin: 0 auto;
-// `;
