@@ -33,25 +33,40 @@ function SignupPage() {
     if (password !== confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');
       return; // 비밀번호 불일치 에러 처리 후 함수 종료
-    }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      // displayName 업데이트
-      await updateProfile(user, {
-        displayName: displayName
-      })
-        .then(() => {
-          console.log('displayName이 업데이트되었습니다.');
-          navigate('/login');
+    } else if (displayName === '') {
+      alert('닉네임을 입력해주세요');
+      return;
+    } else {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        // displayName 업데이트
+        await updateProfile(user, {
+          displayName: displayName
         })
-        .catch((error) => {
-          console.error('displayName 업데이트 중 오류:', error);
-        });
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('error with signUp', errorCode, errorMessage);
+          .then(() => {
+            alert('회원가입이 완료되었습니다.');
+            navigate('/login');
+          })
+          .catch((error) => {
+            console.error('displayName 업데이트 중 오류:', error);
+          });
+      } catch (error) {
+        const errorCode = error.code;
+
+        console.log(errorCode);
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            alert('이메일을 입력해주세요');
+            break;
+          case 'auth/missing-password':
+            alert('비밀번호를 입력해주세요');
+            break;
+          default:
+            alert('회원가입에 실패했습니다.');
+            break;
+        }
+      }
     }
   };
 

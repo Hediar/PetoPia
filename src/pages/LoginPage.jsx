@@ -53,22 +53,27 @@ function LoginPage() {
       };
 
       dispatch(setUser(newUser));
+      handleLocation();
     } catch (error) {
       switch (error.code) {
-        case 'auth/user-not-found' || 'auth/wrong-password':
-          return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+        case 'auth/user-not-found':
+          alert('이메일이 일치하지 않습니다.');
+          break;
+        case 'auth/wrong-password':
+          alert('비밀번호가 일치하지 않습니다.');
+          break;
         default:
-          return alert('로그인에 실패 했습니다.');
+          alert('로그인에 실패 했습니다.');
+          break;
       }
     }
-
-    handleLocation();
   };
   const logOut = async (event) => {
     event.preventDefault();
     alert('로그아웃 되었습니다.');
 
     await signOut(auth);
+    dispatch(deleteUser());
   };
 
   return (
