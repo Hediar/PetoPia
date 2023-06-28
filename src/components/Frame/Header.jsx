@@ -30,7 +30,7 @@ function Header() {
         <Hamburger>
           <LoginBtn
             onClick={() => {
-              navigate('/login');
+              navigate('/login', { state: { preURL: '/' } });
             }}
           >
             Login / Join us
@@ -92,7 +92,7 @@ const LoginBtn = styled.button`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  &: hover {
+  &:hover {
     cursor: pointer;
     background-color: #ff8f05;
     color: black;
@@ -105,7 +105,7 @@ const BtnHamburger = styled.button`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  &: hover {
+  &:hover {
     cursor: pointer;
     color: black;
   }
@@ -127,7 +127,7 @@ const NavLi = styled.li`
   padding: 10px;
   font-size: 20px;
   font-weight: 600;
-  &: hover {
+  &:hover {
     background-color: #ff8f05;
     color: white;
     border-radius: 10px;
@@ -169,7 +169,7 @@ const FormBtn = styled.button`
   font-weight: bold;
   position: absolute;
   margin-right: -270px;
-  &: hover {
+  &:hover {
     cursor: pointer;
   }
 `;
@@ -183,7 +183,7 @@ const RegisterBtn = styled.button`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  &: hover {
+  &:hover {
     cursor: pointer;
     background-color: #ff8f05;
 
