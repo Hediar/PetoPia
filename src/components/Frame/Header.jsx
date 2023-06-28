@@ -8,6 +8,7 @@ import { Headerarea } from '../../stylecomponents/Wrapper';
 function Header() {
   const navigate = useNavigate();
 
+
   const cursorRef = useRef();
   useEffect(() => {
     cursorRef.current.focus();
@@ -15,7 +16,9 @@ function Header() {
   return (
     <>
       <Headerarea>
+
         <Headernav />
+
         <FormTag>
           <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
           <FormBtn type="submit">검색</FormBtn>
