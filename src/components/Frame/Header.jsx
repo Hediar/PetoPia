@@ -56,7 +56,14 @@ function Header() {
       <FormTag>
         <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
         <FormBtn type="submit">검색</FormBtn>
-        <RegisterBtn type="submit">게시글 작성하기</RegisterBtn>
+        <RegisterBtn
+          type="submit"
+          onClick={() => {
+            navigate('/posting');
+          }}
+        >
+          게시글 작성하기
+        </RegisterBtn>
       </FormTag>
     </>
   );

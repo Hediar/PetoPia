@@ -7,8 +7,9 @@ import Header from '../components/Frame/Header';
 import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
-
+// import { useNavigate } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
+
 function Main() {
   return (
     <>
