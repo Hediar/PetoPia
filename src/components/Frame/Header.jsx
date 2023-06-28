@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
-import { FaAlignJustify } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
+import Headernav from './Headernav';
+import { Headerarea } from '../../stylecomponents/Wrapper';
 
 function Header() {
   const navigate = useNavigate();
-  // 햄버거 버튼 제어변수
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
 
-  const handleButtonClick = () => {
-    setIsButtonVisible(!isButtonVisible);
-
-    // 펫 종류 []
-    // const pets = ['강아지', '고양이', '물고기', '조류', '파충류', '양서류', '기타'];
-  };
 
   const cursorRef = useRef();
   useEffect(() => {
@@ -61,6 +54,8 @@ function Header() {
             </InnerHamburger>
           </Hamburger>
         </HeaderTop>
+
+        <Headernav />
         <FormTag>
           <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
           <FormBtn type="submit">검색</FormBtn>
@@ -79,6 +74,7 @@ function Header() {
 }
 
 export default Header;
+
 const Headerarea = styled.div`
   background-color: #ffe066;
   width: 100%;

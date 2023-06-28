@@ -4,6 +4,9 @@ import 'firebase/firestore';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
+import { Firestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { styled } from 'styled-components';
+
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 
@@ -15,6 +18,7 @@ function Posting() {
   const [user, setUser] = useState([]);
 
   const userCollectionRef = collection(db, 'users');
+
 
   // const uniqueId = useId();
   // console.log(uniqueId);
