@@ -44,7 +44,15 @@ function LoginPage() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
-      dispatch(setUser(auth.currentUser));
+
+      const newUser = {
+        email: auth.currentUser.email,
+        uid: auth.currentUser.uid,
+        displayname: auth.currentUser.displayName,
+        photoURL: auth.currentUser.photoURL
+      };
+
+      dispatch(setUser(newUser));
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found' || 'auth/wrong-password':

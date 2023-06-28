@@ -1,8 +1,14 @@
 // action value
 const SETUSER = 'SET_USER';
+const DELETEUSER = 'DELETE_USER';
 
 // 초기값
-const initialState = [];
+const initialState = {
+  email: 'test@mail.com',
+  uid: 'uid',
+  displayName: 'nikname',
+  photoURL: 'photoURL'
+};
 
 // action creator
 export const setUser = (payload) => {
@@ -12,11 +18,21 @@ export const setUser = (payload) => {
   };
 };
 
+export const deleteUser = (payload) => {
+  return {
+    type: DELETEUSER,
+    payload
+  };
+};
+
 // 리듀서
 const currentuser = (state = initialState, action) => {
   switch (action.type) {
     case SETUSER:
-      return [action.payload];
+      return action.payload;
+
+    case DELETEUSER:
+      return {};
     default:
       return state;
   }
