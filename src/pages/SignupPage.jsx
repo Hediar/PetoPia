@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { auth, db } from '../firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router';
 
 function SignupPage() {
@@ -8,7 +8,7 @@ function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [displayName, setDisplayName] = useState('');
 
   const onChange = (event) => {
     const {
@@ -23,22 +23,17 @@ function SignupPage() {
     if (name === 'confirmPassword') {
       setConfirmPassword(value);
     }
-    if (name === 'nickname') {
-      setNickname(value);
+    if (name === 'displayName') {
+      setDisplayName(value);
     }
   };
 
   const signUp = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
+      alert("비밀번호가 일치하지 않습니다.");
       return; // 비밀번호 불일치 에러 처리 후 함수 종료
     }
-     // 추가: 필드가 비어있는지 확인
-    if (!email || !password || !confirmPassword || !nickname) {
-    alert('입력 필드에 빈칸이 있습니다.');
-    return; // 빈칸 에러 처리 후 함수 종료
-  }
 
     // 이미 있는 이메일인지 확인
     signInWithEmailAndPassword(auth, email, password)
@@ -46,7 +41,7 @@ function SignupPage() {
         alert('이미 사용 중인 이메일입니다.');
         return; // 이미 있는 이메일 에러 처리 후 함수 종료
       })
-      .catch(() => {
+      .catch((error) => {
         // 회원가입 처리
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
@@ -54,15 +49,15 @@ function SignupPage() {
             const user = userCredential.user;
             const uid = user.uid;
 
-            // 닉네임을 Firestore에 저장
-            db().collection('users').doc(uid).set({
-              nickname: nickname
+            // displayName 업데이트
+            updateProfile(user, {
+              displayName: displayName
             })
               .then(() => {
-                alert('닉네임이 Firestore에 저장되었습니다.');
+                console.log('displayName이 업데이트되었습니다.');
               })
               .catch((error) => {
-                alert('닉네임 저장 중 오류:', error);
+                console.error('displayName 업데이트 중 오류:', error);
               });
 
             console.log(userCredential);
@@ -94,7 +89,7 @@ function SignupPage() {
         </div>
         <div>
           <label>닉네임:</label>
-          <input type="text" value={nickname} name="nickname" onChange={onChange} required />
+          <input type="text" value={displayName} name="displayName" onChange={onChange} required />
         </div>
         <button onClick={signUp}>회원가입</button>
         <button
