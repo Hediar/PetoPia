@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/modules/currentuser';
+import { deleteUser, setUser } from '../redux/modules/currentuser';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -25,20 +25,35 @@ function LoginPage() {
       setPassword(value);
     }
   };
-  useEffect(() => {
-    console.log(location);
-  }, []);
+  // useEffect(() => {
+  //   console.log(location);
+  // }, []);
 
-  const handleLocation = () => {};
+  const handleLocation = () => {
+    if (user) {
+      if (location.state) {
+        navigate(`${location.state.preURL}`);
+      } else {
+        navigate('/');
+      }
+    }
+  };
 
   const signIn = async (event) => {
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
-      dispatch(setUser(auth.currentUser));
+
+      const newUser = {
+        email: auth.currentUser.email,
+        uid: auth.currentUser.uid,
+        displayname: auth.currentUser.displayName,
+        photoURL: auth.currentUser.photoURL
+      };
+
+      dispatch(setUser(newUser));
     } catch (error) {
-      console.log(error.code);
       switch (error.code) {
         case 'auth/user-not-found' || 'auth/wrong-password':
           return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
@@ -46,9 +61,8 @@ function LoginPage() {
           return alert('로그인에 실패 했습니다.');
       }
     }
-    console.log(user);
-    // if (user) {
-    // }
+
+    handleLocation();
   };
   const logOut = async (event) => {
     event.preventDefault();

@@ -28,47 +28,31 @@ function SignupPage() {
     }
   };
 
-  const signUp = (event) => {
+  const signUp = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
+      alert('비밀번호가 일치하지 않습니다.');
       return; // 비밀번호 불일치 에러 처리 후 함수 종료
     }
-
-    // 이미 있는 이메일인지 확인
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        alert('이미 사용 중인 이메일입니다.');
-        return; // 이미 있는 이메일 에러 처리 후 함수 종료
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // displayName 업데이트
+      await updateProfile(user, {
+        displayName: displayName
       })
-      .catch((error) => {
-        // 회원가입 처리
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            // 회원가입 성공시
-            const user = userCredential.user;
-            const uid = user.uid;
-
-            // displayName 업데이트
-            updateProfile(user, {
-              displayName: displayName
-            })
-              .then(() => {
-                console.log('displayName이 업데이트되었습니다.');
-              })
-              .catch((error) => {
-                console.error('displayName 업데이트 중 오류:', error);
-              });
-
-            console.log(userCredential);
-            // 회원가입 성공 후 원하는 동작 수행
-          })
-          .catch((error) => {
-            // 회원가입 실패시
-            console.error(error);
-            // 회원가입 실패 후 원하는 동작 수행
-          });
-      });
+        .then(() => {
+          console.log('displayName이 업데이트되었습니다.');
+          navigate('/login');
+        })
+        .catch((error) => {
+          console.error('displayName 업데이트 중 오류:', error);
+        });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('error with signUp', errorCode, errorMessage);
+    }
   };
 
   return (

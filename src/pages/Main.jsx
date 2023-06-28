@@ -7,9 +7,13 @@ import Header from '../components/Frame/Header';
 import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
+import { useSelector } from 'react-redux';
 
 // import { Link } from 'react-router-dom';
+
 function Main() {
+  const user = useSelector((user) => user.currentuser);
+  console.log(user);
   return (
     <>
       <MainWrapper>
@@ -52,6 +56,7 @@ export default Main;
 
 const Headerarea = styled.div`
   background-color: #ffe066;
+  width: 100%;
   margin: 0 auto;
   padding: 10px;
 `;

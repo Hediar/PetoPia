@@ -1,7 +1,3 @@
-import LoginPage from './pages/LoginPage';
-import Main from './pages/Main';
-import SignupPage from './pages/SignupPage';
-
 import './reset.css';
 import Router from './shared/Router';
 

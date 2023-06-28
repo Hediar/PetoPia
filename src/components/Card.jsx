@@ -34,9 +34,8 @@ const FidCardBox = styled.div`
   border: 3px solid rgb(221, 221, 221);
   border-radius: 10px;
   margin: 1rem;
-  &:hover {
+  &: hover {
     cursor: pointer;
-  }
 `;
 const Fidmainbox = styled.div`
   padding: 1rem;
