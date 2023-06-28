@@ -66,7 +66,7 @@ function LoginPage() {
   };
   const logOut = async (event) => {
     event.preventDefault();
-    alert('로그아웃 되었습니다.').then(dispatch(deleteUser));
+    alert('로그아웃 되었습니다.');
 
     await signOut(auth);
   };
