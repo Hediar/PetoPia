@@ -2,7 +2,7 @@
 const SETUSER = 'SET_USER';
 
 // 초기값
-const initialState = [{ user: 1 }];
+const initialState = [];
 
 // action creator
 export const setUser = (payload) => {
@@ -14,8 +14,6 @@ export const setUser = (payload) => {
 
 // 리듀서
 const currentuser = (state = initialState, action) => {
-  // console.log(state);
-  // localStorage.setItem('todos', JSON.stringify(state));
   switch (action.type) {
     case SETUSER:
       return [action.payload];

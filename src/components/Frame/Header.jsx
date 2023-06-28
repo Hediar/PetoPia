@@ -30,7 +30,7 @@ function Header() {
         <Hamburger>
           <LoginBtn
             onClick={() => {
-              navigate('/login', { state: { value: 'login' } });
+              navigate('/login', { state: { preURL: '/' } });
             }}
           >
             Login / Join us

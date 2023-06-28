@@ -25,11 +25,20 @@ function LoginPage() {
       setPassword(value);
     }
   };
-  useEffect(() => {
-    console.log(location);
-  }, []);
+  // useEffect(() => {
+  //   console.log(location);
+  // }, []);
 
-  const handleLocation = () => {};
+  const handleLocation = () => {
+    if (user) {
+      if (location.state) {
+        navigate(`${location.state.preURL}`);
+      } else {
+        navigate('/');
+      }
+      console.log(user);
+    }
+  };
 
   const signIn = async (event) => {
     event.preventDefault();
@@ -38,7 +47,6 @@ function LoginPage() {
       console.log(userCredential);
       dispatch(setUser(auth.currentUser));
     } catch (error) {
-      console.log(error.code);
       switch (error.code) {
         case 'auth/user-not-found' || 'auth/wrong-password':
           return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
@@ -46,9 +54,8 @@ function LoginPage() {
           return alert('로그인에 실패 했습니다.');
       }
     }
-    console.log(user);
-    if (user) {
-    }
+
+    handleLocation();
   };
   const logOut = async (event) => {
     event.preventDefault();
