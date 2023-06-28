@@ -25,7 +25,7 @@ function Header() {
       <Headerarea>
         <HeaderTop>
           <ImgHeader>
-            <img
+            <ImgLogo
               src="/PetoPia-Logo/merge-Logo.png"
               width="140"
               alt="PetoPia 로고"
@@ -98,6 +98,11 @@ const HeaderTop = styled.div`
 const ImgHeader = styled.div`
   width: 400px;
   text-align: center;
+`;
+const ImgLogo = styled.img`
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const Hamburger = styled.div`
