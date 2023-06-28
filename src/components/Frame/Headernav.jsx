@@ -15,15 +15,20 @@ function Headernav() {
 
   const handleButtonClick = () => {
     setIsButtonVisible(!isButtonVisible);
-
-    // 펫 종류 []
-    // const pets = ['강아지', '고양이', '물고기', '조류', '파충류', '양서류', '기타'];
   };
+  // 펫 종류 []
+  const pets = ['강아지', '고양이', '물고기', '조류', '파충류', '양서류', '기타'];
+
+  const onClickAnimal = (pet) => {
+    navigate(`/detailPage/${pet}`);
+  };
+
   useEffect(() => {
     if (Object.keys(user).length !== 0) {
       setmyPageButtonVisible(true);
     }
   }, []);
+
   return (
     <Headerarea>
       <HeaderTop>
@@ -62,13 +67,9 @@ function Headernav() {
           <InnerHamburger>
             {isButtonVisible && (
               <NavUl>
-                <NavLi>강아지</NavLi>
-                <NavLi>고양이</NavLi>
-                <NavLi>물고기</NavLi>
-                <NavLi>조류</NavLi>
-                <NavLi>파충류</NavLi>
-                <NavLi>양서류</NavLi>
-                <NavLi>기타</NavLi>
+                {pets.map((pet) => {
+                  return <NavLi onClick={() => onClickAnimal(pet)}>{pet}</NavLi>;
+                })}
               </NavUl>
             )}
           </InnerHamburger>
