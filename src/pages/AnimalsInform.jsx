@@ -3,7 +3,6 @@ import { db } from '../firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
 
 const AnimalsInform = ({ animal }) => {
-  
   const initialAnimals = [];
   const [dog, setDog] = useState([{}]);
   const [cat, setCat] = useState([{}]);
@@ -15,29 +14,28 @@ const AnimalsInform = ({ animal }) => {
 
       querySnapshot.forEach((doc) => {
         initialAnimals.push({ id: doc.id, ...doc.data() });
-       
       });
 
-      setCat(initialAnimals[0])
-      setDog(initialAnimals[1])
+      setCat(initialAnimals[0]);
+      setDog(initialAnimals[1]);
     };
 
     fetchData();
   }, [animal]);
 
-  let about=""
-  let imageUrl= ""
+  let about = '';
+  let imageUrl = '';
 
   switch (animal) {
     case '강아지':
-      about= dog.about
-      imageUrl= dog.imageUrl
- 
+      about = dog.about;
+      imageUrl = dog.imageUrl;
+
       break;
     case '고양이':
-      about= cat.about
-      imageUrl= cat.imageUrl
- 
+      about = cat.about;
+      imageUrl = cat.imageUrl;
+
       break;
 
     default:
