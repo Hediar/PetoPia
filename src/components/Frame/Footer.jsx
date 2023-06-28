@@ -35,7 +35,7 @@ const BannerImg = styled.img`
   display: flex;
   text-align: center;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `;
 const ImgFooter = styled.div`
   width: 400px;

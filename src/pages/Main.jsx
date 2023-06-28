@@ -4,6 +4,9 @@ import { styled } from 'styled-components';
 import Card from '../components/Card';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
+import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
+
+import BottomCardTab from '../components/BottomCardTab';
 
 // import { Link } from 'react-router-dom';
 function Main() {
@@ -13,17 +16,16 @@ function Main() {
         <Headerarea>
           <Header />
         </Headerarea>
-
         <MainBox>
           <div
             style={{
               margin: '30px'
             }}
           >
-            <button>인기글</button>
-            <button>최신글</button>
+            <BtnBest>인기글</BtnBest>
+            <BtnBest>최신글</BtnBest>
+            <BCTitle>사랑스런 친구들의 이야기</BCTitle>
           </div>
-
           <Cardsarea>
             <Card />
             <Card />
@@ -33,12 +35,7 @@ function Main() {
             <Card />
             <Card />
           </Cardsarea>
-          <ImageContainer>
-            <img src="/imgs/pxfuel.jpg" width="600" alt="Image1" />
-          </ImageContainer>
-          <TextContainer>
-            <TextContent>강아지 최고.</TextContent>
-          </TextContainer>
+          <BottomCardTab />
         </MainBox>
 
         <Footerarea>
@@ -53,10 +50,6 @@ function Main() {
 
 export default Main;
 
-const MainWrapper = styled.div`
-  width: 1400px;
-  margin: 0 auto;
-`;
 const Headerarea = styled.div`
   background-color: #ffe066;
   margin: 0 auto;
@@ -65,71 +58,35 @@ const Headerarea = styled.div`
 const MainBox = styled.div`
   width: 1200px;
   margin: 0 auto;
-  padding: 0 30px;
-`;
-
-// const FormTag = styled.div`
-//   width: 100%;
-//   margin: 0 auto;
-//   margin-top: 20px;
-//   margin-bottom: 20px;
-//   padding: 10px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   position: relative;
-// `;
-// const FormBtn = styled.button`
-//   //   width: 500px;
-//   height: 50px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: white;
-//   position: absolute;
-//   margin-left: -60px;
-// `;
-// const RegisterBtn = styled.button`
-//   //   width: 500px;
-//   margin-left: 20px;
-//   height: 50px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: white;
-//   color: #ed9a15;
-//   font-weight: 600;
-// `;
-
-const Footerarea = styled.div`
-  background-color: #ffe066;
-
-  width: 100%;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+  padding: 30px;
 `;
 
 const Cardsarea = styled.div`
-  display: flex;
-  margin: -1rem;
-  flex-wrap: wrap;
-`;
-const ImageContainer = styled.div`
-  display: flex;
-
-  justify-content: center;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 `;
 
-const TextContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+const BtnBest = styled.button`
+  width: 80px;
+  height: 40px;
+  margin: 0 4px 0 0;
+  border-radius: 14px;
+  border: none;
+  background-color: #eb9307;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #ff8f05;
+    color: black;
+  }
 `;
-
-const TextContent = styled.p`
-  width: 600px;
+const BCTitle = styled.h2`
+  width: 100%;
   text-align: center;
+  font-size: 2rem;
+  margin: 0 auto;
+
+  justify-content: center;
 `;

@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": 1234,
+      "email": "1234@mail.com",
+      "pw": "pw1234",
+      "nikname": "name2",
+      "profile-image": "img-src"
+    },
+    {
+      "id": 1234,
+      "email": "1234@mail.com",
+      "pw": "pw1234",
+      "nikname": "name3",
+      "profile-image": "img-src"
+    }
+  ],
+  "newsfeeds": [
+    {
+      "feed-id": 1,
+      "feed-title": "제목",
+      "writer": "users.email 들어갈 듯",
+      "comments": [{}]
+    },
+    {
+      "feed-id": 2,
+      "feed-title": "제목",
+      "writer": "users.email 들어갈 듯",
+      "comments": [{}]
+    }
+  ]
+}
