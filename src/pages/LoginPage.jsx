@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/modules/currentuser';
+import { deleteUser, setUser } from '../redux/modules/currentuser';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ function LoginPage() {
   };
   const logOut = async (event) => {
     event.preventDefault();
-    alert('로그아웃 되었습니다.');
+    alert('로그아웃 되었습니다.').then(dispatch(deleteUser));
 
     await signOut(auth);
   };
