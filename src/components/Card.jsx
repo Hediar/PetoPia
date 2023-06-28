@@ -1,9 +1,15 @@
 import { styled } from 'styled-components';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Card() {
+  const navigate = useNavigate();
   return (
-    <FidCardBox>
+    <FidCardBox
+      onClick={function () {
+        navigate('/detailPage');
+      }}
+    >
       <Fidmainbox>
         <h2>Fid Cards</h2>
         <div>Card image</div>
@@ -34,8 +40,9 @@ const FidCardBox = styled.div`
   border: 3px solid rgb(221, 221, 221);
   border-radius: 10px;
   margin: 1rem;
-  &: hover {
+  &:hover {
     cursor: pointer;
+  }
 `;
 const Fidmainbox = styled.div`
   padding: 1rem;
