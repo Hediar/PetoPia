@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useId } from 'react';
 import { db } from '../firebase';
-import { Firestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
-import { async } from '@firebase/util';
+import { Firestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import { styled } from 'styled-components';
 import uuid from 'react';
 import Header from '../components/Frame/Header';
