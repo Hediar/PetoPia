@@ -7,9 +7,12 @@ import Header from '../components/Frame/Header';
 import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
+import { useSelector } from 'react-redux';
 
 // import { Link } from 'react-router-dom';
 function Main() {
+  const user = useSelector((user) => user.currentuser);
+  console.log(user);
   return (
     <>
       <MainWrapper>

@@ -36,7 +36,6 @@ function LoginPage() {
       } else {
         navigate('/');
       }
-      console.log(user);
     }
   };
 
