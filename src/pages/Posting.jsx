@@ -4,6 +4,8 @@ import { Firestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc } fro
 import { async } from '@firebase/util';
 import { styled } from 'styled-components';
 import uuid from 'react';
+import Header from '../components/Frame/Header';
+import Footer from '../components/Frame/Footer';
 
 function Posting() {
   const [newName, setNewName] = useState('');
@@ -39,6 +41,7 @@ function Posting() {
   ));
   return (
     <div>
+      <Header />
       <Tit>Posting</Tit>
       <InputForm>
         <input
@@ -58,6 +61,7 @@ function Posting() {
         <button onClick={createUsers}>Create User</button>
       </InputForm>
       <Section>{showUser}</Section>
+      <Footer />
     </div>
   );
 }

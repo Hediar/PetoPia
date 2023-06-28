@@ -22,54 +22,69 @@ function Header() {
   }, []);
   return (
     <>
-      <HeaderTop>
-        <ImgHeader>
-          <img src="/PetoPia-Logo/merge-Logo.png" width="140" alt="PetoPia 로고" />
-        </ImgHeader>
-        <div></div>
-        <Hamburger>
-          <LoginBtn
+      <Headerarea>
+        <HeaderTop>
+          <ImgHeader>
+            <img
+              src="/PetoPia-Logo/merge-Logo.png"
+              width="140"
+              alt="PetoPia 로고"
+              onClick={() => {
+                navigate('/');
+              }}
+            />
+          </ImgHeader>
+          <div></div>
+          <Hamburger>
+            <LoginBtn
+              onClick={() => {
+                navigate('/login', { state: { preURL: '/' } });
+              }}
+            >
+              Login / Join us
+            </LoginBtn>
+            <BtnHamburger onClick={handleButtonClick}>
+              <FaAlignJustify size="40" color="#eb9307" />
+            </BtnHamburger>
+            <InnerHamburger>
+              {isButtonVisible && (
+                <NavUl>
+                  <NavLi>강아지</NavLi>
+                  <NavLi>고양이</NavLi>
+                  <NavLi>물고기</NavLi>
+                  <NavLi>조류</NavLi>
+                  <NavLi>파충류</NavLi>
+                  <NavLi>양서류</NavLi>
+                  <NavLi>기타</NavLi>
+                </NavUl>
+              )}
+            </InnerHamburger>
+          </Hamburger>
+        </HeaderTop>
+        <FormTag>
+          <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
+          <FormBtn type="submit">검색</FormBtn>
+          <RegisterBtn
+            type="submit"
             onClick={() => {
-              navigate('/login', { state: { preURL: '/' } });
+              navigate('/posting');
             }}
           >
-            Login / Join us
-          </LoginBtn>
-          <BtnHamburger onClick={handleButtonClick}>
-            <FaAlignJustify size="40" color="#eb9307" />
-          </BtnHamburger>
-          <InnerHamburger>
-            {isButtonVisible && (
-              <NavUl>
-                <NavLi>강아지</NavLi>
-                <NavLi>고양이</NavLi>
-                <NavLi>물고기</NavLi>
-                <NavLi>조류</NavLi>
-                <NavLi>파충류</NavLi>
-                <NavLi>양서류</NavLi>
-                <NavLi>기타</NavLi>
-              </NavUl>
-            )}
-          </InnerHamburger>
-        </Hamburger>
-      </HeaderTop>
-      <FormTag>
-        <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
-        <FormBtn type="submit">검색</FormBtn>
-        <RegisterBtn
-          type="submit"
-          onClick={() => {
-            navigate('/posting');
-          }}
-        >
-          게시글 작성하기
-        </RegisterBtn>
-      </FormTag>
+            게시글 작성하기
+          </RegisterBtn>
+        </FormTag>
+      </Headerarea>
     </>
   );
 }
 
 export default Header;
+const Headerarea = styled.div`
+  background-color: #ffe066;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+`;
 
 const HeaderTop = styled.div`
   width: 1400px;
