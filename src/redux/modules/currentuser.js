@@ -3,12 +3,7 @@ const SETUSER = 'SET_USER';
 const DELETEUSER = 'DELETE_USER';
 
 // 초기값
-const initialState = {
-  email: 'test@mail.com',
-  uid: 'uid',
-  displayName: 'nikname',
-  photoURL: 'photoURL'
-};
+const initialState = {};
 
 // action creator
 export const setUser = (payload) => {
