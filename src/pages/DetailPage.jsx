@@ -1,31 +1,23 @@
 import React from 'react';
-
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
+import AnimalsInform from './AnimalsInform';
 
 function DetailPage() {
   const navigate = useNavigate();
-  
+  const { animal } = useParams();
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
     alert('clicked');
   };
-  const { animal } = useParams();
-  
-  
 
   return (
-    
     <DetailBox>
-   
-      <button
-        onClick={() => {
-          navigate('/');
-         
-        }}
-      >
-        Home으로 가기
-      </button>
+      <AnimalsInform animal={animal} />
+
+      <button onClick={() => navigate('/')}>Home으로 가기</button>
+
       <div>귀여운 {animal} 페이지입니다!</div>
 
       <div>
@@ -35,14 +27,15 @@ function DetailPage() {
         <h3>Detail PAGE</h3>
         <br />
         <form onSubmit={onSubmitHandler}>
-          <p>작성자: </p>
+          <p>작성자:</p>
           <p>제목:</p>
           <p>내용:</p>
-          <p>이미지 파일: </p>
+          <p>이미지 파일:</p>
           <input placeholder="수정할 영역"></input>
           <EveryButton>작성완료</EveryButton>
         </form>
       </div>
+
       <div>
         <br />
         <button>수정</button>
@@ -53,6 +46,7 @@ function DetailPage() {
 }
 
 export default DetailPage;
+
 
 const EveryButton = styled.button`
   display: inline-block;
