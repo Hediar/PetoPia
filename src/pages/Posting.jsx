@@ -17,7 +17,6 @@ function Posting() {
   const userCollectionRef = collection(db, 'dapi');
 
   const uniqueId = useId();
-  // console.log(uniqueId);
 
   useEffect(() => {
     const getUser = async () => {
