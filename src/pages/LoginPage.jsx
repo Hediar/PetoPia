@@ -81,7 +81,6 @@ function LoginPage() {
         </div>
 
         <button onClick={signIn}>로그인</button>
-        {/* <button onClick={logOut}>로그아웃</button> */}
       </form>
       <button
         onClick={() => {
