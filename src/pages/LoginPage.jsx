@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../firebase';
+import { auth, loginCheck } from '../firebase';
 import {
   browserSessionPersistence,
   onAuthStateChanged,
@@ -31,9 +31,12 @@ function LoginPage() {
       setPassword(value);
     }
   };
-  // useEffect(() => {
-  //   console.log(location);
-  // }, []);
+  useEffect(() => {
+    if (loginCheck()) {
+      alert('로그인 되어 있습니다.');
+      navigate('/');
+    }
+  }, []);
 
   const handleLocation = () => {
     if (user) {
