@@ -66,8 +66,6 @@ const deleteUserData = async (id) => {
   }
 };
 
-
-
   return (
     <>
       <Header />
@@ -187,6 +185,7 @@ const RegisterBtn = styled.button`
     color: black;
   }
 `;
+
 const Tabs = styled.div`
   width: 230px;
   height: 200px;

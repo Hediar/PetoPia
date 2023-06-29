@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { auth, loginCheck } from '../firebase';
-import {
-  browserSessionPersistence,
-  onAuthStateChanged,
-  setPersistence,
-  signInWithEmailAndPassword,
-  signOut
-} from 'firebase/auth';
+import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, setUser } from '../redux/modules/currentuser';
+import { setUser } from '../redux/modules/currentuser';
 
 function LoginPage() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const prelocation = useLocation();
   const user = useSelector((user) => user.currentuser);
   const dispatch = useDispatch();
 
@@ -31,17 +25,18 @@ function LoginPage() {
       setPassword(value);
     }
   };
+
   useEffect(() => {
     if (loginCheck()) {
-      alert('로그인 되어 있습니다.');
-      navigate('/');
+      alert('이미 로그인 상태입니다.');
+      navigate(`${prelocation.state.preURL}`);
     }
   }, []);
 
   const handleLocation = () => {
     if (user) {
-      if (location.state) {
-        navigate(`${location.state.preURL}`);
+      if (prelocation.state) {
+        navigate(`${prelocation.state.preURL}`);
       } else {
         navigate('/');
       }
@@ -71,13 +66,6 @@ function LoginPage() {
       }
     }
   };
-  const logOut = async (event) => {
-    event.preventDefault();
-    alert('로그아웃 되었습니다.');
-
-    await signOut(auth);
-    dispatch(deleteUser());
-  };
 
   return (
     <div className="App">
@@ -93,7 +81,6 @@ function LoginPage() {
         </div>
 
         <button onClick={signIn}>로그인</button>
-        <button onClick={logOut}>로그아웃</button>
       </form>
       <button
         onClick={() => {

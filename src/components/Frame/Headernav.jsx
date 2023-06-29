@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { FaAlignJustify } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router';
 import { styled } from 'styled-components';
 import { Headerarea } from '../../stylecomponents/Wrapper';
-import { loginCheck } from '../../firebase';
-import { setUser } from '../../redux/modules/currentuser';
+import { auth, loginCheck } from '../../firebase';
+import { deleteUser, setUser } from '../../redux/modules/currentuser';
+import { commonButton } from '../../stylecomponents/Button';
+import { signOut } from '@firebase/auth';
 
 function Headernav() {
   const navigate = useNavigate();
+  const user = useSelector((user) => user.currentuser);
   const dispatch = useDispatch();
-  const [myPageButtonVisible, setmyPageButtonVisible] = useState(false);
+  const prelocation = useLocation();
+
+  // 로그인 상태에 따라 활성화 버튼
+  const [ButtonVisible, setButtonVisible] = useState(false);
+
+  // 로그아웃
+  const logOut = async (event) => {
+    alert('로그아웃 되었습니다.');
+
+    await signOut(auth);
+    dispatch(deleteUser());
+    window.location.reload();
+  };
 
   // 햄버거 버튼 제어변수
   const [isButtonVisible, setIsButtonVisible] = useState(false);
@@ -28,7 +43,7 @@ function Headernav() {
   useEffect(() => {
     if (loginCheck()) {
       dispatch(setUser());
-      setmyPageButtonVisible(true);
+      setButtonVisible(true);
     }
   }, []);
 
@@ -47,21 +62,26 @@ function Headernav() {
         </ImgHeader>
 
         <Hamburger>
-          <LoginBtn
-            onClick={() => {
-              navigate('/login', { state: { preURL: '/' } });
-            }}
-          >
-            Login / Join us
-          </LoginBtn>
-          {myPageButtonVisible && (
-            <MyPagebtn
+          {!ButtonVisible && (
+            <LoginBtn
               onClick={() => {
-                navigate('/mypage');
+                navigate('/login', { state: { preURL: `${prelocation.pathname}` } });
               }}
             >
-              마이페이지
-            </MyPagebtn>
+              Login
+            </LoginBtn>
+          )}
+          {ButtonVisible && (
+            <>
+              <LogoutBtn onClick={logOut}>Logout</LogoutBtn>
+              <MyPagebtn
+                onClick={() => {
+                  navigate('/mypage');
+                }}
+              >
+                마이페이지
+              </MyPagebtn>
+            </>
           )}
 
           <BtnHamburger onClick={handleButtonClick}>
@@ -103,25 +123,12 @@ const Hamburger = styled.div`
   margin: -70px 20px 0 0;
   position: relative;
 `;
-const commonButton = styled.button`
-  background-color: #eb9307;
-  color: white;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border-radius: 14px;
-  border: none;
-  padding: 10px;
-  margin: 3px;
-  height: 40px;
-  &:hover {
-    cursor: pointer;
-    background-color: #ff8f05;
-    color: black;
-  }
-`;
 
 const LoginBtn = styled(commonButton)`
-  width: 140px;
+  width: 90px;
+`;
+const LogoutBtn = styled(commonButton)`
+  width: 100px;
 `;
 const MyPagebtn = styled(commonButton)`
   width: 100px;
