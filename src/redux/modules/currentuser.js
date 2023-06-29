@@ -1,7 +1,7 @@
 import { auth, loginCheck } from '../../firebase';
+
 // action value
 const SETUSER = 'SET_USER';
-
 const DELETEUSER = 'DELETE_USER';
 
 // 초기값
@@ -27,6 +27,7 @@ const currentuser = (state = initialState, action) => {
   switch (action.type) {
     case SETUSER:
       const userState = JSON.parse(loginCheck());
+      // const userState = auth.currentUser;
       const newUser = {
         email: userState.email,
         uid: userState.uid,

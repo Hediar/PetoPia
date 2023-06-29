@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 
 function Main() {
   const user = useSelector((user) => user.currentuser);
-  console.log('유저정보:', user);
 
   // alert(user.displayname + '님 반값습니다!');
   return (
