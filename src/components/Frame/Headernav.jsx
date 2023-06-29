@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaAlignJustify } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 import { Headerarea } from '../../stylecomponents/Wrapper';
@@ -11,7 +11,6 @@ function Headernav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [myPageButtonVisible, setmyPageButtonVisible] = useState(false);
-  const user = useSelector((user) => user.currentuser);
 
   // 햄버거 버튼 제어변수
   const [isButtonVisible, setIsButtonVisible] = useState(false);
@@ -31,7 +30,6 @@ function Headernav() {
       dispatch(setUser());
       setmyPageButtonVisible(true);
     }
-    // console.log(user);
   }, []);
 
   return (
