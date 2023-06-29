@@ -6,16 +6,19 @@ import Headernav from '../components/Frame/Headernav';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';
 import { commonButton } from '../stylecomponents/Button';
-import { loginCheck } from '../firebase';
+import { auth, loginCheck } from '../firebase';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 
 function MyPage() {
-  const [modalState, setModalState] = useState(false);
   const user = useSelector((user) => user.currentuser);
+  const [modalState, setModalState] = useState(false);
+  const [nikname, setNikname] = useState('');
+
   const navigate = useNavigate();
   const openModal = () => {
     console.log(user);
+    setNikname(`${user.displayname}`); // 닫았다가 다시 들어와도 기존 닉네임
     setModalState(true);
   };
   const closeModal = () => {
@@ -52,7 +55,12 @@ function MyPage() {
             <img src={`${user.photoURL}`} alt="profile"></img>
             <Findimgfile>파일 찾기</Findimgfile>
             <h2>닉네임</h2>
-            <Input value={`${user.displayname}`} />
+            <Input
+              value={nikname}
+              onChange={(e) => {
+                setNikname(e.target.value);
+              }}
+            />
             <SaveMypagebtn onClick={myupdateProfile}>저장</SaveMypagebtn>
             <ModalClosebtn onClick={closeModal}>닫기</ModalClosebtn>
           </Modal>

@@ -4,30 +4,30 @@ import { useNavigate } from 'react-router';
 import { useRef } from 'react';
 import Headernav from './Headernav';
 import { Headerarea } from '../../stylecomponents/Wrapper';
+import { loginCheck } from '../../firebase';
 
 function Header() {
   const navigate = useNavigate();
-
-
   const cursorRef = useRef();
+  const movePostingPage = () => {
+    if (loginCheck()) {
+      navigate('/posting');
+    } else {
+      alert('로그인 해주세요!');
+    }
+  };
   useEffect(() => {
     cursorRef.current.focus();
   }, []);
   return (
     <>
       <Headerarea>
-
         <Headernav />
 
         <FormTag>
           <Forminput type="text" placeholder="검색어를 입력해 주세요." ref={cursorRef} />
           <FormBtn type="submit">검색</FormBtn>
-          <RegisterBtn
-            type="submit"
-            onClick={() => {
-              navigate('/posting');
-            }}
-          >
+          <RegisterBtn type="submit" onClick={movePostingPage}>
             게시글 작성하기
           </RegisterBtn>
         </FormTag>
