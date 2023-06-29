@@ -20,3 +20,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+export const loginCheck = () => {
+  const sessionKey = `firebase:authUser:${process.env.REACT_APP_FB_API_KEY}:[DEFAULT]`;
+  const isLogin = sessionStorage.getItem(sessionKey);
+
+  return isLogin;
+};

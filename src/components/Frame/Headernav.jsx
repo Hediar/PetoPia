@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FaAlignJustify } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { styled } from 'styled-components';
 import { Headerarea } from '../../stylecomponents/Wrapper';
+import { loginCheck } from '../../firebase';
+import { setUser } from '../../redux/modules/currentuser';
 
 function Headernav() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [myPageButtonVisible, setmyPageButtonVisible] = useState(false);
   const user = useSelector((user) => user.currentuser);
 
@@ -24,9 +27,11 @@ function Headernav() {
   };
 
   useEffect(() => {
-    if (Object.keys(user).length !== 0) {
+    if (loginCheck()) {
+      dispatch(setUser());
       setmyPageButtonVisible(true);
     }
+    // console.log(user);
   }, []);
 
   return (

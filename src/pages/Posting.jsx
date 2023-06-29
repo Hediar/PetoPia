@@ -4,27 +4,14 @@ import 'firebase/firestore';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
-
-import { Firestore, collection, getDocs, addDoc } from 'firebase/firestore';
-
-import { styled } from 'styled-components';
-
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
-
 function Posting() {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   console.log(newTitle, newContent);
-
   const [user, setUser] = useState([]);
-
   const userCollectionRef = collection(db, 'users');
-
-
-  // const uniqueId = useId();
-  // console.log(uniqueId);
-
   useEffect(() => {
     const getUser = async () => {
       const data = await getDocs(userCollectionRef);
@@ -32,11 +19,9 @@ function Posting() {
     };
     getUser();
   }, []);
-
   const createUsers = async () => {
     await addDoc(userCollectionRef, { title: newTitle, content: newContent });
   };
-
   const showUser = user.map((value) => (
     <Tabs key={uuid()}>
       <h1>{value.title}</h1>
@@ -46,13 +31,11 @@ function Posting() {
       </div>
     </Tabs>
   ));
-
   return (
     <>
       <Header />
       <Body>
         <Tit>회원님의 소중한 이야기를 적어주세요.</Tit>
-
         <InputForm>
           <InputBody>
             <TagI>
@@ -81,12 +64,10 @@ function Posting() {
                   setNewTitle(e.target.value);
                 }}
               />
-
               <RegisterBtn onClick={createUsers}>글 등록하기</RegisterBtn>
             </TagTab>
           </InputBody>
         </InputForm>
-
         {/* <Section>
           <Post>{showUser}</Post>
         </Section> */}
@@ -96,7 +77,6 @@ function Posting() {
   );
 }
 export default Posting;
-
 const Body = styled.div`
   width: 1200px;
   margin: 0 auto;
@@ -113,7 +93,6 @@ const InputBody = styled.div`
   margin: 0 auto;
   margin-top: 10px;
 `;
-
 const TagI = styled.div`
   display: flex;
   justify-content: center;
@@ -134,7 +113,6 @@ const InputForm = styled.form`
   margin: 0 auto;
   margin-top: 10px;
 `;
-
 const TextareaT = styled.input`
   width: 730px;
   height: 30px;
@@ -165,10 +143,8 @@ const TextareaC = styled.textarea`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-
 const RegisterBtn = styled.button`
   width: 120px;
-
   height: 56px;
   border-radius: 14px;
   border: none;
@@ -180,21 +156,17 @@ const RegisterBtn = styled.button`
   &:hover {
     cursor: pointer;
     background-color: #ff8f05;
-
     color: black;
   }
 `;
-
 // const Section = styled.div`
 //   // display: flex;
-
 //   // justify-content: center;
 //   // text-align: center;
 //   margin: 0 auto;
 //   margin: 80px 0 100px;
 //   font-weight: bold;
 // `;
-
 // const Post = styled.div`
 //   margin: 0 auto;
 //   display: grid;
@@ -203,7 +175,6 @@ const RegisterBtn = styled.button`
 //   border-radius: 20px;
 //   padding: 10px;
 // `;
-
 const Tabs = styled.div`
   width: 230px;
   height: 200px;
