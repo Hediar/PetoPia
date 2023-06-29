@@ -14,7 +14,9 @@ function MyPage() {
           <h1>My Page</h1>
           <Updateprofilebtn>프로필 수정하기</Updateprofilebtn>
         </Mypagetitle>
-        <h2>내가 작성한 게시글</h2>
+        <Mypagetitle>
+          <h2>내가 작성한 게시글</h2>
+        </Mypagetitle>
         <Section></Section>
       </MainWrapper>
       <Footer />
@@ -34,8 +36,10 @@ const Section = styled.div`
 `;
 
 const Mypagetitle = styled.div`
+  width: 65%;
+
   display: flex;
-  margin: 10px;
+  margin: 0 auto;
   padding: 0px 20px;
   align-items: center;
   justify-content: space-between;
