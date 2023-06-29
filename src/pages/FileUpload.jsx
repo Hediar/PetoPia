@@ -11,34 +11,43 @@ function FileUpload() {
   };
 
   const handleUpload = async () => {
-    const imageRef = ref(storage, `${auth.currentUser.uid}/${selectFile.name}`);
-    await uploadBytes(imageRef, selectFile);
+    if (selectFile) {
+      const imageRef = ref(storage, `${auth.currentUser.uid}/${selectFile.name}`);
+      await uploadBytes(imageRef, selectFile);
 
-    //url url 가져오기
-    const downloadURL = await getDownloadURL(imageRef);
-    console.log(downloadURL);
+      // url 가져오기
+      const downloadURL = await getDownloadURL(imageRef);
+      console.log(downloadURL);
+    }
   };
 
   return (
-    <div>
-      <input type="file" onChange={handelFileSelect} />
-      <RegisterBtn onClick={handleUpload}>Upload</RegisterBtn>
-    </div>
+    <Body>
+      <FileUploader type="file" multiple={true} accept="image/*" onChange={handelFileSelect} />
+      <RegisterBtn onClick={handleUpload}>등록하기</RegisterBtn>
+    </Body>
   );
 }
 
 export default FileUpload;
 
-// const Te = styled.input`
-//   width: 300px;
-//   height: 30px;
-//   border: 4px solid #eb9307;
-//   border-radius: 14px;
-//   margin: 0 10px 0 0;
-//   font-size: 20px;
-//   padding: 10px 10px 10px 14px;
-//   box-shadow: 10px 5px 20px gray;
-// `;
+const Body = styled.div`
+  width: 63%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 auto;
+`;
+
+const FileUploader = styled.input`
+  width: 200px;
+  height: 26px;
+  border: 4px solid #eb9307;
+  border-radius: 16px;
+  margin-right: 10px;
+  font-size: 14px;
+  padding: 10px;
+  box-shadow: 10px 5px 20px gray;
+`;
 const RegisterBtn = styled.button`
   width: 120px;
 

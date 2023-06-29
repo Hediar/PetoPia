@@ -16,15 +16,22 @@
   "newsfeeds": [
     {
       "feed-id": 1,
+      "about": "강아지",
       "feed-title": "제목",
-      "writer": "users.email 들어갈 듯",
+      "writer": "user.email or UID",
+      "contents": "내용",
+      "images": [{}],
       "comments": [{}]
     },
     {
       "feed-id": 2,
+      "about": "고양이",
       "feed-title": "제목",
-      "writer": "users.email 들어갈 듯",
+      "writer": "user.email or UID",
+      "contents": "내용",
+      "images": [{}],
       "comments": [{}]
     }
-  ]
+  ],
+  "animal": []
 }
