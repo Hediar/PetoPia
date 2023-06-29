@@ -31,10 +31,11 @@ function LoginPage() {
       setPassword(value);
     }
   };
+
   useEffect(() => {
     if (loginCheck()) {
-      alert('로그인 되어 있습니다.');
-      navigate('/');
+      alert('이미 로그인 상태입니다.');
+      navigate(`${location.state.preURL}`);
     }
   }, []);
 

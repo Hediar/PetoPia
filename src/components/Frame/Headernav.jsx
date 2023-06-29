@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaAlignJustify } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { styled } from 'styled-components';
 import { Headerarea } from '../../stylecomponents/Wrapper';
 import { loginCheck } from '../../firebase';
@@ -10,6 +10,7 @@ import { setUser } from '../../redux/modules/currentuser';
 function Headernav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [myPageButtonVisible, setmyPageButtonVisible] = useState(false);
 
   // 햄버거 버튼 제어변수
@@ -49,7 +50,7 @@ function Headernav() {
         <Hamburger>
           <LoginBtn
             onClick={() => {
-              navigate('/login', { state: { preURL: '/' } });
+              navigate('/login', { state: { preURL: `${location.pathname}` } });
             }}
           >
             Login / Join us
