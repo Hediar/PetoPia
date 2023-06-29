@@ -8,10 +8,7 @@ import { MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
 
-// import { Link } from 'react-router-dom';
-
 function Main() {
-  // alert(user.displayname + '님 반값습니다!');
   return (
     <>
       <MainWrapper>

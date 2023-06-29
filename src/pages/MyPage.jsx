@@ -13,12 +13,12 @@ import { onAuthStateChanged, updateProfile } from '@firebase/auth';
 import { setUser } from '../redux/modules/currentuser';
 
 function MyPage() {
+  const DEFAULT_PHOTO =
+    'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541';
   const user = useSelector((user) => user.currentuser);
   const [modalState, setModalState] = useState(false);
   const [nikname, setNikname] = useState('');
-  const [photo, setPhoto] = useState(
-    'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'
-  ); // 보여지는 사진
+  const [photo, setPhoto] = useState(DEFAULT_PHOTO); // 보여지는 사진
   const [selectefFile, setselectefFile] = useState(null);
 
   const dispatch = useDispatch();
@@ -26,6 +26,10 @@ function MyPage() {
   // state set 함수
   const openModal = () => {
     setNikname(`${user.displayname}`); // 닫았다가 다시 들어와도 기존 닉네임
+    console.log(user.photoURL);
+    if (user.photoURL === undefined) {
+      setPhoto(DEFAULT_PHOTO);
+    }
     setModalState(true);
   };
 
@@ -40,11 +44,16 @@ function MyPage() {
   // 사진 업로드
   const handleUpload = async () => {
     const profileimgRef = ref(storage, `profile/${user.uid}/profilePhoto`);
-    await uploadBytes(profileimgRef, selectefFile); // 파일 업로드
+    console.log(selectefFile);
+    if (selectefFile === null) {
+      myupdateProfile(nikname, DEFAULT_PHOTO);
+    } else {
+      await uploadBytes(profileimgRef, selectefFile); // 파일 업로드
 
-    const downloadURL = await getDownloadURL(profileimgRef);
+      const downloadURL = await getDownloadURL(profileimgRef);
 
-    myupdateProfile(nikname, downloadURL);
+      myupdateProfile(nikname, downloadURL);
+    }
   };
 
   // 프로필 업데이트
