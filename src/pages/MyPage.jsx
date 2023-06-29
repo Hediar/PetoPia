@@ -1,39 +1,94 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
-
 import { MainWrapper } from '../stylecomponents/Wrapper';
 import Headernav from '../components/Frame/Headernav';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';
 import { commonButton } from '../stylecomponents/Button';
-import { auth, loginCheck } from '../firebase';
+import { auth, loginCheck, storage } from '../firebase';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
+import { onAuthStateChanged, updateProfile } from '@firebase/auth';
+import { setUser } from '../redux/modules/currentuser';
 
 function MyPage() {
+  const DEFAULT_PHOTO =
+    'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541';
   const user = useSelector((user) => user.currentuser);
   const [modalState, setModalState] = useState(false);
   const [nikname, setNikname] = useState('');
+  const [photo, setPhoto] = useState(DEFAULT_PHOTO); // 보여지는 사진
+  const [selectefFile, setselectefFile] = useState(null);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  // state set 함수
   const openModal = () => {
-    console.log(user);
     setNikname(`${user.displayname}`); // 닫았다가 다시 들어와도 기존 닉네임
+    if (user.photoURL === undefined) {
+      setPhoto(DEFAULT_PHOTO);
+    } else {
+      setPhoto(user.photoURL);
+    }
     setModalState(true);
   };
+
   const closeModal = () => {
     setModalState(false);
   };
 
+  const handleFileSelect = (event) => {
+    setselectefFile(event.target.files[0]);
+  };
+
+  // 사진 업로드
+  const handleUpload = async () => {
+    const profileimgRef = ref(storage, `profile/${user.uid}/profilePhoto`);
+
+    if (selectefFile === null && user.photoURL === DEFAULT_PHOTO) {
+      myupdateProfile(nikname, DEFAULT_PHOTO);
+    } else {
+      await uploadBytes(profileimgRef, selectefFile); // 파일 업로드
+
+      const downloadURL = await getDownloadURL(profileimgRef);
+
+      myupdateProfile(nikname, downloadURL);
+    }
+  };
+
   // 프로필 업데이트
-  const myupdateProfile = () => {};
+  const myupdateProfile = async (newName, newPhoto) => {
+    await updateProfile(auth.currentUser, {
+      displayName: newName,
+      photoURL: newPhoto
+    })
+      .then(() => {
+        dispatch(setUser());
+      })
+      .then(() => {
+        setNikname(user.displayName);
+        setPhoto(user.photoURL);
+        alert('프로필이 업데이트 되었습니다!');
+        closeModal();
+      })
+      .catch((error) => {
+        alert('프로필 업데이트에 실패했습니다.');
+      });
+  };
 
   useEffect(() => {
     if (!loginCheck()) {
       alert('로그인 해주세요');
       navigate('/');
+    } else {
+      console.log('change user', user);
+      onAuthStateChanged(auth, (user) => {
+        setPhoto(user.photoURL);
+        setNikname(user.displayName);
+      }); // 사용자 인증정보가 바뀔 때 마다
     }
-  }, []);
+  }, [user.photoURL]);
 
   return (
     <>
@@ -52,8 +107,8 @@ function MyPage() {
           <ModalBackground />
           <Modal>
             <h2>프로필 사진</h2>
-            <img src={`${user.photoURL}`} alt="profile"></img>
-            <Findimgfile>파일 찾기</Findimgfile>
+            <Myprofileimg src={photo} alt="avatar" />
+            <Findimgfile type="file" onChange={handleFileSelect} />
             <h2>닉네임</h2>
             <Input
               value={nikname}
@@ -61,7 +116,7 @@ function MyPage() {
                 setNikname(e.target.value);
               }}
             />
-            <SaveMypagebtn onClick={myupdateProfile}>저장</SaveMypagebtn>
+            <SaveMypagebtn onClick={handleUpload}>저장</SaveMypagebtn>
             <ModalClosebtn onClick={closeModal}>닫기</ModalClosebtn>
           </Modal>
         </div>
@@ -110,7 +165,7 @@ const ModalClosebtn = styled(commonButton)``;
 
 const SaveMypagebtn = styled(commonButton)``;
 
-const Findimgfile = styled(commonButton)``;
+const Findimgfile = styled.input``;
 
 const Input = styled.input`
   border: 1px solid rgb(51, 51, 51);
@@ -120,4 +175,14 @@ const Input = styled.input`
   border-radius: 8px;
   padding-left: 12px;
   padding-right: 12px;
+`;
+
+const Myprofileimg = styled.img`
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: gray;
+  border-style: outset;
 `;

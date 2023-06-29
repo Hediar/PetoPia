@@ -7,7 +7,7 @@ import { Headerarea } from '../../stylecomponents/Wrapper';
 import { auth, loginCheck } from '../../firebase';
 import { deleteUser, setUser } from '../../redux/modules/currentuser';
 import { commonButton } from '../../stylecomponents/Button';
-import { signOut } from '@firebase/auth';
+import { onAuthStateChanged, signOut } from '@firebase/auth';
 
 function Headernav() {
   const navigate = useNavigate();
@@ -42,10 +42,13 @@ function Headernav() {
 
   useEffect(() => {
     if (loginCheck()) {
-      dispatch(setUser());
+      onAuthStateChanged(auth, (user) => {
+        dispatch(setUser());
+      }); // 사용자 인증정보가 바뀔 때 마다
+
       setButtonVisible(true);
     }
-  }, []);
+  }, [user.photoURL]);
 
   return (
     <Headerarea>
