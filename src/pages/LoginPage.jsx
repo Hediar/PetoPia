@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  browserSessionPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut
+} from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, setUser } from '../redux/modules/currentuser';
@@ -42,17 +48,11 @@ function LoginPage() {
   const signIn = async (event) => {
     event.preventDefault();
     try {
+      await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
 
-      const newUser = {
-        email: auth.currentUser.email,
-        uid: auth.currentUser.uid,
-        displayname: auth.currentUser.displayName,
-        photoURL: auth.currentUser.photoURL
-      };
-
-      dispatch(setUser(newUser));
+      dispatch(setUser());
       handleLocation();
     } catch (error) {
       switch (error.code) {
