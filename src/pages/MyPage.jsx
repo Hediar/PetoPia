@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
 
 import { MainWrapper } from '../stylecomponents/Wrapper';
@@ -6,16 +6,31 @@ import Headernav from '../components/Frame/Headernav';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';
 import { commonButton } from '../stylecomponents/Button';
+import { loginCheck } from '../firebase';
+import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 
 function MyPage() {
   const [modalState, setModalState] = useState(false);
-
+  const user = useSelector((user) => user.currentuser);
+  const navigate = useNavigate();
   const openModal = () => {
+    console.log(user);
     setModalState(true);
   };
   const closeModal = () => {
     setModalState(false);
   };
+
+  // 프로필 업데이트
+  const myupdateProfile = () => {};
+
+  useEffect(() => {
+    if (!loginCheck()) {
+      alert('로그인 해주세요');
+      navigate('/');
+    }
+  }, []);
 
   return (
     <>
@@ -33,7 +48,12 @@ function MyPage() {
         <div>
           <ModalBackground />
           <Modal>
-            <SaveMypagebtn>저장</SaveMypagebtn>
+            <h2>프로필 사진</h2>
+            <img src={`${user.photoURL}`} alt="profile"></img>
+            <Findimgfile>파일 찾기</Findimgfile>
+            <h2>닉네임</h2>
+            <Input value={`${user.displayname}`} />
+            <SaveMypagebtn onClick={myupdateProfile}>저장</SaveMypagebtn>
             <ModalClosebtn onClick={closeModal}>닫기</ModalClosebtn>
           </Modal>
         </div>
@@ -81,3 +101,15 @@ const Updateprofilebtn = styled.button`
 const ModalClosebtn = styled(commonButton)``;
 
 const SaveMypagebtn = styled(commonButton)``;
+
+const Findimgfile = styled(commonButton)``;
+
+const Input = styled.input`
+  border: 1px solid rgb(51, 51, 51);
+  height: 40px;
+  width: 200px;
+  outline: none;
+  border-radius: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+`;
