@@ -1,0 +1,37 @@
+{
+  "users": [
+    {
+      "id": 1234,
+      "email": "1234@mail.com",
+      "nikname": "name2",
+      "profile-image": "img-src"
+    },
+    {
+      "id": 1234,
+      "email": "1234@mail.com",
+      "nikname": "name3",
+      "profile-image": "img-src"
+    }
+  ],
+  "newsfeeds": [
+    {
+      "feed-id": 1,
+      "about": "강아지",
+      "feed-title": "제목",
+      "writer": "user.email or UID",
+      "contents": "내용",
+      "images": [{}],
+      "comments": [{}]
+    },
+    {
+      "feed-id": 2,
+      "about": "고양이",
+      "feed-title": "제목",
+      "writer": "user.email or UID",
+      "contents": "내용",
+      "images": [{}],
+      "comments": [{}]
+    }
+  ],
+  "animal": []
+}
