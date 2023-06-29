@@ -8,7 +8,7 @@ import { commonButton } from '../stylecomponents/Button';
 import { auth, loginCheck, storage } from '../firebase';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteObject, getDownloadURL, ref, uploadBytes } from '@firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
 import { onAuthStateChanged, updateProfile } from '@firebase/auth';
 import { setUser } from '../redux/modules/currentuser';
 
@@ -25,7 +25,6 @@ function MyPage() {
   const navigate = useNavigate();
   // state set 함수
   const openModal = () => {
-    console.log(user);
     setNikname(`${user.displayname}`); // 닫았다가 다시 들어와도 기존 닉네임
     setModalState(true);
   };
@@ -36,7 +35,6 @@ function MyPage() {
 
   const handleFileSelect = (event) => {
     setselectefFile(event.target.files[0]);
-    console.log(event.target.files[0]);
   };
 
   // 사진 업로드
@@ -45,7 +43,6 @@ function MyPage() {
     await uploadBytes(profileimgRef, selectefFile); // 파일 업로드
 
     const downloadURL = await getDownloadURL(profileimgRef);
-    console.log(downloadURL); // 이미지 url 확인 가능 string type
 
     myupdateProfile(nikname, downloadURL);
   };
@@ -58,9 +55,12 @@ function MyPage() {
     })
       .then(() => {
         dispatch(setUser());
+      })
+      .then(() => {
         setNikname(user.displayName);
         setPhoto(user.photoURL);
         alert('프로필이 업데이트 되었습니다!');
+        closeModal();
       })
       .catch((error) => {
         alert('프로필 업데이트에 실패했습니다.');
@@ -68,16 +68,17 @@ function MyPage() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setPhoto(user.photoURL);
-      setNikname(user.displayName);
-      console.log('change user', user);
-    }); // 사용자 인증정보가 바뀔 때 마다
     if (!loginCheck()) {
       alert('로그인 해주세요');
       navigate('/');
+    } else {
+      onAuthStateChanged(auth, (user) => {
+        setPhoto(user.photoURL);
+        setNikname(user.displayName);
+        console.log('change user', user);
+      }); // 사용자 인증정보가 바뀔 때 마다
     }
-  }, [auth]);
+  }, [user.photoURL]);
 
   return (
     <>
@@ -96,7 +97,6 @@ function MyPage() {
           <ModalBackground />
           <Modal>
             <h2>프로필 사진</h2>
-            {/* <img src={`${user.photoURL}`} alt="profile"></img> */}
             <Myprofileimg src={photo} alt="avatar" />
             <Findimgfile type="file" onChange={handleFileSelect} />
             <h2>닉네임</h2>
@@ -106,7 +106,6 @@ function MyPage() {
                 setNikname(e.target.value);
               }}
             />
-            {/* <Profile></Profile> */}
             <SaveMypagebtn onClick={handleUpload}>저장</SaveMypagebtn>
             <ModalClosebtn onClick={closeModal}>닫기</ModalClosebtn>
           </Modal>

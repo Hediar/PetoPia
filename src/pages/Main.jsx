@@ -7,13 +7,10 @@ import Header from '../components/Frame/Header';
 import { MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
-import { useSelector } from 'react-redux';
 
 // import { Link } from 'react-router-dom';
 
 function Main() {
-  const user = useSelector((user) => user.currentuser);
-
   // alert(user.displayname + '님 반값습니다!');
   return (
     <>

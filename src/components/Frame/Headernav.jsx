@@ -45,7 +45,7 @@ function Headernav() {
       dispatch(setUser());
       setButtonVisible(true);
     }
-  }, []);
+  }, [user.photoURL]);
 
   return (
     <Headerarea>
