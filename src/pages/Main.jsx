@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import Card from '../components/Card';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
-import { Footerarea, MainWrapper } from '../stylecomponents/Wrapper';
+import { MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
 import { useSelector } from 'react-redux';
@@ -13,13 +13,14 @@ import { useSelector } from 'react-redux';
 
 function Main() {
   const user = useSelector((user) => user.currentuser);
-  console.log(user);
+  console.log('유저정보:', user);
+
+  // alert(user.displayname + '님 반값습니다!');
   return (
     <>
       <MainWrapper>
-        <Headerarea>
-          <Header />
-        </Headerarea>
+        <Header />
+
         <MainBox>
           <div
             style={{
@@ -42,11 +43,7 @@ function Main() {
           <BottomCardTab />
         </MainBox>
 
-        <Footerarea>
-          <div>
-            <Footer />
-          </div>
-        </Footerarea>
+        <Footer />
       </MainWrapper>
     </>
   );
@@ -54,12 +51,6 @@ function Main() {
 
 export default Main;
 
-const Headerarea = styled.div`
-  background-color: #ffe066;
-  width: 100%;
-  margin: 0 auto;
-  padding: 10px;
-`;
 const MainBox = styled.div`
   width: 1200px;
   margin: 0 auto;
