@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase';
+import { db, loginCheck } from '../firebase';
 import 'firebase/firestore';
 import { collection, addDoc, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
+import { useNavigate } from 'react-router';
 
 function Posting() {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [users, setUsers] = useState([]);
 
+  const navigate = useNavigate();
   const userCollectionRef = collection(db, 'users');
 
   useEffect(() => {
+    if (!loginCheck()) {
+      alert('로그인 해주세요');
+      navigate('/');
+    }
     // 실시간 업데이트를 위한 onSnapshot 사용
     const unsubscribe = onSnapshot(userCollectionRef, (querySnapshot) => {
       const updatedUsers = querySnapshot.docs.map((doc) => ({
