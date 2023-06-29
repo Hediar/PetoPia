@@ -11,6 +11,7 @@ function Posting() {
   const [newName, setNewName] = useState('');
   const [newAge, setNewAge] = useState(0);
 
+  
   console.log(newName, newAge);
 
   const [user, setUser] = useState([]);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
 
+// TODO: 최적화 필요
 const AnimalsInform = ({ animal }) => {
   
   const initialAnimals = [];
@@ -43,12 +44,13 @@ const AnimalsInform = ({ animal }) => {
     default:
       console.log('알 수 없는 동물입니다.');
   }
-
+  // TODO: tips(배열) 불러오기
   return (
     <>
       <h2>About: {about}</h2>
 
       <img id="imgId" src={imageUrl} alt="Image" />
+      
       {/* <h2>Tips: {tips}</h2> */}
     </>
   );
