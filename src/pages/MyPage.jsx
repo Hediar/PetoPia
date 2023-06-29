@@ -26,9 +26,10 @@ function MyPage() {
   // state set 함수
   const openModal = () => {
     setNikname(`${user.displayname}`); // 닫았다가 다시 들어와도 기존 닉네임
-    console.log(user.photoURL);
     if (user.photoURL === undefined) {
       setPhoto(DEFAULT_PHOTO);
+    } else {
+      setPhoto(user.photoURL);
     }
     setModalState(true);
   };
@@ -44,8 +45,8 @@ function MyPage() {
   // 사진 업로드
   const handleUpload = async () => {
     const profileimgRef = ref(storage, `profile/${user.uid}/profilePhoto`);
-    console.log(selectefFile);
-    if (selectefFile === null) {
+
+    if (selectefFile === null && user.photoURL === DEFAULT_PHOTO) {
       myupdateProfile(nikname, DEFAULT_PHOTO);
     } else {
       await uploadBytes(profileimgRef, selectefFile); // 파일 업로드
@@ -81,10 +82,10 @@ function MyPage() {
       alert('로그인 해주세요');
       navigate('/');
     } else {
+      console.log('change user', user);
       onAuthStateChanged(auth, (user) => {
         setPhoto(user.photoURL);
         setNikname(user.displayName);
-        console.log('change user', user);
       }); // 사용자 인증정보가 바뀔 때 마다
     }
   }, [user.photoURL]);
