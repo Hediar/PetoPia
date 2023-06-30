@@ -10,7 +10,7 @@ const CardList = () => {
 
   useEffect(() => {
     async function getMultipleData() {
-      const q = query(collection(db, 'test2'));
+      const q = query(collection(db, 'fids'));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -33,15 +33,15 @@ const CardList = () => {
           <Fidmainbox>
             <img src={card.imageUrl}></img>
             <div>
-              <h4 style={{ display: 'block', fontWeight: 'bold', margin: '10px 0 10px 0' }}>title: {card.title}</h4>
+              <h4 style={{ display: 'block', fontWeight: 'bold', margin: '10px 0 10px 0' }}>{card.title}</h4>
               <Fidcontext>
-                <p>contents: {card.contents}</p>
+                <p>{card.contents}</p>
               </Fidcontext>
             </div>
           </Fidmainbox>
           <Cardfooter>
-            프로필사진, by 작성자
-            <div>about: #{card.about}</div>
+            by {card.createdBy}
+            <div>#{card.about}</div>
           </Cardfooter>
         </FidCardBox>
       ))}

@@ -8,9 +8,7 @@ import { MainWrapper } from '../stylecomponents/Wrapper';
 
 import BottomCardTab from '../components/BottomCardTab';
 import { useSelector } from 'react-redux';
-import Notepad from './Notepad';
 import CardList from '../components/CardList';
-
 
 // import { Link } from 'react-router-dom';
 
@@ -22,7 +20,6 @@ function Main() {
     <>
       <MainWrapper>
         <Header />
-       
 
         <MainBox>
           <div
