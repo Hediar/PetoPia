@@ -15,7 +15,7 @@ function Posting() {
   const [newImgURL, setnewImgURL] = useState('');
   const [users, setUsers] = useState([]);
 
-  const userCollectionRef = collection(db, 'users');
+  const userCollectionRef = collection(db, 'fids');
 
   useEffect(() => {
     // 실시간 업데이트를 위한 onSnapshot 사용
