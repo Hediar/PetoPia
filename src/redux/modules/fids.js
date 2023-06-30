@@ -40,7 +40,10 @@ const fids = (state = initialState, action) => {
       return [...state, action.payload];
 
     case DELETE_FIDS:
-      return {};
+      return state.filter((fid) => {
+        return fid.id !== action.payload.id;
+      });
+
     default:
       return state;
   }

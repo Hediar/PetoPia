@@ -15,7 +15,8 @@ function Main() {
   useEffect(() => {
     // dispatch(firstsetFids);
     console.log('유저정보:', auth.currentUser);
-  }, []);
+    console.log('전체 피드', fids);
+  }, [fids]);
 
   return (
     <>

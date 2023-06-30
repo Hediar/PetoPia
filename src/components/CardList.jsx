@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const CardList = ({ fids }) => {
   const navigate = useNavigate();
-
   return (
     <>
       {fids.map((card) => (

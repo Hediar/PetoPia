@@ -1,5 +1,5 @@
 import 'firebase/firestore';
-import { collection, addDoc, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
@@ -16,28 +16,11 @@ function Posting() {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newImgURL, setnewImgURL] = useState('');
-  const [users, setUsers] = useState([]);
 
   const userCollectionRef = collection(db, 'fids');
   const dispatch = useDispatch();
 
   const fidId = shortid.generate(); // 등록할 fid id
-
-  useEffect(() => {
-    // 실시간 업데이트를 위한 onSnapshot 사용
-    const unsubscribe = onSnapshot(userCollectionRef, (querySnapshot) => {
-      const updatedUsers = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id
-      }));
-      setUsers(updatedUsers);
-    });
-
-    return () => {
-      // 컴포넌트 언마운트 시에 unsubscribe
-      unsubscribe();
-    };
-  }, []);
 
   const createUsers = async (event, newImgURL) => {
     event.preventDefault();
@@ -71,28 +54,6 @@ function Posting() {
     alert('피드가 등록되었습니다!');
   };
 
-  // db에 들어가는지 확인
-  const showUsers = users.map((value) => (
-    <Tabs key={value.id}>
-      <h1>{value.title}</h1>
-      <p>{value.contents}</p>
-      <div>
-        <img src={value.imgURL} width="100" alt="프로필 이미지" />
-      </div>
-      <DeleteButton onClick={() => deleteUserData(value.id)}>삭제</DeleteButton>
-    </Tabs>
-  ));
-  const deleteUserData = async (id) => {
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
-      try {
-        await deleteDoc(doc(db, 'fids', id));
-        console.log('성공적으로 삭제되었습니다.');
-      } catch (error) {
-        console.error('사용자 삭제 중 오류 발생: ', error);
-      }
-    }
-  };
-
   // 카테고리 옵션 값 정의
   const categoryOptions = [
     'dog',
@@ -112,7 +73,6 @@ function Posting() {
       <Header />
       <Body>
         <Tit>회원님의 소중한 이야기를 적어주세요.</Tit>
-        {/* <Board>{showUsers}</Board> */}
         <InputForm onSubmit={createUsers}>
           <InputBody>
             <TagI>
@@ -165,11 +125,6 @@ const Tit = styled.h2`
   justify-content: center;
   margin: 100px 0;
   font-size: 2rem;
-`;
-
-const Board = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 `;
 
 const InputBody = styled.div`
