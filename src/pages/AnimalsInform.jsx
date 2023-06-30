@@ -32,6 +32,7 @@ const AnimalsInform = ({ animal }) => {
     case '강아지':
       about = dog.about;
       imageUrl = dog.imageUrl;
+
       break;
     case '고양이':
       about = cat.about;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -38,7 +38,6 @@ const DetailPage = () => {
   return (
     <Wrapper>
       <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-
       <ContentWrapper>
         <Form onSubmit={onSubmitHandler}>
           {cardData.map((card) => (
@@ -59,6 +58,7 @@ const DetailPage = () => {
 };
 
 export default DetailPage;
+
 
 const Button = styled.button`
   display: inline-block;
