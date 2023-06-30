@@ -27,12 +27,10 @@ const CardList = () => {
         <FidCardBox
           key={card.id}
           onClick={() => {
-            navigate('/detailPage/' + card.id);
+            navigate('/detailFeedPage/' + card.id);
           }}
         >
           <Fidmainbox>
-          
-            
             <img src={card.imageUrl}></img>
             <div>
               <h4 style={{ display: 'block', fontWeight: 'bold', margin: '10px 0 10px 0' }}>title: {card.title}</h4>

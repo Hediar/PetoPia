@@ -1,54 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-function DetailPage() {
+const DetailPage = () => {
   const navigate = useNavigate();
   const { animal } = useParams();
+  const [cardData, setCardData] = useState([]);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     alert('clicked');
   };
 
+  useEffect(() => {
+    async function getData() {
+      try {
+        const docRef = doc(db, 'test2', animal);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setCardData([docSnap.data()]);
+          console.log('Document data:', docSnap.data());
+        } else {
+          console.log('No such document!');
+        }
+      } catch (error) {
+        console.error('Error getting document:', error);
+      }
+    }
+
+    getData();
+  }, [animal]);
+
   return (
-    <DetailBox>
+    <Wrapper>
+      <Button onClick={() => navigate('/')}>Home으로 가기</Button>
+
+      <ContentWrapper>
+        <Form onSubmit={onSubmitHandler}>
+          {cardData.map((card) => (
+            <div key={card.id}>
+              <p>작성자: {card.author}</p>
+              <p>제목: {card.title}</p>
+              <p>내용: {card.contents}</p>
+              <Image src={card.imageUrl} alt="이미지" />
+              <br />
+              <Input placeholder="제목" />
+              <Input placeholder="내용" />
+              <br/>
+              <Button>수정</Button>
+              <Button>삭제</Button>
+              <br/>
+              <Button>작성완료</Button>
+            </div>
+          ))}
+        </Form>
+      </ContentWrapper>
+      <PageTitle>Detail PAGE</PageTitle>
       <AnimalsInform animal={animal} />
-
-      <button onClick={() => navigate('/')}>Home으로 가기</button>
-
-      <div>귀여운 {animal} 페이지입니다!</div>
-
-      <div>
-        <br />
-        <br />
-        <br />
-        <h3>Detail PAGE</h3>
-        <br />
-        <form onSubmit={onSubmitHandler}>
-          <p>작성자:</p>
-          <p>제목:</p>
-          <p>내용:</p>
-          <p>이미지 파일:</p>
-          <input placeholder="수정할 영역"></input>
-          <EveryButton>작성완료</EveryButton>
-        </form>
-      </div>
-
-      <div>
-        <br />
-        <button>수정</button>
-        <button>삭제</button>
-      </div>
-    </DetailBox>
+    </Wrapper>
   );
-}
+};
 
 export default DetailPage;
 
-
-const EveryButton = styled.button`
+const Button = styled.button`
   display: inline-block;
   padding: 10px 20px;
   background-color: #4caf50;
@@ -65,8 +84,35 @@ const EveryButton = styled.button`
   }
 `;
 
-const DetailBox = styled.div`
+const Wrapper = styled.div`
   background-color: white;
   border: 3px solid rgb(221, 221, 221);
   margin: 1rem;
+`;
+
+const Form = styled.form`
+  margin-bottom: 1rem;
+`;
+
+const ContentWrapper = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const Image = styled.img`
+  width: 50%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const Input = styled.input`
+  width: 50;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const PageTitle = styled.h3`
+  margin-top: 2rem;
+  font-size: 24px;
 `;
