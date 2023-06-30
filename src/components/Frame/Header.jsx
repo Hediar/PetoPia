@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
@@ -8,18 +8,6 @@ import { loginCheck } from '../../firebase';
 
 function Header() {
   const navigate = useNavigate();
-  // 햄버거 버튼 제어변수
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
-  // 펫 종류 []
-  const pets = ['dog', 'cat', 'fish', 'bird', 'amphibia', 'reptile', 'etc'];
-
-  const handleButtonClick = () => {
-    setIsButtonVisible(!isButtonVisible);
-  };
-
-  const onClickAnimal = (pet) => {
-    navigate(`/detailPage/${pet}`);
-  };
 
   const cursorRef = useRef();
   const movePostingPage = () => {

@@ -5,16 +5,16 @@ import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import CardList from '../components/CardList';
-import { ModalTitle } from 'react-bootstrap';
+import Headernav from '../components/Frame/Headernav';
+import Footer from '../components/Frame/Footer';
 
 const DetailPage = () => {
   const navigate = useNavigate();
 
   const [cardData, setCardData] = useState([]);
-  const {animal}   = useParams();
+  const { animal } = useParams();
 
-
-   console.log(animal);
+  console.log(animal);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ const DetailPage = () => {
       try {
         const docRef = doc(db, 'fids', animal);
         const docSnap = await getDoc(docRef);
-     
+
         if (docSnap.exists()) {
           setCardData([docSnap.data()]);
           console.log('Document data:', docSnap.data());
@@ -40,26 +40,30 @@ const DetailPage = () => {
   }, [animal]);
 
   return (
-    <Wrapper>
-      <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-      <ContentWrapper>
-        <Form onSubmit={onSubmitHandler}>
-          {cardData.map((card) => (
-            <div key={card.id}>
-              <p>작성자: {card.createdBy}</p>
-              <p>제목: {card.title}</p>
-              <p>내용: {card.contents}</p>
-              <Image src={card.imageUrl} alt="이미지" />
-              <br />
-            </div>
-          ))}
-        </Form>
-      </ContentWrapper>
+    <>
+      <Headernav />
+      <Wrapper>
+        <Button onClick={() => navigate('/')}>Home으로 가기</Button>
+        <ContentWrapper>
+          <Form onSubmit={onSubmitHandler}>
+            {cardData.map((card) => (
+              <div key={card.id}>
+                <p>작성자: {card.createdBy}</p>
+                <p>제목: {card.title}</p>
+                <p>내용: {card.contents}</p>
+                <Image src={card.imageUrl} alt="이미지" />
+                <br />
+              </div>
+            ))}
+          </Form>
+        </ContentWrapper>
 
-      <AnimalsInform animal={animal} />
-      <PageTitle>유저 글 영역</PageTitle>
-      <CardList />
-    </Wrapper>
+        <AnimalsInform animal={animal} />
+        <PageTitle>유저 글 영역</PageTitle>
+        <CardList />
+      </Wrapper>
+      <Footer />
+    </>
   );
 };
 

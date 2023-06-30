@@ -31,7 +31,7 @@ function Headernav() {
     setIsButtonVisible(!isButtonVisible);
   };
   // 펫 종류 []
-  const pets = ['강아지', '고양이', '물고기', '조류', '파충류', '양서류', '기타'];
+  const pets = ['dog', 'cat', 'fish', 'bird', 'amphibia', 'reptile', 'etc'];
 
   const onClickAnimal = (pet) => {
     navigate(`/detailPage/${pet}`);

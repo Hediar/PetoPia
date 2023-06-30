@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import AnimalsInform from './AnimalsInform';
 import { Firestore, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import { useSelector } from 'react-redux';
 import CardList from '../components/CardList';
-import shortid from 'shortid';
+import Footer from '../components/Frame/Footer';
+import Headernav from '../components/Frame/Headernav';
 
 const DetailFeedPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [contents, setContents] = useState('');
   const [title, setTitle] = useState('');
-  const animal   = useParams();
 
   // const user = useSelector((user) => user.currentuser);
   const user = auth.currentUser;
@@ -72,45 +70,49 @@ const DetailFeedPage = () => {
   }, [uid, user]);
 
   return (
-    <Wrapper>
-      <PageTitle>글 세부 피드 영역</PageTitle>
-      <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-      <ContentWrapper>
-        {isEditing && (
-          <Form onSubmit={onSubmitHandler}>
-            {cardData.map((card) => (
-              <div key={card.id}>
-                <p>작성자: {card.createdBy}</p>
-                <p>제목: {card.title}</p>
-                <p>내용: {card.contents}</p>
-                <Image src={card.imageUrl} alt="이미지" />
-                <br />
-                <Input
-                  placeholder="제목"
-                  value={title}
-                  onChange={(e) => {
-                    setTitle(e.target.value);
-                  }}
-                />
-                <Input
-                  placeholder="내용"
-                  value={contents}
-                  onChange={(e) => {
-                    setContents(e.target.value);
-                  }}
-                ></Input>
-                <br />
-                <Button onClick={updateHandler}>수정</Button>
-                <Button onClick={deleteHandler}>삭제</Button>
-                <br />
-              </div>
-            ))}
-          </Form>
-        )}
-      </ContentWrapper>
-      <PageTitle>유저 글 영역</PageTitle>
-      <CardList />
-    </Wrapper>
+    <>
+      <Headernav />
+      <Wrapper>
+        <PageTitle>글 세부 피드 영역</PageTitle>
+        <Button onClick={() => navigate('/')}>Home으로 가기</Button>
+        <ContentWrapper>
+          {isEditing && (
+            <Form onSubmit={onSubmitHandler}>
+              {cardData.map((card) => (
+                <div key={card.id}>
+                  <p>작성자: {card.createdBy}</p>
+                  <p>제목: {card.title}</p>
+                  <p>내용: {card.contents}</p>
+                  <Image src={card.imageUrl} alt="이미지" />
+                  <br />
+                  <Input
+                    placeholder="제목"
+                    value={title}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                  />
+                  <Input
+                    placeholder="내용"
+                    value={contents}
+                    onChange={(e) => {
+                      setContents(e.target.value);
+                    }}
+                  ></Input>
+                  <br />
+                  <Button onClick={updateHandler}>수정</Button>
+                  <Button onClick={deleteHandler}>삭제</Button>
+                  <br />
+                </div>
+              ))}
+            </Form>
+          )}
+        </ContentWrapper>
+        <PageTitle>유저 글 영역</PageTitle>
+        <CardList />
+      </Wrapper>
+      <Footer />
+    </>
   );
 };
 
