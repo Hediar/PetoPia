@@ -11,7 +11,9 @@ const DetailFeedPage = () => {
   const [contents, setContents] = useState('');
   const [title, setTitle] = useState('');
 
-  const user = useSelector((user) => user.currentuser);
+  // const user = useSelector((user) => user.currentuser);
+  const user = auth.currentUser;
+
   // console.log(user);
 
   const navigate = useNavigate();
@@ -100,7 +102,6 @@ const DetailFeedPage = () => {
                 <Button onClick={updateHandler}>수정</Button>
                 <Button onClick={deleteHandler}>삭제</Button>
                 <br />
-     
               </div>
             ))}
           </Form>

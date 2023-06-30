@@ -7,25 +7,23 @@ import { Modal, ModalBackground } from '../stylecomponents/Modal';
 import { commonButton } from '../stylecomponents/Button';
 import { auth, loginCheck, storage } from '../firebase';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
 import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
 import { onAuthStateChanged, updateProfile } from '@firebase/auth';
-import { setUser } from '../redux/modules/currentuser';
 
 function MyPage() {
   const DEFAULT_PHOTO =
     'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541';
-  const user = useSelector((user) => user.currentuser);
+
+  const user = auth.currentUser;
   const [modalState, setModalState] = useState(false);
   const [nikname, setNikname] = useState('');
   const [photo, setPhoto] = useState(DEFAULT_PHOTO); // 보여지는 사진
   const [selectefFile, setselectefFile] = useState(null);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   // state set 함수
   const openModal = () => {
-    setNikname(`${user.displayname}`); // 닫았다가 다시 들어와도 기존 닉네임
+    setNikname(`${user.displayName}`); // 닫았다가 다시 들어와도 기존 닉네임
     if (user.photoURL === undefined) {
       setPhoto(DEFAULT_PHOTO);
     } else {
@@ -72,11 +70,6 @@ function MyPage() {
       photoURL: newPhoto
     })
       .then(() => {
-        dispatch(setUser());
-      })
-      .then(() => {
-        setNikname(user.displayName);
-        setPhoto(user.photoURL);
         alert('프로필이 업데이트 되었습니다!');
         closeModal();
       })
@@ -86,7 +79,6 @@ function MyPage() {
   };
 
   useEffect(() => {
-    dispatch(setUser());
     if (!loginCheck()) {
       // alert('로그인 해주세요');
       navigate('/');
@@ -97,7 +89,7 @@ function MyPage() {
         setNikname(user.displayName);
       }); // 사용자 인증정보가 바뀔 때 마다
     }
-  }, [user.photoURL]);
+  }, [user]);
 
   return (
     <>

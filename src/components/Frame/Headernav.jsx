@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FaAlignJustify } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router';
 import { styled } from 'styled-components';
 import { Headerarea } from '../../stylecomponents/Wrapper';
 import { auth, loginCheck } from '../../firebase';
-import { deleteUser, setUser } from '../../redux/modules/currentuser';
 import { commonButton } from '../../stylecomponents/Button';
-import { onAuthStateChanged, signOut } from '@firebase/auth';
+import { signOut } from '@firebase/auth';
 
 function Headernav() {
   const navigate = useNavigate();
-  const user = useSelector((user) => user.currentuser);
-  const dispatch = useDispatch();
+
   const prelocation = useLocation();
 
   // 로그인 상태에 따라 활성화 버튼
@@ -23,7 +20,7 @@ function Headernav() {
     alert('로그아웃 되었습니다.');
 
     await signOut(auth);
-    dispatch(deleteUser());
+
     window.location.reload();
   };
 
@@ -42,13 +39,9 @@ function Headernav() {
 
   useEffect(() => {
     if (loginCheck()) {
-      onAuthStateChanged(auth, (user) => {
-        dispatch(setUser());
-      }); // 사용자 인증정보가 바뀔 때 마다
-
       setButtonVisible(true);
     }
-  }, [user.photoURL]);
+  }, []);
 
   return (
     <Headerarea>
@@ -105,7 +98,7 @@ function Headernav() {
   );
 }
 
-export default Headernav;
+export default React.memo(Headernav);
 
 const HeaderTop = styled.div`
   width: 100%;

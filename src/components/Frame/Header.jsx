@@ -36,7 +36,7 @@ function Header() {
   );
 }
 
-export default Header;
+export default React.memo(Header);
 const FormTag = styled.div`
   width: 100%;
   margin: 0 auto;

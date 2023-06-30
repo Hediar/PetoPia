@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
-
-import Card from '../components/Card';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
 import { MainWrapper } from '../stylecomponents/Wrapper';
-
 import BottomCardTab from '../components/BottomCardTab';
-import { useSelector } from 'react-redux';
 import CardList from '../components/CardList';
+import { auth } from '../firebase';
 
 // import { Link } from 'react-router-dom';
 
 function Main() {
-  const user = useSelector((user) => user.currentuser);
-  console.log('유저정보:' + user);
+  useEffect(() => {
+    console.log('유저정보:', auth.currentUser);
+  }, []);
 
   return (
     <>

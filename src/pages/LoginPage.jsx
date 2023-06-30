@@ -2,14 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { auth, loginCheck } from '../firebase';
 import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/modules/currentuser';
 
 function LoginPage() {
   const navigate = useNavigate();
   const prelocation = useLocation();
-  const user = useSelector((user) => user.currentuser);
-  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,12 +30,10 @@ function LoginPage() {
   }, []);
 
   const handleLocation = () => {
-    if (user) {
-      if (prelocation.state) {
-        navigate(`${prelocation.state.preURL}`);
-      } else {
-        navigate('/');
-      }
+    if (prelocation.state) {
+      navigate(`${prelocation.state.preURL}`);
+    } else {
+      navigate('/');
     }
   };
 
@@ -50,7 +44,6 @@ function LoginPage() {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
 
-      dispatch(setUser());
       handleLocation();
     } catch (error) {
       switch (error.code) {
