@@ -28,7 +28,10 @@ function Card() {
           </Fidcontext>
         </div>
       </Fidmainbox>
-      <Cardfooter>프로필사진, by 작성자</Cardfooter>
+      <Cardfooter>프로필사진, by 작성자
+
+        <div>about: # 강아지</div>
+      </Cardfooter>
     </FidCardBox>
   );
 }

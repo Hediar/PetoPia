@@ -12,7 +12,14 @@ function Posting() {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [users, setUsers] = useState([]);
+  
+  console.log(newName, newAge);
 
+  const [user, setUser] = useState([]);
+
+  const userCollectionRef = collection(db, 'dapi');
+
+  const uniqueId = useId();
   const navigate = useNavigate();
   const userCollectionRef = collection(db, 'users');
 
