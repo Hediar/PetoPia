@@ -42,6 +42,14 @@ function MyPage() {
     setselectefFile(event.target.files[0]);
   };
 
+  const handleFileSelectName = () => {
+    if (selectefFile === null) {
+      return '이미지 없음';
+    } else {
+      return selectefFile.name;
+    }
+  };
+
   // 사진 업로드
   const handleUpload = async () => {
     const profileimgRef = ref(storage, `profile/${user.uid}/profilePhoto`);
@@ -95,11 +103,13 @@ function MyPage() {
     <>
       <Headernav />
       <MainWrapper>
-        <Mypagetitle>
+        <MypageWrap>
           <h1>My Page</h1>
           <Updateprofilebtn onClick={openModal}>프로필 수정하기</Updateprofilebtn>
-        </Mypagetitle>
-        <h2>내가 작성한 게시글</h2>
+        </MypageWrap>
+        <MypageWrap>
+          <h2>내가 작성한 게시글</h2>
+        </MypageWrap>
         <Section></Section>
       </MainWrapper>
       <Footer />
@@ -109,10 +119,19 @@ function MyPage() {
           <Modal>
             <h2>프로필 사진</h2>
             <Myprofileimg src={photo} alt="avatar" />
-            <FindimgfileWrap>
-              <label></label>
-              <Findimgfile type="file" onChange={handleFileSelect} accept="image/*" />
-            </FindimgfileWrap>
+
+            <Findimgfile>
+              <label htmlFor="ex_file">파일 선택</label>
+              <input
+                type="file"
+                id="ex_file"
+                onChange={(e) => {
+                  handleFileSelect(e);
+                }}
+                accept="image/*"
+              />
+              {handleFileSelectName()}
+            </Findimgfile>
 
             <h2>닉네임</h2>
             <Input
@@ -141,8 +160,9 @@ const Section = styled.div`
   font-weight: bold;
 `;
 
-const Mypagetitle = styled.div`
+const MypageWrap = styled.div`
   display: flex;
+  width: 90%;
   margin: 10px;
   padding: 0px 20px;
   align-items: center;
@@ -171,19 +191,35 @@ const ModalClosebtn = styled(commonButton)``;
 const SaveMypagebtn = styled(commonButton)``;
 
 // 파일 선택 style
-const FindimgfileWrap = styled.div`
-  margin: 0 8px 0 8px;
+
+const Findimgfile = styled.div`
+  margin: 25px 8px 30px 5px;
   img {
     max-width: 325px;
   }
   label {
-    display: inline-block;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    cursor: pointer;
+    background-color: #eb9307;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 14px;
+    border: none;
+    padding: 10px;
+    margin: 3px;
+    height: 40px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #ff8f05;
+      color: black;
+    }
+
+    &:active {
+      background-color: #0d3f8f;
+      color: white;
+    }
   }
-  /* input[type='file'] {
+  input[type='file'] {
     position: absolute;
     width: 0;
     height: 0;
@@ -192,22 +228,6 @@ const FindimgfileWrap = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
-  } */
-`;
-const Findimgfile = styled.input`
-  background-color: #eb9307;
-  color: white;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border-radius: 14px;
-  border: none;
-  padding: 10px;
-  margin: 3px;
-  height: 40px;
-  &:hover {
-    cursor: pointer;
-    background-color: #ff8f05;
-    color: black;
   }
 `;
 

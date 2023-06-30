@@ -108,7 +108,7 @@ function Headernav() {
 export default Headernav;
 
 const HeaderTop = styled.div`
-  width: 1400px;
+  width: 100%;
   margin: 0 auto;
   padding-top: 60px;
   display: flex;
@@ -118,7 +118,8 @@ const HeaderTop = styled.div`
 
 const ImgHeader = styled.div`
   width: 400px;
-  text-align: center;
+  margin-left: 20px;
+  text-align: left;
 `;
 
 const Hamburger = styled.div`
