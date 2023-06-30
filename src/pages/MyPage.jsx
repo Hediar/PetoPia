@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
-import { MainWrapper } from '../stylecomponents/Wrapper';
+import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
 import Headernav from '../components/Frame/Headernav';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';
@@ -106,6 +106,7 @@ function MyPage() {
   return (
     <>
       <Headernav />
+
       <MainWrapper>
         <MypageWrap>
           <h1>My Page</h1>
@@ -114,10 +115,13 @@ function MyPage() {
         <MypageWrap>
           <h2>내가 작성한 게시글</h2>
         </MypageWrap>
-        <Section>
-          <CardList fids={myfids} />
-        </Section>
+        <MainBox>
+          <Section>
+            <CardList fids={myfids} />
+          </Section>
+        </MainBox>
       </MainWrapper>
+
       <Footer />
       {modalState && (
         <div>
@@ -159,10 +163,9 @@ export default MyPage;
 
 const Section = styled.div`
   display: flex;
-  justify-content: center;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 40px;
+  /* justify-content: center;
+  text-align: center; */
+  margin: 30px;
   font-weight: bold;
 `;
 

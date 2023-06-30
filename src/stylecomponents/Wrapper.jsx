@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const MainWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
   h1 {
     display: block;

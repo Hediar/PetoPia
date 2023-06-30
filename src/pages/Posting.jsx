@@ -6,7 +6,10 @@ import Footer from '../components/Frame/Footer';
 import FileUpload from './FileUpload';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
-import { v4 as uuid } from 'uuid';
+
+import shortid from 'shortid';
+import { useDispatch } from 'react-redux';
+import { addFids } from '../redux/modules/fids';
 
 function Posting() {
   const [newAbout, setNewAbout] = useState('');
@@ -16,6 +19,9 @@ function Posting() {
   const [users, setUsers] = useState([]);
 
   const userCollectionRef = collection(db, 'fids');
+  const dispatch = useDispatch();
+
+  const fidId = shortid.generate(); // 등록할 fid id
 
   useEffect(() => {
     // 실시간 업데이트를 위한 onSnapshot 사용
@@ -42,21 +48,27 @@ function Posting() {
       return;
     }
 
-    await addDoc(userCollectionRef, {
-      id: uuid(),
+    const newFid = {
+      id: fidId,
       about: newAbout,
       title: newTitle,
       contents: newContent,
       createdBy: auth.currentUser.displayName,
       createUser: auth.currentUser.email,
       imgURL: newImgURL
-    });
+    };
+
+    await addDoc(userCollectionRef, newFid);
 
     // 글 등록 후 입력 폼 초기화
     setNewAbout('');
     setNewTitle('');
     setNewContent('');
     setnewImgURL('');
+
+    dispatch(addFids(newFid));
+
+    alert('피드가 등록되었습니다!');
   };
 
   // db에 들어가는지 확인
@@ -130,7 +142,7 @@ function Posting() {
               />
             </TagI>
             <TagTab>
-              <FileUpload onImageUpload={createUsers} />
+              <FileUpload onImageUpload={createUsers} newFidId={fidId} />
             </TagTab>
           </InputBody>
         </InputForm>
@@ -198,16 +210,7 @@ const Select = styled.select`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-// const Te = styled.input`
-//   width: 300px;
-//   height: 30px;
-//   border: 4px solid #eb9307;
-//   border-radius: 14px;
-//   margin: 0 10px 0 0;
-//   font-size: 20px;
-//   padding: 10px 10px 10px 14px;
-//   box-shadow: 10px 5px 20px gray;
-// `;
+
 const TextareaC = styled.textarea`
   width: 730px;
   height: 200px;
@@ -218,22 +221,6 @@ const TextareaC = styled.textarea`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-// const RegisterBtn = styled.button`
-//   width: 120px;
-//   height: 56px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: #eb9307;
-//   color: white;
-//   font-weight: 600;
-//   font-size: 0.9rem;
-//   box-shadow: 10px 5px 20px gray;
-//   &:hover {
-//     cursor: pointer;
-//     background-color: #ff8f05;
-//     color: black;
-//   }
-// `;
 
 const Tabs = styled.div`
   width: 230px;
