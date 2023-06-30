@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
-import { Firestore, collection, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { Firestore, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { useSelector } from 'react-redux';
 
 const DetailFeedPage = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [contents, setContents] = useState('');
+  const [title, setTitle] = useState('');
 
   const user = useSelector((user) => user.currentuser);
   // console.log(user);
@@ -18,7 +20,6 @@ const DetailFeedPage = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    alert('clicked');
   };
   async function deleteHandler() {
     try {
@@ -30,30 +31,28 @@ const DetailFeedPage = () => {
     }
   }
 
-  const updateHandler = () => {
-    useEffect(() => {
-      // bucket이라는 변수로 firestore의 collection인 test2 접근
-
+  const updateHandler = async () => {
+    try {
       const citiesRef = collection(db, 'test2');
-      // bucket 콜렉션의 bucket_item 문서의 name 필드 duck2로 바꾸기
-      citiesRef.doc(animal).update({ contents: 'duck2' });
-    });
+      const docRef = doc(citiesRef, animal);
+      await updateDoc(docRef, { title, contents });
+      setTitle('');
+      setContents('');
+      alert('수정이 완료되었습니다! ');
+    } catch (error) {
+      console.error('Error updating document:', error);
+    }
   };
 
+  // 회원인지 아닌지에 따른 변화
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       try {
         const docRef = doc(db, 'test2', animal);
-
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
-          // 해당 키 값에 해당하는 정보 가져옴(animal)
           setCardData([docSnap.data()]);
-
-          // 유저가 로그인했고 글 주인의 이메일이 유저 이메일과 같을 시
           if (docSnap.data().createdBy === user.email && Object.keys(user).length !== 0) {
-            console.log(docSnap.data().createdBy + '----' + user.email);
             setIsEditing(true);
           } else {
             setIsEditing(false);
@@ -64,10 +63,10 @@ const DetailFeedPage = () => {
       } catch (error) {
         console.error('Error getting document:', error);
       }
-    }
+    };
 
     getData();
-  }, [animal]);
+  }, [animal, user]);
 
   return (
     <Wrapper>
@@ -78,18 +77,30 @@ const DetailFeedPage = () => {
           <Form onSubmit={onSubmitHandler}>
             {cardData.map((card) => (
               <div key={card.id}>
-                <p>작성자: {card.author}</p>
+                <p>작성자: {card.createdBy}</p>
                 <p>제목: {card.title}</p>
                 <p>내용: {card.contents}</p>
                 <Image src={card.imageUrl} alt="이미지" />
                 <br />
-                <Input placeholder="제목" />
-                <Input placeholder="내용" />
+                <Input
+                  placeholder="제목"
+                  value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
+                />
+                <Input
+                  placeholder="내용"
+                  value={contents}
+                  onChange={(e) => {
+                    setContents(e.target.value);
+                  }}
+                ></Input>
                 <br />
                 <Button onClick={updateHandler}>수정</Button>
                 <Button onClick={deleteHandler}>삭제</Button>
                 <br />
-                <Button>작성완료</Button>
+     
               </div>
             ))}
           </Form>

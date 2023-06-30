@@ -12,7 +12,6 @@ const DetailPage = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    alert('clicked');
   };
 
   useEffect(() => {
@@ -20,7 +19,7 @@ const DetailPage = () => {
       try {
         const docRef = doc(db, 'test2', animal);
         const docSnap = await getDoc(docRef);
-
+        
         if (docSnap.exists()) {
           setCardData([docSnap.data()]);
           console.log('Document data:', docSnap.data());
@@ -43,18 +42,11 @@ const DetailPage = () => {
         <Form onSubmit={onSubmitHandler}>
           {cardData.map((card) => (
             <div key={card.id}>
-              <p>작성자: {card.author}</p>
+              <p>작성자: {card.createdBy}</p>
               <p>제목: {card.title}</p>
               <p>내용: {card.contents}</p>
               <Image src={card.imageUrl} alt="이미지" />
               <br />
-              <Input placeholder="제목" />
-              <Input placeholder="내용" />
-              <br/>
-              <Button>수정</Button>
-              <Button>삭제</Button>
-              <br/>
-              <Button>작성완료</Button>
             </div>
           ))}
         </Form>
