@@ -14,12 +14,13 @@ const DetailPage = () => {
     event.preventDefault();
   };
 
+  
   useEffect(() => {
     async function getData() {
       try {
         const docRef = doc(db, 'test2', animal);
         const docSnap = await getDoc(docRef);
-        
+
         if (docSnap.exists()) {
           setCardData([docSnap.data()]);
           console.log('Document data:', docSnap.data());
