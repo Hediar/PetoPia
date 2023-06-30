@@ -31,6 +31,9 @@ const fids = (state = initialState, action) => {
       console.log('action', action.payload);
       return action.payload;
 
+    case FILTER_SHOW_FIDS:
+      return state.filter((fid) => fid.about === action.payload.about);
+
     case DELETE_FIDS:
       return {};
     default:

@@ -4,9 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-// import CardList from '../components/CardList';
+import CardList from '../components/CardList';
 import Headernav from '../components/Frame/Headernav';
 import Footer from '../components/Frame/Footer';
+import { useSelector } from 'react-redux';
 
 const DetailPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,14 @@ const DetailPage = () => {
   const { animal } = useParams();
 
   console.log(animal);
+
+  const fids = useSelector((fids) =>
+    fids.fids.filter((fid) => {
+      return fid.about === animal;
+    })
+  );
+  const [animalfids, setAnimalfids] = useState([]);
+  console.log('fids필터링', fids);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -37,6 +46,7 @@ const DetailPage = () => {
     }
 
     getData();
+    setAnimalfids(fids);
   }, [animal]);
 
   return (
@@ -59,8 +69,10 @@ const DetailPage = () => {
         </ContentWrapper>
 
         <AnimalsInform animal={animal} />
-        <PageTitle>유저 글 영역</PageTitle>
-        {/* <CardList /> */}
+        <PageTitle>
+          <h2>유저 글 영역</h2>
+          <CardList fids={animalfids} />
+        </PageTitle>
       </Wrapper>
       <Footer />
     </>

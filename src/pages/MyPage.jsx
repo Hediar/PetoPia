@@ -24,7 +24,6 @@ function MyPage() {
     })
   );
 
-  // const myfids = dispatch(mypageShowFids(user.email));
   const [myfids, setMyfids] = useState([]);
 
   const [modalState, setModalState] = useState(false);
