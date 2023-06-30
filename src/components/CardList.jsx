@@ -85,3 +85,8 @@ const Cardfooter = styled.div`
   line-height: 1.5;
   justify-content: space-between;
 `;
+
+const PageTitle = styled.h3`
+  margin-top: 2rem;
+  font-size: 24px;
+`;

@@ -4,22 +4,27 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import CardList from '../components/CardList';
+import { ModalTitle } from 'react-bootstrap';
 
 const DetailPage = () => {
   const navigate = useNavigate();
-  const { animal } = useParams();
+
   const [cardData, setCardData] = useState([]);
+  const {animal}   = useParams();
+
+
+   console.log(animal);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
   };
-
   useEffect(() => {
     async function getData() {
       try {
-        const docRef = doc(db, 'test2', animal);
+        const docRef = doc(db, 'fids', animal);
         const docSnap = await getDoc(docRef);
-
+     
         if (docSnap.exists()) {
           setCardData([docSnap.data()]);
           console.log('Document data:', docSnap.data());
@@ -50,8 +55,10 @@ const DetailPage = () => {
           ))}
         </Form>
       </ContentWrapper>
-      <PageTitle>Detail PAGE</PageTitle>
+
       <AnimalsInform animal={animal} />
+      <PageTitle>유저 글 영역</PageTitle>
+      <CardList />
     </Wrapper>
   );
 };

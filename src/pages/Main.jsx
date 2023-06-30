@@ -37,7 +37,7 @@ function Main() {
             <Card />
             <Card />
             <Card /> */}
-            <CardList />
+            <CardList  />
           </Cardsarea>
           <BottomCardTab />
         </MainBox>
