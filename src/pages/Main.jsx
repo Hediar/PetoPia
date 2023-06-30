@@ -6,12 +6,15 @@ import { MainWrapper } from '../stylecomponents/Wrapper';
 import BottomCardTab from '../components/BottomCardTab';
 // import CardList from '../components/CardList';
 import { auth } from '../firebase';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CardList from '../components/CardList';
+import { firstsetFids } from '../redux/modules/fids';
 
 function Main() {
   const fids = useSelector((fids) => fids.fids);
+  const dispatch = useDispatch();
   useEffect(() => {
+    // dispatch(firstsetFids);
     console.log('유저정보:', auth.currentUser);
   }, []);
 

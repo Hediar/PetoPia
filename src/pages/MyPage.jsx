@@ -9,14 +9,27 @@ import { auth, loginCheck, storage } from '../firebase';
 import { useNavigate } from 'react-router';
 import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
 import { onAuthStateChanged, updateProfile } from '@firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { mypageShowFids } from '../redux/modules/fids';
+import CardList from '../components/CardList';
 
 function MyPage() {
   const DEFAULT_PHOTO =
     'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541';
 
   const user = auth.currentUser;
+  const fids = useSelector((fids) =>
+    fids.fids.filter((fid) => {
+      return fid.createUser === user.email;
+    })
+  );
+
+  // const myfids = dispatch(mypageShowFids(user.email));
+  const [myfids, setMyfids] = useState([]);
+
   const [modalState, setModalState] = useState(false);
   const [nikname, setNikname] = useState('');
+
   const [photo, setPhoto] = useState(DEFAULT_PHOTO); // 보여지는 사진
   const [selectefFile, setselectefFile] = useState(null);
 
@@ -83,10 +96,10 @@ function MyPage() {
       // alert('로그인 해주세요');
       navigate('/');
     } else {
-      console.log('change user', user);
       onAuthStateChanged(auth, (user) => {
         setPhoto(user.photoURL);
         setNikname(user.displayName);
+        setMyfids(fids);
       }); // 사용자 인증정보가 바뀔 때 마다
     }
   }, [user]);
@@ -102,7 +115,9 @@ function MyPage() {
         <MypageWrap>
           <h2>내가 작성한 게시글</h2>
         </MypageWrap>
-        <Section></Section>
+        <Section>
+          <CardList fids={myfids} />
+        </Section>
       </MainWrapper>
       <Footer />
       {modalState && (
