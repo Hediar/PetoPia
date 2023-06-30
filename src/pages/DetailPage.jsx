@@ -19,7 +19,6 @@ const DetailPage = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
   };
-  
   useEffect(() => {
     async function getData() {
       try {
@@ -43,7 +42,6 @@ const DetailPage = () => {
   return (
     <Wrapper>
       <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-
       <ContentWrapper>
         <Form onSubmit={onSubmitHandler}>
           {cardData.map((card) => (

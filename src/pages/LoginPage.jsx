@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, loginCheck } from '../firebase';
+import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate, useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, setUser } from '../redux/modules/currentuser';
 
 function LoginPage() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const user = useSelector((user) => user.currentuser);
-  const dispatch = useDispatch();
+  const prelocation = useLocation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,34 +21,29 @@ function LoginPage() {
       setPassword(value);
     }
   };
-  // useEffect(() => {
-  //   console.log(location);
-  // }, []);
+
+  useEffect(() => {
+    if (loginCheck()) {
+      alert('이미 로그인 상태입니다.');
+      navigate(`${prelocation.state.preURL}`);
+    }
+  }, []);
 
   const handleLocation = () => {
-    if (user) {
-      if (location.state) {
-        navigate(`${location.state.preURL}`);
-      } else {
-        navigate('/');
-      }
+    if (prelocation.state) {
+      navigate(`${prelocation.state.preURL}`);
+    } else {
+      navigate('/');
     }
   };
 
   const signIn = async (event) => {
     event.preventDefault();
     try {
+      await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
 
-      const newUser = {
-        email: auth.currentUser.email,
-        uid: auth.currentUser.uid,
-        displayname: auth.currentUser.displayName,
-        photoURL: auth.currentUser.photoURL
-      };
-
-      dispatch(setUser(newUser));
       handleLocation();
     } catch (error) {
       switch (error.code) {
@@ -67,13 +58,6 @@ function LoginPage() {
           break;
       }
     }
-  };
-  const logOut = async (event) => {
-    event.preventDefault();
-    alert('로그아웃 되었습니다.');
-
-    await signOut(auth);
-    dispatch(deleteUser());
   };
 
   return (
@@ -90,7 +74,6 @@ function LoginPage() {
         </div>
 
         <button onClick={signIn}>로그인</button>
-        <button onClick={logOut}>로그아웃</button>
       </form>
       <button
         onClick={() => {

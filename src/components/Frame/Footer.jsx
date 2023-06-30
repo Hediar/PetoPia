@@ -26,7 +26,7 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default React.memo(Footer);
 
 const InnerFooter = styled.div`
   width: 900px;

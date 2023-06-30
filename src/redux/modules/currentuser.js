@@ -1,3 +1,5 @@
+import { auth, loginCheck } from '../../firebase';
+
 // action value
 const SETUSER = 'SET_USER';
 const DELETEUSER = 'DELETE_USER';
@@ -24,7 +26,15 @@ export const deleteUser = (payload) => {
 const currentuser = (state = initialState, action) => {
   switch (action.type) {
     case SETUSER:
-      return action.payload;
+      const userState = JSON.parse(loginCheck());
+      // const userState = auth.currentUser;
+      const newUser = {
+        email: userState.email,
+        uid: userState.uid,
+        displayname: userState.displayName,
+        photoURL: userState.photoURL
+      };
+      return newUser;
 
     case DELETEUSER:
       return {};

@@ -14,8 +14,8 @@ const DetailFeedPage = () => {
   const [title, setTitle] = useState('');
   const animal   = useParams();
 
-  const user = useSelector((user) => user.currentuser);
-   console.log(animal);
+  // const user = useSelector((user) => user.currentuser);
+  const user = auth.currentUser;
 
   const navigate = useNavigate();
   const { uid } = useParams();

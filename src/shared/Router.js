@@ -5,6 +5,7 @@ import SignupPage from '../pages/SignupPage';
 import Posting from '../pages/Posting';
 import DetailPage from '../pages/DetailPage';
 import DetailFeedPage from '../pages/DetailFeedPage';
+import MyPage from '../pages/MyPage';
 
 const Router = () => {
   return (
@@ -14,9 +15,10 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/posting" element={<Posting />} />
-        <Route path="/detailpage" element={<DetailPage />} />
-        <Route path="/detailpage/:animal" element={<DetailPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="detailpage/:animal" element={<DetailPage />} />
         <Route path="detailFeedpage/:uid" element={<DetailFeedPage />} />
+
       </Routes>
     </BrowserRouter>
   );
