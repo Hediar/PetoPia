@@ -4,12 +4,12 @@ import './reset.css';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/config/configStore';
-import Router from './shared/Router';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <Router />
+    <App />
   </Provider>
 );
 

@@ -4,12 +4,13 @@ import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
 import { MainWrapper } from '../stylecomponents/Wrapper';
 import BottomCardTab from '../components/BottomCardTab';
-import CardList from '../components/CardList';
+// import CardList from '../components/CardList';
 import { auth } from '../firebase';
-
-// import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import CardList from '../components/CardList';
 
 function Main() {
+  const fids = useSelector((fids) => fids.fids);
   useEffect(() => {
     console.log('유저정보:', auth.currentUser);
   }, []);
@@ -30,14 +31,7 @@ function Main() {
             <BCTitle>사랑스런 친구들의 이야기</BCTitle>
           </div>
           <Cardsarea>
-            {/* <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card /> */}
-            <CardList  />
+            <CardList fids={fids} />
           </Cardsarea>
           <BottomCardTab />
         </MainBox>

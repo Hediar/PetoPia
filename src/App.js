@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import './reset.css';
 import Router from './shared/Router';
-import { onAuthStateChanged } from '@firebase/auth';
-import { auth } from './firebase';
+import { fetchData } from './firebase';
+import { useDispatch } from 'react-redux';
+import { firstfetFids } from './redux/modules/fids';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getFidsdata = async () => {
+      const fidsData = await fetchData();
+      dispatch(firstfetFids(fidsData));
+    };
+    getFidsdata();
+  }, []);
   return <Router />;
 }
 
 export default App;
-
-// const MainWrapper = styled.div`
-//   width: 1400px;
-//   margin: 0 auto;
-// `;

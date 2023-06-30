@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Firestore, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import CardList from '../components/CardList';
+// import CardList from '../components/CardList';
 import Footer from '../components/Frame/Footer';
 import Headernav from '../components/Frame/Headernav';
 
@@ -109,7 +109,7 @@ const DetailFeedPage = () => {
           )}
         </ContentWrapper>
         <PageTitle>유저 글 영역</PageTitle>
-        <CardList />
+        {/* <CardList /> */}
       </Wrapper>
       <Footer />
     </>
