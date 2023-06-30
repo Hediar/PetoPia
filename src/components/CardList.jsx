@@ -1,27 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const CardList = ({ fids }) => {
   const navigate = useNavigate();
-  const [cardData, setCardData] = useState([]);
-
-  useEffect(() => {
-    // async function getMultipleData() {
-    //   const q = query(collection(db, 'fids'));
-    //   const querySnapshot = await getDocs(q);
-    //   const data = querySnapshot.docs.map((doc) => ({
-    //     id: doc.id,
-    //     ...doc.data()
-    //   }));
-    //   setCardData(data);
-    // }
-    // getMultipleData();
-  }, []);
 
   return (
     <>
-      {cardData.map((card) => (
+      {fids.map((card) => (
         <FidCardBox
           key={card.id}
           onClick={() => {
@@ -29,7 +14,7 @@ const CardList = ({ fids }) => {
           }}
         >
           <Fidmainbox>
-            <img src={card.imageUrl} alt="fids-img"></img>
+            <img src={card.imgURL} alt="fids-img"></img>
             <div>
               <h4 style={{ display: 'block', fontWeight: 'bold', margin: '10px 0 10px 0' }}>{card.title}</h4>
               <Fidcontext>
