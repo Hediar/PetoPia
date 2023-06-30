@@ -56,7 +56,6 @@ function Posting() {
     setNewAbout('');
     setNewTitle('');
     setNewContent('');
-
     setnewImgURL('');
   };
 

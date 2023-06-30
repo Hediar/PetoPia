@@ -32,7 +32,7 @@ function FileUpload({ onImageUpload }) {
 
   return (
     <Body>
-      <FileUploader type="file" onChange={handleFileSelect} />
+      <FileUploader type="file" onChange={handleFileSelect} accept="image/*" />
       <RegisterBtn onClick={handleUpload}>등록하기</RegisterBtn>
     </Body>
   );
