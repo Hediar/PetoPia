@@ -5,17 +5,20 @@ import AnimalsInform from './AnimalsInform';
 import { Firestore, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { useSelector } from 'react-redux';
+import CardList from '../components/CardList';
+import shortid from 'shortid';
 
 const DetailFeedPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [contents, setContents] = useState('');
   const [title, setTitle] = useState('');
+  const animal   = useParams();
 
   const user = useSelector((user) => user.currentuser);
-  // console.log(user);
+   console.log(animal);
 
   const navigate = useNavigate();
-  const { animal } = useParams();
+  const { uid } = useParams();
   const [cardData, setCardData] = useState([]);
 
   const onSubmitHandler = (event) => {
@@ -23,18 +26,17 @@ const DetailFeedPage = () => {
   };
   async function deleteHandler() {
     try {
-      await deleteDoc(doc(db, 'test2', animal));
+      await deleteDoc(doc(db, 'fids', uid));
       navigate('/');
       alert('삭제완료');
     } catch {
       alert('삭제실패');
     }
   }
-
   const updateHandler = async () => {
     try {
-      const citiesRef = collection(db, 'test2');
-      const docRef = doc(citiesRef, animal);
+      const docRef = collection(db, 'fids');
+
       await updateDoc(docRef, { title, contents });
       setTitle('');
       setContents('');
@@ -48,7 +50,8 @@ const DetailFeedPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const docRef = doc(db, 'test2', animal);
+        const docRef = doc(db, 'fids', uid);
+
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setCardData([docSnap.data()]);
@@ -66,12 +69,12 @@ const DetailFeedPage = () => {
     };
 
     getData();
-  }, [animal, user]);
+  }, [uid, user]);
 
   return (
     <Wrapper>
+      <PageTitle>글 세부 피드 영역</PageTitle>
       <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-
       <ContentWrapper>
         {isEditing && (
           <Form onSubmit={onSubmitHandler}>
@@ -100,14 +103,13 @@ const DetailFeedPage = () => {
                 <Button onClick={updateHandler}>수정</Button>
                 <Button onClick={deleteHandler}>삭제</Button>
                 <br />
-     
               </div>
             ))}
           </Form>
         )}
       </ContentWrapper>
-      <PageTitle>Detail PAGE</PageTitle>
-      <AnimalsInform animal={animal} />
+      <PageTitle>유저 글 영역</PageTitle>
+      <CardList />
     </Wrapper>
   );
 };

@@ -1,54 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query } from 'firebase/firestore';
 import styled from 'styled-components';
 import CardList from '../components/CardList';
+import { db } from '../firebase';
 
 const AnimalsInform = ({ animal }) => {
-  const initialAnimals = [];
-  const [dog, setDog] = useState([{}]);
-  const [cat, setCat] = useState([{}]);
-  
+  const [cardData, setCardData] = useState(null);
+  const [targetData, setTargetData] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, 'animals'));
       const querySnapshot = await getDocs(q);
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
 
-      querySnapshot.forEach((doc) => {
-        initialAnimals.push({ id: doc.id, ...doc.data() });
-      });
-
-      setCat(initialAnimals[0]);
-      setDog(initialAnimals[1]);
+      setCardData(data);
     };
 
     fetchData();
-  }, [animal]);
+  }, []);
+  console.log(cardData);
+  useEffect(() => {
+    if (cardData) {
+      const animalData = cardData.find((data) => data.id === animal);
+
+      if (animalData) {
+        setTargetData(animalData);
+        console.log(animalData.tips);
+      }
+    }
+  }, [cardData, animal]);
 
   let about = '';
   let imageUrl = '';
 
-  switch (animal) {
-    case '강아지':
-      about = dog.about;
-      imageUrl = dog.imageUrl;
-      break;
-    case '고양이':
-      about = cat.about;
-      imageUrl = cat.imageUrl;
-      break;
-    default:
-      console.log('알 수 없는 동물입니다.');
+  let tip1 = '';
+  let tip2 = '';
+  if (targetData) {
+    about = targetData.about;
+    imageUrl = targetData.imageUrl;
+    tip1 = targetData.tips[0];
+    tip2 = targetData.tips[1];
   }
 
   return (
+    
     <Container>
+      
+      <PageTitle>대충 설명하는 영역</PageTitle>
       <Title>About: {about}</Title>
       <Image id="imgId" src={imageUrl} alt="Image" />
+      <Title>- {tip1}</Title>
+      <Title>- {tip2}</Title>
+
       <div>
-        <CardList />
+
+
+
+
+        
       </div>
     </Container>
+    
   );
 };
 
@@ -71,4 +87,8 @@ const Image = styled.img`
   height: auto;
   border: 1px solid #ccc;
   border-radius: 5px;
+`;
+
+const PageTitle = styled.h2`
+  font-size: 24px;
 `;

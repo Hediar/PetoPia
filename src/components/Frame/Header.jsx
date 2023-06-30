@@ -9,7 +9,7 @@ function Header() {
   // 햄버거 버튼 제어변수
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   // 펫 종류 []
-  const pets = ['강아지', '고양이', '물고기', '조류', '파충류', '양서류', '기타'];
+  const pets = ['dog', 'cat', 'fish', 'bird', 'amphibia', 'reptile', 'etc'];
 
   const handleButtonClick = () => {
     setIsButtonVisible(!isButtonVisible);
