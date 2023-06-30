@@ -8,14 +8,13 @@ import CardList from '../components/CardList';
 import Headernav from '../components/Frame/Headernav';
 import Footer from '../components/Frame/Footer';
 import { useSelector } from 'react-redux';
+import { MainBox } from '../stylecomponents/Wrapper';
 
 const DetailPage = () => {
   const navigate = useNavigate();
 
   const [cardData, setCardData] = useState([]);
   const { animal } = useParams();
-
-  console.log(animal);
 
   const fids = useSelector((fids) =>
     fids.fids.filter((fid) => {
@@ -29,51 +28,53 @@ const DetailPage = () => {
     event.preventDefault();
   };
   useEffect(() => {
-    async function getData() {
-      try {
-        const docRef = doc(db, 'fids', animal);
-        const docSnap = await getDoc(docRef);
+    // async function getData() {
+    //   try {
+    //     const docRef = doc(db, 'fids', animal);
+    //     const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          setCardData([docSnap.data()]);
-          console.log('Document data:', docSnap.data());
-        } else {
-          console.log('No such document!');
-        }
-      } catch (error) {
-        console.error('Error getting document:', error);
-      }
-    }
+    //     if (docSnap.exists()) {
+    //       setCardData([docSnap.data()]);
+    //       console.log('Document data:', docSnap.data());
+    //     } else {
+    //       console.log('No such document!');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error getting document:', error);
+    //   }
+    // }
 
-    getData();
+    // getData();
     setAnimalfids(fids);
   }, [animal]);
 
   return (
     <>
       <Headernav />
-      <Wrapper>
-        <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-        <ContentWrapper>
-          <Form onSubmit={onSubmitHandler}>
-            {cardData.map((card) => (
-              <div key={card.id}>
-                <p>작성자: {card.createdBy}</p>
-                <p>제목: {card.title}</p>
-                <p>내용: {card.contents}</p>
-                <Image src={card.imageUrl} alt="이미지" />
-                <br />
-              </div>
-            ))}
-          </Form>
-        </ContentWrapper>
+      <MainBox>
+        <Wrapper>
+          <Button onClick={() => navigate('/')}>Home으로 가기</Button>
+          <ContentWrapper>
+            <Form onSubmit={onSubmitHandler}>
+              {cardData.map((card) => (
+                <div key={card.id}>
+                  <p>작성자: {card.createdBy}</p>
+                  <p>제목: {card.title}</p>
+                  <p>내용: {card.contents}</p>
+                  <Image src={card.imageUrl} alt="이미지" />
+                  <br />
+                </div>
+              ))}
+            </Form>
+          </ContentWrapper>
 
-        <AnimalsInform animal={animal} />
-        <PageTitle>
-          <h2>유저 글 영역</h2>
-          <CardList fids={animalfids} />
-        </PageTitle>
-      </Wrapper>
+          <AnimalsInform animal={animal} />
+          <PageTitle>
+            <h2>유저 글 영역</h2>
+            <CardList fids={animalfids} />
+          </PageTitle>
+        </Wrapper>
+      </MainBox>
       <Footer />
     </>
   );

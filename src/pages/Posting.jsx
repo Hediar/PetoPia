@@ -59,6 +59,7 @@ function Posting() {
     setnewImgURL('');
   };
 
+  // db에 들어가는지 확인
   const showUsers = users.map((value) => (
     <Tabs key={value.id}>
       <h1>{value.title}</h1>
@@ -99,7 +100,7 @@ function Posting() {
       <Header />
       <Body>
         <Tit>회원님의 소중한 이야기를 적어주세요.</Tit>
-        <Board>{showUsers}</Board>
+        {/* <Board>{showUsers}</Board> */}
         <InputForm onSubmit={createUsers}>
           <InputBody>
             <TagI>

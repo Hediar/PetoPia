@@ -22,14 +22,14 @@ const AnimalsInform = ({ animal }) => {
 
     fetchData();
   }, []);
-  console.log(cardData);
+  // console.log(cardData);
   useEffect(() => {
     if (cardData) {
       const animalData = cardData.find((data) => data.id === animal);
 
       if (animalData) {
         setTargetData(animalData);
-        console.log(animalData.tips);
+        // console.log(animalData.tips);
       }
     }
   }, [cardData, animal]);
@@ -47,24 +47,15 @@ const AnimalsInform = ({ animal }) => {
   }
 
   return (
-    
     <Container>
-      
-      <PageTitle>대충 설명하는 영역</PageTitle>
+      <PageTitle>설명</PageTitle>
       <Title>About: {about}</Title>
       <Image id="imgId" src={imageUrl} alt="Image" />
       <Title>- {tip1}</Title>
       <Title>- {tip2}</Title>
 
-      <div>
-
-
-
-
-        
-      </div>
+      <div></div>
     </Container>
-    
   );
 };
 
@@ -91,4 +82,5 @@ const Image = styled.img`
 
 const PageTitle = styled.h2`
   font-size: 24px;
+  font-weight: bold;
 `;
