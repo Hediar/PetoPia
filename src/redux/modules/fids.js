@@ -1,8 +1,7 @@
 // action value
 const FIRST_SET_FIDS = 'FIRSTSET_FIDS';
+const ADD_FIDS = 'ADD_FIDS';
 const DELETE_FIDS = 'DELETE_FIDS';
-const FILTER_SHOW_FIDS = 'FILTER_SHOW_FIDS';
-const MYPAGE_SHOW_FIDS = 'MYPAGE_SHOW_FIDS';
 
 // 인기글, 최신글
 
@@ -30,9 +29,8 @@ const fids = (state = initialState, action) => {
     case FIRST_SET_FIDS:
       console.log('action', action.payload);
       return action.payload;
-
-    case FILTER_SHOW_FIDS:
-      return state.filter((fid) => fid.about === action.payload.about);
+    case ADD_FIDS:
+      return state;
 
     case DELETE_FIDS:
       return {};
