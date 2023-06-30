@@ -82,13 +82,13 @@ function Posting() {
 
   // 카테고리 옵션 값 정의
   const categoryOptions = [
-    '강아지',
-    '고양이',
-    '물고기',
-    '조류',
-    '파충류',
-    '양서류',
-    '기타',
+    'dog',
+    'cat',
+    'fish',
+    'bird',
+    'amphibia',
+    'reptile',
+    'etc',
 
     ''
     // ... 추가적인 카테고리 옵션들
