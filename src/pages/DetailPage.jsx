@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -14,7 +14,6 @@ const DetailPage = () => {
     event.preventDefault();
   };
 
-  
   useEffect(() => {
     async function getData() {
       try {
@@ -58,7 +57,6 @@ const DetailPage = () => {
 };
 
 export default DetailPage;
-
 
 const Button = styled.button`
   display: inline-block;

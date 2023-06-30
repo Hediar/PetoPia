@@ -78,8 +78,9 @@ function MyPage() {
   };
 
   useEffect(() => {
+    dispatch(setUser());
     if (!loginCheck()) {
-      alert('로그인 해주세요');
+      // alert('로그인 해주세요');
       navigate('/');
     } else {
       console.log('change user', user);
@@ -108,7 +109,11 @@ function MyPage() {
           <Modal>
             <h2>프로필 사진</h2>
             <Myprofileimg src={photo} alt="avatar" />
-            <Findimgfile type="file" onChange={handleFileSelect} />
+            <FindimgfileWrap>
+              <label></label>
+              <Findimgfile type="file" onChange={handleFileSelect} accept="image/*" />
+            </FindimgfileWrap>
+
             <h2>닉네임</h2>
             <Input
               value={nikname}
@@ -165,7 +170,46 @@ const ModalClosebtn = styled(commonButton)``;
 
 const SaveMypagebtn = styled(commonButton)``;
 
-const Findimgfile = styled.input``;
+// 파일 선택 style
+const FindimgfileWrap = styled.div`
+  margin: 0 8px 0 8px;
+  img {
+    max-width: 325px;
+  }
+  label {
+    display: inline-block;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  /* input[type='file'] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  } */
+`;
+const Findimgfile = styled.input`
+  background-color: #eb9307;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 14px;
+  border: none;
+  padding: 10px;
+  margin: 3px;
+  height: 40px;
+  &:hover {
+    cursor: pointer;
+    background-color: #ff8f05;
+    color: black;
+  }
+`;
 
 const Input = styled.input`
   border: 1px solid rgb(51, 51, 51);

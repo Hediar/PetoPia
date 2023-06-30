@@ -17,7 +17,16 @@ export const Modal = styled.div`
   box-sizing: border-box;
   padding: 24px;
   background-color: rgb(255, 255, 255);
-  width: 500px;
-  height: 300px;
+  width: 600px;
+  height: 400px;
   position: absolute;
+  h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+  }
 `;
