@@ -41,7 +41,7 @@ const fids = (state = initialState, action) => {
 
     case DELETE_FIDS:
       return state.filter((fid) => {
-        return fid.id !== action.payload.id;
+        return fid.id !== action.payload;
       });
 
     default:

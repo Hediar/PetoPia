@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 const CardList = ({ fids }) => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const CardList = ({ fids }) => {
   );
 };
 
-export default CardList;
+export default React.memo(CardList);
 
 const FidCardBox = styled.div`
   background-color: white;

@@ -12,6 +12,7 @@ const DetailFeedPage = () => {
   const [curuser, setCuruser] = useState('');
   const [fid, setFid] = useState('');
   const [checkUser, setcheckUser] = useState(false);
+  const user = auth.currentUser;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +36,6 @@ const DetailFeedPage = () => {
 
   // 회원인지 아닌지에 따른 변화
   useEffect(() => {
-    const user = auth.currentUser;
     setFid(selectedFid);
     setCuruser(user.email);
     console.log('게시글 상세', selectedFid);

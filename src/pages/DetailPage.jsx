@@ -28,25 +28,8 @@ const DetailPage = () => {
     event.preventDefault();
   };
   useEffect(() => {
-    // async function getData() {
-    //   try {
-    //     const docRef = doc(db, 'fids', animal);
-    //     const docSnap = await getDoc(docRef);
-
-    //     if (docSnap.exists()) {
-    //       setCardData([docSnap.data()]);
-    //       console.log('Document data:', docSnap.data());
-    //     } else {
-    //       console.log('No such document!');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error getting document:', error);
-    //   }
-    // }
-
-    // getData();
     setAnimalfids(fids);
-  }, [animal]);
+  }, [animal, fids]);
 
   return (
     <>
