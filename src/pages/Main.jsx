@@ -4,7 +4,7 @@ import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
 import { MainWrapper } from '../stylecomponents/Wrapper';
 import BottomCardTab from '../components/BottomCardTab';
-import CardList from '../components/CardList';
+// import CardList from '../components/CardList';
 import { auth } from '../firebase';
 
 // import { Link } from 'react-router-dom';
@@ -37,7 +37,7 @@ function Main() {
             <Card />
             <Card />
             <Card /> */}
-            <CardList  />
+            {/* <CardList  /> */}
           </Cardsarea>
           <BottomCardTab />
         </MainBox>

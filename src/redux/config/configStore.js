@@ -2,10 +2,12 @@
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
 import currentuser from '../modules/currentuser';
+import fids from '../modules/fids';
 
 const rootReducer = combineReducers({
   // modules key: value
-  currentuser
+  currentuser,
+  fids
 });
 
 // 리듀서를 가져와야 함

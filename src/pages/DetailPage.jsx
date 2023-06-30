@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import CardList from '../components/CardList';
+// import CardList from '../components/CardList';
 import Headernav from '../components/Frame/Headernav';
 import Footer from '../components/Frame/Footer';
 
@@ -60,7 +60,7 @@ const DetailPage = () => {
 
         <AnimalsInform animal={animal} />
         <PageTitle>유저 글 영역</PageTitle>
-        <CardList />
+        {/* <CardList /> */}
       </Wrapper>
       <Footer />
     </>

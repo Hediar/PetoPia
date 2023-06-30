@@ -18,7 +18,6 @@ const Router = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="detailpage/:animal" element={<DetailPage />} />
         <Route path="detailFeedpage/:uid" element={<DetailFeedPage />} />
-
       </Routes>
     </BrowserRouter>
   );
