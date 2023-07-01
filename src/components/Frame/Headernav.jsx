@@ -113,6 +113,7 @@ const ImgHeader = styled.div`
   width: 400px;
   margin-left: 60px;
   text-align: left;
+  z-index: 999;
 `;
 
 const Hamburger = styled.div`

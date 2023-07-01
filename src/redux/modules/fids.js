@@ -16,6 +16,13 @@ export const firstsetFids = (payload) => {
   };
 };
 
+export const addFids = (payload) => {
+  return {
+    type: ADD_FIDS,
+    payload
+  };
+};
+
 export const deleteFids = (payload) => {
   return {
     type: DELETE_FIDS,
@@ -30,10 +37,13 @@ const fids = (state = initialState, action) => {
       console.log('action', action.payload);
       return action.payload;
     case ADD_FIDS:
-      return state;
+      return [...state, action.payload];
 
     case DELETE_FIDS:
-      return {};
+      return state.filter((fid) => {
+        return fid.id !== action.payload;
+      });
+
     default:
       return state;
   }

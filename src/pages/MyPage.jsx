@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
-import { MainWrapper } from '../stylecomponents/Wrapper';
+import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
 import Headernav from '../components/Frame/Headernav';
 import Header from '../components/Frame/Header';
 import { styled } from 'styled-components';
@@ -10,8 +10,7 @@ import { auth, loginCheck, storage } from '../firebase';
 import { useNavigate } from 'react-router';
 import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
 import { onAuthStateChanged, updateProfile } from '@firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { mypageShowFids } from '../redux/modules/fids';
+import { useSelector } from 'react-redux';
 import CardList from '../components/CardList';
 
 function MyPage() {
@@ -121,6 +120,7 @@ function MyPage() {
           </Section>
         </SectionDiv>
       </MainWrapper>
+
       <Footer />
       {modalState && (
         <div>

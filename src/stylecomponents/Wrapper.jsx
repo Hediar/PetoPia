@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const MainWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
   margin: 40px 0;
   h1 {
@@ -35,5 +35,11 @@ export const Footerarea = styled.div`
 export const Headerarea = styled.div`
   background-color: #ffe066;
   margin: 0 auto;
-  padding: 10px;
+  /* padding: 10px; */
+`;
+
+export const MainBox = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px;
 `;

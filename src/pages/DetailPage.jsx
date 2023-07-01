@@ -9,13 +9,13 @@ import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 import { useSelector } from 'react-redux';
 import { commonButton } from '../stylecomponents/Button';
+import { MainBox } from '../stylecomponents/Wrapper';
+
 const DetailPage = () => {
   const navigate = useNavigate();
 
   const [cardData, setCardData] = useState([]);
   const { animal } = useParams();
-
-  console.log(animal);
 
   const fids = useSelector((fids) =>
     fids.fids.filter((fid) => {
@@ -29,25 +29,8 @@ const DetailPage = () => {
     event.preventDefault();
   };
   useEffect(() => {
-    async function getData() {
-      try {
-        const docRef = doc(db, 'fids', animal);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setCardData([docSnap.data()]);
-          console.log('Document data:', docSnap.data());
-        } else {
-          console.log('No such document!');
-        }
-      } catch (error) {
-        console.error('Error getting document:', error);
-      }
-    }
-
-    getData();
     setAnimalfids(fids);
-  }, [animal]);
+  }, [animal, fids]);
 
   return (
     <>

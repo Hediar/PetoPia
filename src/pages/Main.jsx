@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
-import { MainWrapper } from '../stylecomponents/Wrapper';
+import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
 import BottomCardTab from '../components/BottomCardTab';
 // import CardList from '../components/CardList';
 import { auth } from '../firebase';
@@ -15,13 +15,14 @@ function Main() {
   useEffect(() => {
     // dispatch(firstsetFids);
     console.log('유저정보:', auth.currentUser);
-  }, []);
+    console.log('전체 피드', fids);
+  }, [fids]);
 
   return (
     <>
       <Header />
       <MainWrapper>
-        <MainBox>
+        <CoreBox>
           <MypageWrap>
             <BtnBest>인기글</BtnBest>
             <BtnBest>최신글</BtnBest>
@@ -33,21 +34,21 @@ function Main() {
             </Section>
           </SectionDiv>
           <BottomCardTab />
-        </MainBox>
-
-        <Footer />
+        </CoreBox>
       </MainWrapper>
+      <Footer />
     </>
   );
 }
 
 export default Main;
 
-const MainBox = styled.div`
+const CoreBox = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 30px;
 `;
+
 const MypageWrap = styled.div`
   width: 72%;
   display: flex;

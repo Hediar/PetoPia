@@ -22,14 +22,14 @@ const AnimalsInform = ({ animal }) => {
 
     fetchData();
   }, []);
-  console.log(cardData);
+  // console.log(cardData);
   useEffect(() => {
     if (cardData) {
       const animalData = cardData.find((data) => data.id === animal);
 
       if (animalData) {
         setTargetData(animalData);
-        console.log(animalData.tips);
+        // console.log(animalData.tips);
       }
     }
   }, [cardData, animal]);

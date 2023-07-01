@@ -53,7 +53,7 @@ const CardList = ({ fids }) => {
   );
 };
 
-export default CardList;
+export default React.memo(CardList);
 
 const FidCardBox = styled.div`
   background-color: white;
