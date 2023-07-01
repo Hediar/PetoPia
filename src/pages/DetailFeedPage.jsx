@@ -6,17 +6,14 @@ import Footer from '../components/Frame/Footer';
 import Headernav from '../components/Frame/Headernav';
 import { useDispatch, useSelector } from 'react-redux';
 import { MainWrapper } from '../stylecomponents/Wrapper';
-import { deleteFids } from '../redux/modules/fids';
+import { deleteFids, updateFids } from '../redux/modules/fids';
 import { commonButton } from '../stylecomponents/Button';
 
 const DetailFeedPage = () => {
   const [curuser, setCuruser] = useState('');
-  const [fid, setFid] = useState('');
+  const [fid, setFid] = useState({});
   const [checkUser, setcheckUser] = useState(false);
   const [updateState, setupdateState] = useState(false);
-
-  const [newupdateTitle, setNewUpdateTitle] = useState('');
-  const [newupdateContent, setNewUpdateContent] = useState('');
 
   const user = auth.currentUser;
 
@@ -31,7 +28,25 @@ const DetailFeedPage = () => {
     })
   )[0];
 
-  const updateFid = () => {};
+  // 수정 및 삭제
+  const [newupdateTitle, setNewUpdateTitle] = useState('');
+  const [newupdateContent, setNewUpdateContent] = useState('');
+
+  const showUpdateFid = () => {
+    setupdateState(!updateState);
+  };
+
+  const updateFid = () => {
+    const newUpdateFid = {
+      ...selectedFid,
+      title: newupdateTitle,
+      contents: newupdateContent
+    };
+    console.log('업데이트 할 내용', newUpdateFid);
+    dispatch(updateFids(newUpdateFid));
+    setFid(newUpdateFid); // 업데이트 한 내용 다시 set
+    showUpdateFid();
+  };
 
   const deleteFid = () => {
     navigate('/');
@@ -44,8 +59,11 @@ const DetailFeedPage = () => {
     setFid(selectedFid);
     setCuruser(user.email);
     console.log('게시글 상세', selectedFid);
-    if (user.email === fid.createUser) {
+    if (curuser === fid.createUser) {
       setcheckUser(true);
+      // 수정을 위한 세팅
+      setNewUpdateTitle(`${fid.title}`);
+      setNewUpdateContent(`${fid.contents}`);
     }
   }, [fid]);
 
@@ -63,7 +81,7 @@ const DetailFeedPage = () => {
             </div>
             {checkUser && (
               <div>
-                <Button onClick={updateFid}>수정</Button>
+                <Button onClick={showUpdateFid}>수정</Button>
                 <Button onClick={deleteFid}>삭제</Button>
               </div>
             )}
@@ -73,11 +91,11 @@ const DetailFeedPage = () => {
             </div>
           </>
         )}
-        {!updateState && (
+        {updateState && (
           <>
-            <UpdateTextInput />
-            <UpdateContentTextArea />
-            <Button>수정완료</Button>
+            <UpdateTextInput value={newupdateTitle} onChange={(e) => setNewUpdateTitle(e.target.value)} />
+            <UpdateContentTextArea value={newupdateContent} onChange={(e) => setNewUpdateContent(e.target.value)} />
+            <Button onClick={updateFid}>수정완료</Button>
           </>
         )}
       </MainWrapper>

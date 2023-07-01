@@ -2,6 +2,7 @@
 const FIRST_SET_FIDS = 'FIRSTSET_FIDS';
 const ADD_FIDS = 'ADD_FIDS';
 const DELETE_FIDS = 'DELETE_FIDS';
+const UPDATE_FIDS = 'UPDATE_FIDS';
 
 // 인기글, 최신글
 
@@ -22,6 +23,12 @@ export const addFids = (payload) => {
     payload
   };
 };
+export const updateFids = (payload) => {
+  return {
+    type: UPDATE_FIDS,
+    payload
+  };
+};
 
 export const deleteFids = (payload) => {
   return {
@@ -34,10 +41,20 @@ export const deleteFids = (payload) => {
 const fids = (state = initialState, action) => {
   switch (action.type) {
     case FIRST_SET_FIDS:
-      console.log('action', action.payload);
       return action.payload;
+
     case ADD_FIDS:
       return [...state, action.payload];
+
+    case UPDATE_FIDS:
+      console.log('update', action.payload);
+      return state.map((fid) => {
+        if (fid.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return fid;
+        }
+      });
 
     case DELETE_FIDS:
       return state.filter((fid) => {
