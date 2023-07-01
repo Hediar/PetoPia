@@ -5,7 +5,8 @@ import { Firestore, collection, deleteDoc, doc, getDoc, updateDoc } from 'fireba
 import { auth, db } from '../firebase';
 // import CardList from '../components/CardList';
 import Footer from '../components/Frame/Footer';
-import Headernav from '../components/Frame/Headernav';
+import Header from '../components/Frame/Header';
+import { commonButton } from '../stylecomponents/Button';
 
 const DetailFeedPage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -71,9 +72,8 @@ const DetailFeedPage = () => {
 
   return (
     <>
-      <Headernav />
+      <Header />
       <Wrapper>
-        <PageTitle>글 세부 피드 영역</PageTitle>
         <Button onClick={() => navigate('/')}>Home으로 가기</Button>
         <ContentWrapper>
           {isEditing && (
@@ -118,27 +118,71 @@ const DetailFeedPage = () => {
 
 export default DetailFeedPage;
 
-const Button = styled.button`
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+// const Button = styled.button`
+//   display: inline-block;
+//   padding: 10px 20px;
+//   background-color: #4caf50;
+//   color: white;
+//   text-align: center;
+//   text-decoration: none;
+//   font-size: 16px;
+//   border: none;
+//   border-radius: 4px;
+//   transition: background-color 0.3s ease;
 
-  &:hover {
-    background-color: #45a049;
-  }
+//   &:hover {
+//     background-color: #45a049;
+//   }
+// `;
+
+// const Wrapper = styled.div`
+//   background-color: white;
+//   border: 3px solid rgb(221, 221, 221);
+//   margin: 1rem;
+// `;
+
+// const Form = styled.form`
+//   margin-bottom: 1rem;
+// `;
+
+// const ContentWrapper = styled.div`
+//   margin-bottom: 1rem;
+// `;
+
+// const Image = styled.img`
+//   width: 50%;
+//   height: auto;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+// `;
+
+// const Input = styled.input`
+//   width: 50;
+//   padding: 0.5rem;
+//   border: 1px solid #ccc;
+//   border-radius: 4px;
+// `;
+
+// const PageTitle = styled.h3`
+//   margin-top: 2rem;
+//   font-size: 24px;
+// `;
+
+const Button = styled(commonButton)`
+  float: right;
+  margin: 20px 20px 0 0;
 `;
 
 const Wrapper = styled.div`
+  width: 50%;
+  mix-height: 800px;
+  height: 500px;
   background-color: white;
   border: 3px solid rgb(221, 221, 221);
-  margin: 1rem;
+  border-radius: 18px;
+  margin: 0 auto;
+  margin-top: 6.5rem;
+  margin-bottom: 6.5rem;
 `;
 
 const Form = styled.form`
@@ -163,7 +207,21 @@ const Input = styled.input`
   border-radius: 4px;
 `;
 
-const PageTitle = styled.h3`
-  margin-top: 2rem;
-  font-size: 24px;
+// const SubTitle = styled.p`
+//   margin: 0 auto;
+//   margin-top: 2rem;
+//   width: 10%;
+//   font-size: 24px;
+//   font-weight: bold;
+// `;
+const PageTitle = styled.div`
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: bold;
 `;

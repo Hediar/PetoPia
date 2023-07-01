@@ -5,10 +5,10 @@ import AnimalsInform from './AnimalsInform';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import CardList from '../components/CardList';
-import Headernav from '../components/Frame/Headernav';
+import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 import { useSelector } from 'react-redux';
-
+import { commonButton } from '../stylecomponents/Button';
 const DetailPage = () => {
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ const DetailPage = () => {
 
   return (
     <>
-      <Headernav />
+      <Header />
       <Wrapper>
         <Button onClick={() => navigate('/')}>Home으로 가기</Button>
         <ContentWrapper>
@@ -69,11 +69,11 @@ const DetailPage = () => {
         </ContentWrapper>
 
         <AnimalsInform animal={animal} />
-        <PageTitle>
-          <h2>유저 글 영역</h2>
-          <CardList fids={animalfids} />
-        </PageTitle>
       </Wrapper>
+      <SubTitle>연관 게시글</SubTitle>
+      <PageTitle>
+        <CardList fids={animalfids} />
+      </PageTitle>
       <Footer />
     </>
   );
@@ -81,27 +81,18 @@ const DetailPage = () => {
 
 export default DetailPage;
 
-const Button = styled.button`
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #45a049;
-  }
+const Button = styled(commonButton)`
+  float: right;
+  margin: 20px 20px 0 0;
 `;
 
 const Wrapper = styled.div`
+  width: 50%;
   background-color: white;
   border: 3px solid rgb(221, 221, 221);
-  margin: 1rem;
+  border-radius: 18px;
+  margin: 0 auto;
+  margin-top: 2.5rem;
 `;
 
 const Form = styled.form`
@@ -126,7 +117,21 @@ const Input = styled.input`
   border-radius: 4px;
 `;
 
-const PageTitle = styled.h3`
+const SubTitle = styled.p`
+  margin: 0 auto;
   margin-top: 2rem;
+  width: 10%;
   font-size: 24px;
+  font-weight: bold;
+`;
+const PageTitle = styled.div`
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: bold;
 `;

@@ -28,6 +28,7 @@ function FileUpload({ onImageUpload }) {
       console.log(downloadURL);
       onImageUpload(e, downloadURL); // 이미지 URL 전달
     }
+    alert('게시글이 등록 되었습니다.');
   };
 
   return (

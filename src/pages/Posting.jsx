@@ -61,10 +61,10 @@ function Posting() {
 
   const showUsers = users.map((value) => (
     <Tabs key={value.id}>
-      <h1>{value.title}</h1>
-      <p>{value.contents}</p>
+      <TabsTitle>{value.title}</TabsTitle>
+      <TabsP>{value.contents}</TabsP>
       <div>
-        <img src={value.imgURL} width="100" alt="프로필 이미지" />
+        <ImgTag src={value.imgURL} width="100" alt="프로필 이미지" />
       </div>
       <DeleteButton onClick={() => deleteUserData(value.id)}>삭제</DeleteButton>
     </Tabs>
@@ -99,7 +99,7 @@ function Posting() {
       <Header />
       <Body>
         <Tit>회원님의 소중한 이야기를 적어주세요.</Tit>
-        <Board>{showUsers}</Board>
+        {/* <Board>{showUsers}</Board> */}
         <InputForm onSubmit={createUsers}>
           <InputBody>
             <TagI>
@@ -111,8 +111,6 @@ function Posting() {
                   </option>
                 ))}
               </Select>
-            </TagI>
-            <TagI>
               <TextareaT
                 type="text"
                 placeholder="제목을 입력해주세요."
@@ -150,8 +148,9 @@ const Body = styled.div`
 const Tit = styled.h2`
   display: flex;
   justify-content: center;
-  margin: 100px 0;
-  font-size: 2rem;
+  margin: 90px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const Board = styled.div`
@@ -177,22 +176,22 @@ const InputForm = styled.form`
   justify-content: center;
   margin-top: 10px;
 `;
-const TextareaT = styled.input`
-  width: 360px;
-  height: 30px;
+const Select = styled.select`
+  width: 350px;
+  height: 60px;
   border: 4px solid #eb9307;
   border-radius: 16px;
-  margin-top: 10px;
+  margin: 10px 10px 0 0;
   font-size: 20px;
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-const Select = styled.select`
-  width: 360px;
-  height: 60px;
+const TextareaT = styled.input`
+  width: 350px;
+  height: 30px;
   border: 4px solid #eb9307;
   border-radius: 16px;
-  margin-top: 10px;
+  margin: 10px 0 0 10px;
   font-size: 20px;
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
@@ -217,23 +216,6 @@ const TextareaC = styled.textarea`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-// const RegisterBtn = styled.button`
-//   width: 120px;
-//   height: 56px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: #eb9307;
-//   color: white;
-//   font-weight: 600;
-//   font-size: 0.9rem;
-//   box-shadow: 10px 5px 20px gray;
-//   &:hover {
-//     cursor: pointer;
-//     background-color: #ff8f05;
-//     color: black;
-//   }
-// `;
-
 const Tabs = styled.div`
   width: 230px;
   height: 200px;
@@ -260,4 +242,16 @@ const DeleteButton = styled.button`
     cursor: pointer;
     background-color: darkred;
   }
+`;
+
+const TabsTitle = styled.h1`
+  font-size: 20px;
+  font-weight: bold;
+`;
+const TabsP = styled.h1`
+  font-size: 16px;
+`;
+const ImgTag = styled.img`
+  width: 140px;
+  height: auto;
 `;

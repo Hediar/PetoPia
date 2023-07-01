@@ -42,6 +42,7 @@ const FormTag = styled.div`
   width: 100%;
   margin: 0 auto;
   margin-bottom: 20px;
+  margin-top: -120px;
   padding: 10px;
   display: flex;
   align-items: center;
