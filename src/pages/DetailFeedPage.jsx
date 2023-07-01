@@ -77,6 +77,7 @@ const DetailFeedPage = () => {
           <>
             <UpdateTextInput />
             <UpdateContentTextArea />
+            <Button>수정완료</Button>
           </>
         )}
       </MainWrapper>
