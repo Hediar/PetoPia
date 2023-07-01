@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 export const MainWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
+  margin: 40px 0;
   h1 {
     display: block;
     font-size: 2em;
@@ -17,8 +18,6 @@ export const MainWrapper = styled.div`
     font-size: 1.5em;
     margin-top: 0.83em;
     margin-bottom: 0.83em;
-    margin-left: 0;
-    margin-right: 0;
     font-weight: bold;
   }
 `;
@@ -35,7 +34,6 @@ export const Footerarea = styled.div`
 
 export const Headerarea = styled.div`
   background-color: #ffe066;
-  width: 100%;
   margin: 0 auto;
   /* padding: 10px; */
 `;
