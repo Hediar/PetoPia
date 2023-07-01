@@ -57,14 +57,18 @@ const DetailFeedPage = () => {
   // 회원인지 아닌지에 따른 변화
   useEffect(() => {
     setFid(selectedFid);
-    setCuruser(user.email);
-    console.log('게시글 상세', selectedFid);
-    if (curuser === fid.createUser) {
-      setcheckUser(true);
-      // 수정을 위한 세팅
-      setNewUpdateTitle(`${fid.title}`);
-      setNewUpdateContent(`${fid.contents}`);
+    if (!user) {
+      setCuruser('nothing');
+    } else {
+      if (curuser === fid.createUser) {
+        setcheckUser(true);
+        // 수정을 위한 세팅
+        setNewUpdateTitle(`${fid.title}`);
+        setNewUpdateContent(`${fid.contents}`);
+      }
     }
+
+    console.log('게시글 상세', selectedFid);
   }, [fid]);
 
   return (
