@@ -1,116 +1,104 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Firestore, collection, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
-// import CardList from '../components/CardList';
+import { auth } from '../firebase';
 import Footer from '../components/Frame/Footer';
 import Headernav from '../components/Frame/Headernav';
+import { useDispatch, useSelector } from 'react-redux';
+import { MainWrapper } from '../stylecomponents/Wrapper';
+import { deleteFids, updateFids } from '../redux/modules/fids';
+import { commonButton } from '../stylecomponents/Button';
 
 const DetailFeedPage = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [contents, setContents] = useState('');
-  const [title, setTitle] = useState('');
+  const [curuser, setCuruser] = useState('');
+  const [fid, setFid] = useState({});
+  const [checkUser, setcheckUser] = useState(false);
+  const [updateState, setupdateState] = useState(false);
 
-  // const user = useSelector((user) => user.currentuser);
   const user = auth.currentUser;
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { uid } = useParams();
-  const [cardData, setCardData] = useState([]);
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
+  const selectedFid = useSelector((fids) =>
+    fids.fids.filter((fid) => {
+      return fid.id === uid;
+    })
+  )[0];
+
+  // 수정 및 삭제
+  const [newupdateTitle, setNewUpdateTitle] = useState('');
+  const [newupdateContent, setNewUpdateContent] = useState('');
+
+  const showUpdateFid = () => {
+    setupdateState(!updateState);
   };
-  async function deleteHandler() {
-    try {
-      await deleteDoc(doc(db, 'fids', uid));
-      navigate('/');
-      alert('삭제완료');
-    } catch {
-      alert('삭제실패');
-    }
-  }
-  const updateHandler = async () => {
-    try {
-      const docRef = collection(db, 'fids');
 
-      await updateDoc(docRef, { title, contents });
-      setTitle('');
-      setContents('');
-      alert('수정이 완료되었습니다! ');
-    } catch (error) {
-      console.error('Error updating document:', error);
-    }
+  const updateFid = () => {
+    const newUpdateFid = {
+      ...selectedFid,
+      title: newupdateTitle,
+      contents: newupdateContent
+    };
+    console.log('업데이트 할 내용', newUpdateFid);
+    dispatch(updateFids(newUpdateFid));
+    setFid(newUpdateFid); // 업데이트 한 내용 다시 set
+    showUpdateFid();
+  };
+
+  const deleteFid = () => {
+    navigate('/');
+    alert('삭제되었습니다!');
+    dispatch(deleteFids(uid));
   };
 
   // 회원인지 아닌지에 따른 변화
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const docRef = doc(db, 'fids', uid);
-
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setCardData([docSnap.data()]);
-          if (docSnap.data().createdBy === user.email && Object.keys(user).length !== 0) {
-            setIsEditing(true);
-          } else {
-            setIsEditing(false);
-          }
-        } else {
-          console.log('No such document!');
-        }
-      } catch (error) {
-        console.error('Error getting document:', error);
-      }
-    };
-
-    getData();
-  }, [uid, user]);
+    setFid(selectedFid);
+    setCuruser(user.email);
+    console.log('게시글 상세', selectedFid);
+    if (curuser === fid.createUser) {
+      setcheckUser(true);
+      // 수정을 위한 세팅
+      setNewUpdateTitle(`${fid.title}`);
+      setNewUpdateContent(`${fid.contents}`);
+    }
+  }, [fid]);
 
   return (
     <>
       <Headernav />
-      <Wrapper>
-        <PageTitle>글 세부 피드 영역</PageTitle>
-        <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-        <ContentWrapper>
-          {isEditing && (
-            <Form onSubmit={onSubmitHandler}>
-              {cardData.map((card) => (
-                <div key={card.id}>
-                  <p>작성자: {card.createdBy}</p>
-                  <p>제목: {card.title}</p>
-                  <p>내용: {card.contents}</p>
-                  <Image src={card.imageUrl} alt="이미지" />
-                  <br />
-                  <Input
-                    placeholder="제목"
-                    value={title}
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
-                  />
-                  <Input
-                    placeholder="내용"
-                    value={contents}
-                    onChange={(e) => {
-                      setContents(e.target.value);
-                    }}
-                  ></Input>
-                  <br />
-                  <Button onClick={updateHandler}>수정</Button>
-                  <Button onClick={deleteHandler}>삭제</Button>
-                  <br />
-                </div>
-              ))}
-            </Form>
-          )}
-        </ContentWrapper>
-        <PageTitle>유저 글 영역</PageTitle>
-        {/* <CardList /> */}
-      </Wrapper>
+
+      <MainWrapper>
+        {!updateState && (
+          <>
+            <h1>{`${fid.title}`}</h1>
+            <div>
+              <h2>{`${fid.about}`}</h2>
+              <p>작성자: {`${fid.createdBy}`}</p>
+            </div>
+            {checkUser && (
+              <div>
+                <Button onClick={showUpdateFid}>수정</Button>
+                <Button onClick={deleteFid}>삭제</Button>
+              </div>
+            )}
+            <div>
+              <img src={`${fid.imgURL}`} alt="fid-img"></img>
+              <p>{`${fid.contents}`}</p>
+            </div>
+          </>
+        )}
+        {updateState && (
+          <>
+            <UpdateTextInput value={newupdateTitle} onChange={(e) => setNewUpdateTitle(e.target.value)} />
+            <UpdateContentTextArea value={newupdateContent} onChange={(e) => setNewUpdateContent(e.target.value)} />
+            <Button onClick={updateFid}>수정완료</Button>
+          </>
+        )}
+      </MainWrapper>
       <Footer />
     </>
   );
@@ -118,52 +106,26 @@ const DetailFeedPage = () => {
 
 export default DetailFeedPage;
 
-const Button = styled.button`
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+const Button = styled(commonButton)``;
 
-  &:hover {
-    background-color: #45a049;
-  }
+const UpdateTextInput = styled.input`
+  width: 360px;
+  height: 30px;
+  border: 4px solid #eb9307;
+  border-radius: 16px;
+  margin-top: 10px;
+  font-size: 20px;
+  padding: 10px;
+  box-shadow: 10px 5px 20px gray;
 `;
 
-const Wrapper = styled.div`
-  background-color: white;
-  border: 3px solid rgb(221, 221, 221);
-  margin: 1rem;
-`;
-
-const Form = styled.form`
-  margin-bottom: 1rem;
-`;
-
-const ContentWrapper = styled.div`
-  margin-bottom: 1rem;
-`;
-
-const Image = styled.img`
-  width: 50%;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const Input = styled.input`
-  width: 50;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const PageTitle = styled.h3`
-  margin-top: 2rem;
-  font-size: 24px;
+const UpdateContentTextArea = styled.textarea`
+  width: 730px;
+  height: 200px;
+  border: 4px solid #eb9307;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-size: 20px;
+  padding: 10px;
+  box-shadow: 10px 5px 20px gray;
 `;

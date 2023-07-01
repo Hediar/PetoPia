@@ -17,6 +17,9 @@ function Header() {
       alert('로그인 해주세요!');
     }
   };
+  const searchSubmit = () => {
+    console.log('검색');
+  };
   useEffect(() => {
     cursorRef.current.focus();
   }, []);

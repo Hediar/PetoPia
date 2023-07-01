@@ -3,7 +3,7 @@ import { storage, auth } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 
-function FileUpload({ onImageUpload }) {
+function FileUpload({ onImageUpload, newFidId }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileIndex, setFileIndex] = useState(1);
 
@@ -21,7 +21,7 @@ function FileUpload({ onImageUpload }) {
   const handleUpload = async (e) => {
     if (selectedFile) {
       const filename = `img${fileIndex}`;
-      const imageRef = ref(storage, `fids/${auth.currentUser.id}/${filename}`);
+      const imageRef = ref(storage, `fids/${newFidId}/${filename}`);
       await uploadBytes(imageRef, selectedFile);
 
       const downloadURL = await getDownloadURL(imageRef);

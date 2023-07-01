@@ -1,18 +1,31 @@
 // action value
 const FIRST_SET_FIDS = 'FIRSTSET_FIDS';
+const ADD_FIDS = 'ADD_FIDS';
 const DELETE_FIDS = 'DELETE_FIDS';
-const FILTER_SHOW_FIDS = 'FILTER_SHOW_FIDS';
-const MYPAGE_SHOW_FIDS = 'MYPAGE_SHOW_FIDS';
+const UPDATE_FIDS = 'UPDATE_FIDS';
 
 // 인기글, 최신글
 
 // 초기값
-const initialState = {};
+const initialState = [{}]; //새로고침 오류 방지
 
 // action creator
-export const firstfetFids = (payload) => {
+export const firstsetFids = (payload) => {
   return {
     type: FIRST_SET_FIDS,
+    payload
+  };
+};
+
+export const addFids = (payload) => {
+  return {
+    type: ADD_FIDS,
+    payload
+  };
+};
+export const updateFids = (payload) => {
+  return {
+    type: UPDATE_FIDS,
     payload
   };
 };
@@ -24,36 +37,30 @@ export const deleteFids = (payload) => {
   };
 };
 
-export const filterShowFids = (payload) => {
-  return {
-    type: FILTER_SHOW_FIDS,
-    payload
-  };
-};
-export const mypageShowFids = (payload) => {
-  return {
-    type: MYPAGE_SHOW_FIDS,
-    payload
-  };
-};
-
 // 리듀서
 const fids = (state = initialState, action) => {
   switch (action.type) {
     case FIRST_SET_FIDS:
-      console.log('action', action.payload);
       return action.payload;
 
-    case FILTER_SHOW_FIDS:
-      return state.filter((fid) => fid.about === action.payload.about);
+    case ADD_FIDS:
+      return [...state, action.payload];
 
-    case MYPAGE_SHOW_FIDS:
-      return state.filter((fid) => {
-        return fid.createUser === action.payload;
+    case UPDATE_FIDS:
+      console.log('update', action.payload);
+      return state.map((fid) => {
+        if (fid.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return fid;
+        }
       });
 
     case DELETE_FIDS:
-      return {};
+      return state.filter((fid) => {
+        return fid.id !== action.payload;
+      });
+
     default:
       return state;
   }

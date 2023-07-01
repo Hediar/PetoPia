@@ -3,7 +3,7 @@ import './reset.css';
 import Router from './shared/Router';
 import { fetchData } from './firebase';
 import { useDispatch } from 'react-redux';
-import { firstfetFids } from './redux/modules/fids';
+import { firstsetFids } from './redux/modules/fids';
 
 function App() {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     const getFidsdata = async () => {
       const fidsData = await fetchData();
-      dispatch(firstfetFids(fidsData));
+      dispatch(firstsetFids(fidsData));
     };
     getFidsdata();
   }, []);

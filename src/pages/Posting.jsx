@@ -1,37 +1,26 @@
 import 'firebase/firestore';
-import { collection, addDoc, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 import FileUpload from './FileUpload';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
-import { v4 as uuid } from 'uuid';
+
+import shortid from 'shortid';
+import { useDispatch } from 'react-redux';
+import { addFids } from '../redux/modules/fids';
 
 function Posting() {
   const [newAbout, setNewAbout] = useState('');
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newImgURL, setnewImgURL] = useState('');
-  const [users, setUsers] = useState([]);
 
   const userCollectionRef = collection(db, 'fids');
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    // 실시간 업데이트를 위한 onSnapshot 사용
-    const unsubscribe = onSnapshot(userCollectionRef, (querySnapshot) => {
-      const updatedUsers = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id
-      }));
-      setUsers(updatedUsers);
-    });
-
-    return () => {
-      // 컴포넌트 언마운트 시에 unsubscribe
-      unsubscribe();
-    };
-  }, []);
+  const fidId = shortid.generate(); // 등록할 fid id
 
   const createUsers = async (event, newImgURL) => {
     event.preventDefault();
@@ -42,53 +31,38 @@ function Posting() {
       return;
     }
 
-    await addDoc(userCollectionRef, {
-      id: uuid(),
+    const newFid = {
+      id: fidId,
       about: newAbout,
       title: newTitle,
       contents: newContent,
       createdBy: auth.currentUser.displayName,
       createUser: auth.currentUser.email,
       imgURL: newImgURL
-    });
+    };
+
+    await addDoc(userCollectionRef, newFid);
 
     // 글 등록 후 입력 폼 초기화
     setNewAbout('');
     setNewTitle('');
     setNewContent('');
     setnewImgURL('');
-  };
 
-  const showUsers = users.map((value) => (
-    <Tabs key={value.id}>
-      <h1>{value.title}</h1>
-      <p>{value.contents}</p>
-      <div>
-        <img src={value.imgURL} width="100" alt="프로필 이미지" />
-      </div>
-      <DeleteButton onClick={() => deleteUserData(value.id)}>삭제</DeleteButton>
-    </Tabs>
-  ));
-  const deleteUserData = async (id) => {
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
-      try {
-        await deleteDoc(doc(db, 'fids', id));
-        console.log('성공적으로 삭제되었습니다.');
-      } catch (error) {
-        console.error('사용자 삭제 중 오류 발생: ', error);
-      }
-    }
+    dispatch(addFids(newFid));
+
+    alert('피드가 등록되었습니다!');
   };
 
   // 카테고리 옵션 값 정의
   const categoryOptions = [
-    '강아지',
-    '고양이',
-    '물고기',
-    '조류',
-    '파충류',
-    '양서류',
-    '기타',
+    'dog',
+    'cat',
+    'fish',
+    'bird',
+    'amphibia',
+    'reptile',
+    'etc',
 
     ''
     // ... 추가적인 카테고리 옵션들
@@ -99,7 +73,6 @@ function Posting() {
       <Header />
       <Body>
         <Tit>회원님의 소중한 이야기를 적어주세요.</Tit>
-        <Board>{showUsers}</Board>
         <InputForm onSubmit={createUsers}>
           <InputBody>
             <TagI>
@@ -129,7 +102,7 @@ function Posting() {
               />
             </TagI>
             <TagTab>
-              <FileUpload onImageUpload={createUsers} />
+              <FileUpload onImageUpload={createUsers} newFidId={fidId} />
             </TagTab>
           </InputBody>
         </InputForm>
@@ -152,11 +125,6 @@ const Tit = styled.h2`
   justify-content: center;
   margin: 100px 0;
   font-size: 2rem;
-`;
-
-const Board = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 `;
 
 const InputBody = styled.div`
@@ -197,16 +165,7 @@ const Select = styled.select`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-// const Te = styled.input`
-//   width: 300px;
-//   height: 30px;
-//   border: 4px solid #eb9307;
-//   border-radius: 14px;
-//   margin: 0 10px 0 0;
-//   font-size: 20px;
-//   padding: 10px 10px 10px 14px;
-//   box-shadow: 10px 5px 20px gray;
-// `;
+
 const TextareaC = styled.textarea`
   width: 730px;
   height: 200px;
@@ -217,22 +176,6 @@ const TextareaC = styled.textarea`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-// const RegisterBtn = styled.button`
-//   width: 120px;
-//   height: 56px;
-//   border-radius: 14px;
-//   border: none;
-//   background-color: #eb9307;
-//   color: white;
-//   font-weight: 600;
-//   font-size: 0.9rem;
-//   box-shadow: 10px 5px 20px gray;
-//   &:hover {
-//     cursor: pointer;
-//     background-color: #ff8f05;
-//     color: black;
-//   }
-// `;
 
 const Tabs = styled.div`
   width: 230px;

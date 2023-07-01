@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
-import { MainWrapper } from '../stylecomponents/Wrapper';
+import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
 import BottomCardTab from '../components/BottomCardTab';
 // import CardList from '../components/CardList';
 import { auth } from '../firebase';
@@ -11,9 +11,12 @@ import CardList from '../components/CardList';
 
 function Main() {
   const fids = useSelector((fids) => fids.fids);
+
   useEffect(() => {
+    // dispatch(firstsetFids);
     console.log('유저정보:', auth.currentUser);
-  }, []);
+    console.log('전체 피드', fids);
+  }, [fids]);
 
   return (
     <>
@@ -43,12 +46,6 @@ function Main() {
 }
 
 export default Main;
-
-const MainBox = styled.div`
-  width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
-`;
 
 const Cardsarea = styled.div`
   display: grid;

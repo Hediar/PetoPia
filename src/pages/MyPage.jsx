@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
-import { MainWrapper } from '../stylecomponents/Wrapper';
+import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
 import Headernav from '../components/Frame/Headernav';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';
@@ -9,14 +9,25 @@ import { auth, loginCheck, storage } from '../firebase';
 import { useNavigate } from 'react-router';
 import { getDownloadURL, ref, uploadBytes } from '@firebase/storage';
 import { onAuthStateChanged, updateProfile } from '@firebase/auth';
+import { useSelector } from 'react-redux';
+import CardList from '../components/CardList';
 
 function MyPage() {
   const DEFAULT_PHOTO =
     'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541';
 
   const user = auth.currentUser;
+  const fids = useSelector((fids) =>
+    fids.fids.filter((fid) => {
+      return fid.createUser === user.email;
+    })
+  );
+
+  const [myfids, setMyfids] = useState([]);
+
   const [modalState, setModalState] = useState(false);
   const [nikname, setNikname] = useState('');
+
   const [photo, setPhoto] = useState(DEFAULT_PHOTO); // 보여지는 사진
   const [selectefFile, setselectefFile] = useState(null);
 
@@ -83,10 +94,10 @@ function MyPage() {
       // alert('로그인 해주세요');
       navigate('/');
     } else {
-      console.log('change user', user);
       onAuthStateChanged(auth, (user) => {
         setPhoto(user.photoURL);
         setNikname(user.displayName);
+        setMyfids(fids);
       }); // 사용자 인증정보가 바뀔 때 마다
     }
   }, [user]);
@@ -94,6 +105,7 @@ function MyPage() {
   return (
     <>
       <Headernav />
+
       <MainWrapper>
         <MypageWrap>
           <h1>My Page</h1>
@@ -102,8 +114,13 @@ function MyPage() {
         <MypageWrap>
           <h2>내가 작성한 게시글</h2>
         </MypageWrap>
-        <Section></Section>
+        <MainBox>
+          <Section>
+            <CardList fids={myfids} />
+          </Section>
+        </MainBox>
       </MainWrapper>
+
       <Footer />
       {modalState && (
         <div>
@@ -145,10 +162,9 @@ export default MyPage;
 
 const Section = styled.div`
   display: flex;
-  justify-content: center;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 40px;
+  /* justify-content: center;
+  text-align: center; */
+  margin: 30px;
   font-weight: bold;
 `;
 
