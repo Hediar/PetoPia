@@ -61,19 +61,25 @@ export default AnimalsInform;
 
 const Container = styled.div`
   background-color: #f2f2f2;
+  border-radius: 18px;
   padding: 20px;
   margin: 10px;
 `;
 
 const Title = styled.h2`
-  font-size: 24px;
+  width: 100%;
+  padding: 20px 0;
+  font-size: 16px;
   color: #333;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  line-height: 24px;
 `;
 
 const Image = styled.img`
-  width: 20%;
+  width: 80%;
   height: auto;
+  margin: 0 auto;
+  display: flex;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;

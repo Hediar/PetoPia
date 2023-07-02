@@ -61,7 +61,7 @@ const Fidcontext = styled.div`
   height: 110px;
   margin: 0 0 8px 0;
   font-size: 1.1rem;
-  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 const Cardfooter = styled.div`
@@ -72,11 +72,6 @@ const Cardfooter = styled.div`
   line-height: 1.5;
   justify-content: space-between;
   color: gray;
-`;
-
-const PageTitle = styled.h3`
-  margin-top: 2rem;
-  font-size: 24px;
 `;
 const InnerFid = styled.div`
   display: flex;
@@ -93,7 +88,7 @@ const ImgTag = styled.img`
 `;
 const TitleTag = styled.h4`
   font-size: 24px;
-  height: 26px;
+  height: 24px;
   overflow: hidden;
   text-align: left;
   padding: 0 4px;
@@ -104,19 +99,4 @@ const TextTag = styled.p`
   text-align: left;
   padding: 0 4px;
   overflow: hidden;
-`;
-const DeleteButton = styled.button`
-  width: 80px;
-  height: 32px;
-  float: right;
-  border-radius: 8px;
-  border: none;
-  background-color: red;
-  color: white;
-  font-size: 0.9rem;
-  margin: 5px;
-  &:hover {
-    cursor: pointer;
-    background-color: darkred;
-  }
 `;

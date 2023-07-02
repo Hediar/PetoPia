@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 export const MainWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
-  margin: 40px 0;
+  margin-top: 40px;
   h1 {
     display: block;
     font-size: 2em;

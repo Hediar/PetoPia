@@ -52,7 +52,7 @@ export default DetailPage;
 
 const Button = styled(commonButton)`
   float: right;
-  margin: 20px 20px 0 0;
+  margin: 40px 40px 0 0;
 `;
 
 const Wrapper = styled.div`

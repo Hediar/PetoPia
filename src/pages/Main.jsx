@@ -4,7 +4,6 @@ import Footer from '../components/Frame/Footer';
 import Header from '../components/Frame/Header';
 import { MainWrapper } from '../stylecomponents/Wrapper';
 import BottomCardTab from '../components/BottomCardTab';
-// import CardList from '../components/CardList';
 import { useSelector } from 'react-redux';
 import CardList from '../components/CardList';
 
@@ -58,7 +57,7 @@ const SectionDiv = styled.div`
   margin: 0 auto;
 `;
 const Section = styled.div`
-  width: 70%;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   justify-content: center;
@@ -67,7 +66,6 @@ const Section = styled.div`
   margin-top: 40px;
   font-weight: bold;
 `;
-
 const BtnBest = styled.button`
   width: 80px;
   height: 40px;
