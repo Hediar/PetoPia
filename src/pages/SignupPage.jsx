@@ -11,6 +11,8 @@ function SignupPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
+  const [errorMessageEmail, setErrorMessageEmail] = useState('');
+  const [errorMessagePassword, setErrorMessagePassword] = useState('');
 
   const onChange = (event) => {
     const {
@@ -32,75 +34,86 @@ function SignupPage() {
 
   const signUp = async (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return; // 비밀번호 불일치 에러 처리 후 함수 종료
-    } else if (displayName === '') {
-      alert('닉네임을 입력해주세요');
-      return;
-    } else {
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        // displayName 업데이트
-        await updateProfile(user, {
-          displayName: displayName
-        })
-          .then(() => {
-            sessionStorage.clear();
-            alert('회원가입이 완료되었습니다.');
-            navigate('/login');
-          })
-          .catch((error) => {
-            alert('회원가입에 실패했습니다.');
-          });
-      } catch (error) {
-        const errorCode = error.code;
+    setErrorMessageEmail('');
+    setErrorMessagePassword('');
 
-        switch (errorCode) {
-          case 'auth/invalid-email':
-            alert('이메일을 입력해주세요');
-            break;
-          case 'auth/missing-password':
-            alert('비밀번호를 입력해주세요');
-            break;
-          default:
-            alert('회원가입에 실패했습니다.');
-            break;
-        }
+    if (password !== confirmPassword) {
+      setErrorMessagePassword('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // displayName 업데이트
+      await updateProfile(user, {
+        displayName: displayName
+      })
+        .then(() => {
+          sessionStorage.clear();
+          alert('회원가입이 완료되었습니다.');
+          navigate('/login');
+        })
+        .catch((error) => {
+          alert('회원가입에 실패했습니다.');
+        });
+    } catch (error) {
+      const errorCode = error.code;
+
+      switch (errorCode) {
+        case 'auth/invalid-email':
+          setErrorMessageEmail('유효한 이메일을 입력해주세요.');
+          break;
+        case 'auth/missing-password':
+          setErrorMessagePassword('비밀번호를 입력해주세요.');
+          break;
+        case 'auth/email-already-in-use':
+          setErrorMessageEmail('이미 가입된 이메일입니다.');
+          break;
+        default:
+          setErrorMessageEmail('회원가입에 실패했습니다.');
+          break;
       }
     }
   };
 
   return (
     <Wrap>
-      <Tit>Join us</Tit>
+      <HeaderTag>
+        <LogoTag
+          src="/PetoPia-Logo/circle-Logo.png"
+          width="140"
+          alt="PetoPia Logo"
+          onClick={() => {
+            navigate('/');
+          }}
+        />
+        <Tit>
+          <div>Join us</div>
+          <Btn onClick={() => navigate('/')}>Home으로 가기</Btn>
+        </Tit>
+      </HeaderTag>
       <FormTag>
-        <InputTag>
-          <Sub>E-Mail</Sub>
-          <Input type="email" value={email} name="email" onChange={onChange} required />
-        </InputTag>
-        <InputTagP>
-          <Sub>Password </Sub>
-          <Input type="password" value={password} name="password" onChange={onChange} required />
-        </InputTagP>
-        <InputTagC>
-          <Sub>Check Password </Sub>
+        <InputWithError>
+          <Sub>E-Mail</Sub> <Input type="email" value={email} name="email" onChange={onChange} required />
+          {errorMessageEmail && <InputErroremail>{errorMessageEmail}</InputErroremail>}
+        </InputWithError>
+
+        <InputWithError>
+          <Sub>Password</Sub> <Input type="password" value={password} name="password" onChange={onChange} required />
+        </InputWithError>
+
+        <InputWithError>
+          <Sub>Check Password</Sub>
           <Input type="password" value={confirmPassword} name="confirmPassword" onChange={onChange} required />
-        </InputTagC>
-        <InputTagN>
-          <Sub>Nikname </Sub>
-          <Input type="text" value={displayName} name="displayName" onChange={onChange} required />
-        </InputTagN>
+          {errorMessagePassword && <InputError>{errorMessagePassword}</InputError>}
+        </InputWithError>
+        <InputWithError>
+          <Sub>Nickname</Sub> <Input type="text" value={displayName} name="displayName" onChange={onChange} required />
+        </InputWithError>
         <Btns>
           <Btn onClick={signUp}>회원가입</Btn>
-          <Btn
-            onClick={() => {
-              navigate('/login');
-            }}
-          >
-            뒤로가기
-          </Btn>
+          <Btn onClick={() => navigate('/login')}>뒤로가기</Btn>
         </Btns>
       </FormTag>
     </Wrap>
@@ -117,57 +130,65 @@ const Wrap = styled.div`
   border-radius: 20px;
   box-shadow: 10px 10px 30px gray;
 `;
+
+const HeaderTag = styled.div`
+  display: flex;
+`;
+
+const LogoTag = styled.img`
+  width: 12%;
+  margin: 0 auto;
+`;
 const Tit = styled.h2`
   width: 70%;
   font-size: 3rem;
   margin: 0 auto;
+  margin-top: 20px;
+  margin-left: -50px;
   text-align: left;
   font-weight: bold;
+
+  display: flex;
+  justify-content: space-between;
 `;
-const SubTit = styled.h2`
-  font-size: 1rem;
-  margin: 0 auto;
-  text-align: right;
-`;
+
 const Sub = styled.label`
   font-size: 1.7rem;
   margin: 10px;
   text-align: left;
+  color: gray;
 `;
+
 const FormTag = styled.form`
   width: 100%;
   font-size: 1rem;
   margin: 60px 0;
   text-align: center;
 `;
-const InputTag = styled.div`
-  font-size: 1rem;
-  text-align: center;
-  margin: 0 auto;
+
+const InputWithError = styled.div`
+  position: relative;
+  float: right;
+  margin-right: 12rem;
 `;
-const InputTagP = styled.div`
-  font-size: 1rem;
-  text-align: center;
-  margin: 0 auto;
-  margin-left: -42px;
+
+const InputErroremail = styled.p`
+  color: red;
+  margin-top: 5px;
+  margin-left: 105px;
+  text-align: left;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
 `;
-const InputTagC = styled.div`
-  font-size: 1rem;
-  text-align: center;
-  margin: 0 auto;
-  margin-left: -118px;
-`;
-const InputTagN = styled.div`
-  font-size: 1rem;
-  text-align: center;
-  margin: 0 auto;
-  margin-left: -30px;
-`;
-const SubInputTag = styled.div`
-  font-size: 1rem;
-  text-align: center;
-  margin: 0 auto;
-  margin-left: -36px;
+const InputError = styled.p`
+  color: red;
+  margin-top: 5px;
+  margin-left: 220px;
+  text-align: left;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
 `;
 const Input = styled.input`
   font-size: 1.7rem;
@@ -186,6 +207,7 @@ const Btns = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
 const Btn = styled(commonButton)`
   margin: 20px 10px;
   padding: 10px;
