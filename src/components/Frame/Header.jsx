@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
@@ -17,9 +17,7 @@ function Header() {
       alert('로그인 해주세요!');
     }
   };
-  const searchSubmit = () => {
-    console.log('검색');
-  };
+
   useEffect(() => {
     cursorRef.current.focus();
   }, []);

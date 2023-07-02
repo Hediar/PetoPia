@@ -9,7 +9,6 @@ import { signOut } from '@firebase/auth';
 
 function Headernav() {
   const navigate = useNavigate();
-
   const prelocation = useLocation();
 
   // 로그인 상태에 따라 활성화 버튼
@@ -20,8 +19,8 @@ function Headernav() {
     alert('로그아웃 되었습니다.');
 
     await signOut(auth);
-
-    window.location.reload();
+    setButtonVisible(false);
+    navigate('/');
   };
 
   // 햄버거 버튼 제어변수
@@ -41,7 +40,7 @@ function Headernav() {
     if (loginCheck()) {
       setButtonVisible(true);
     }
-  }, []);
+  }, [ButtonVisible]);
 
   return (
     <Headerarea>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 import FileUpload from './FileUpload';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth, db } from '../firebase';
 
 import shortid from 'shortid';

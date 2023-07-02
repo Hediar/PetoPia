@@ -24,7 +24,6 @@ const DetailPage = () => {
   }, [fids]);
 
   const [animalfids, setAnimalfids] = useState([]);
-  console.log('fids필터링', fids);
 
   //  주소값이 변경될 때 렌더링
   useEffect(() => {
@@ -38,7 +37,7 @@ const DetailPage = () => {
         <Button onClick={() => navigate('/')}>Home으로 가기</Button>
         <ContentWrapper></ContentWrapper>
 
-        {/* <AnimalsInform animal={animal} /> */}
+        <AnimalsInform animal={animal} />
       </Wrapper>
       <SubTitle>연관 게시글</SubTitle>
       <PageTitle>

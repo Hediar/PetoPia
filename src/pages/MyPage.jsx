@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
-import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
-import Headernav from '../components/Frame/Headernav';
+import { MainWrapper } from '../stylecomponents/Wrapper';
 import Header from '../components/Frame/Header';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';

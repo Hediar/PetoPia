@@ -26,7 +26,7 @@ function LoginPage() {
   useEffect(() => {
     if (loginCheck()) {
       alert('이미 로그인 상태입니다.');
-      navigate(`${prelocation.state.preURL}`);
+      navigate('/');
     }
   }, []);
 
@@ -43,7 +43,6 @@ function LoginPage() {
     try {
       await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
 
       handleLocation();
     } catch (error) {
