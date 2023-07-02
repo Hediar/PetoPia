@@ -10,6 +10,7 @@ import { auth, db } from '../firebase';
 import shortid from 'shortid';
 import { useDispatch } from 'react-redux';
 import { addFids } from '../redux/modules/fids';
+import { useNavigate } from 'react-router-dom';
 
 function Posting() {
   const [newAbout, setNewAbout] = useState('');
@@ -21,6 +22,7 @@ function Posting() {
   const dispatch = useDispatch();
 
   const fidId = shortid.generate(); // 등록할 fid id
+  const navigate = useNavigate();
 
   const createUsers = async (event, newImgURL) => {
     event.preventDefault();
@@ -52,6 +54,7 @@ function Posting() {
     dispatch(addFids(newFid));
 
     alert('피드가 등록되었습니다!');
+    navigate('/');
   };
 
   // 카테고리 옵션 값 정의

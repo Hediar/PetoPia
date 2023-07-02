@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs, query } from 'firebase/firestore';
 import styled from 'styled-components';
-import CardList from '../components/CardList';
 import { db } from '../firebase';
 
 const AnimalsInform = ({ animal }) => {
   const [cardData, setCardData] = useState(null);
   const [targetData, setTargetData] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, 'animals'));
-      const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+  // const fetchData = async () => {
+  //   const q = query(collection(db, 'animals'));
+  //   const querySnapshot = await getDocs(q);
+  //   const data = {
+  //     dog: {
+  //       about:
+  //         '중형 동물이자 가장 널리 분포하며 개체 수가 가장 많은 지상 동물 중 하나이며 가축화한 회색늑대이다. 개는 인류가 최초로 가축으로 삼은 동물로 알려져 있으며, 역사적으로 반려견, 사냥견으로서 길러 왔다.'
+  //     }
+  //   };
 
-      setCardData(data);
-    };
+  //   setCardData(data);
+  // };
 
-    fetchData();
-  }, []);
-  // console.log(cardData);
   useEffect(() => {
+    // fetchData();
+    // console.log(cardData);
+
     if (cardData) {
+      console.log(cardData);
       const animalData = cardData.find((data) => data.id === animal);
 
       if (animalData) {
         setTargetData(animalData);
-        // console.log(animalData.tips);
       }
     }
-  }, [cardData, animal]);
+  }, []);
 
   let about = '';
   let imageUrl = '';

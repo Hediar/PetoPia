@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import AnimalsInform from './AnimalsInform';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
 import CardList from '../components/CardList';
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 import { useSelector } from 'react-redux';
 import { commonButton } from '../stylecomponents/Button';
-import { MainBox } from '../stylecomponents/Wrapper';
 
 const DetailPage = () => {
   const navigate = useNavigate();
-
-  const [cardData, setCardData] = useState([]);
   const { animal } = useParams();
 
   const fids = useSelector((fids) =>
@@ -22,36 +17,28 @@ const DetailPage = () => {
       return fid.about === animal;
     })
   );
+
+  // 필터링 한 값이 변경될 때 렌더링
+  const settingFids = useCallback(() => {
+    setAnimalfids(fids);
+  }, [fids]);
+
   const [animalfids, setAnimalfids] = useState([]);
   console.log('fids필터링', fids);
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-  };
+  //  주소값이 변경될 때 렌더링
   useEffect(() => {
-    setAnimalfids(fids);
-  }, [animal, fids]);
+    settingFids();
+  }, [animal]);
 
   return (
     <>
       <Header />
       <Wrapper>
         <Button onClick={() => navigate('/')}>Home으로 가기</Button>
-        <ContentWrapper>
-          <Form onSubmit={onSubmitHandler}>
-            {cardData.map((card) => (
-              <div key={card.id}>
-                <p>작성자: {card.createdBy}</p>
-                <p>제목: {card.title}</p>
-                <p>내용: {card.contents}</p>
-                <Image src={card.imageUrl} alt="이미지" />
-                <br />
-              </div>
-            ))}
-          </Form>
-        </ContentWrapper>
+        <ContentWrapper></ContentWrapper>
 
-        <AnimalsInform animal={animal} />
+        {/* <AnimalsInform animal={animal} /> */}
       </Wrapper>
       <SubTitle>연관 게시글</SubTitle>
       <PageTitle>
@@ -78,26 +65,8 @@ const Wrapper = styled.div`
   margin-top: 2.5rem;
 `;
 
-const Form = styled.form`
-  margin-bottom: 1rem;
-`;
-
 const ContentWrapper = styled.div`
   margin-bottom: 1rem;
-`;
-
-const Image = styled.img`
-  width: 50%;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const Input = styled.input`
-  width: 50;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 `;
 
 const SubTitle = styled.p`

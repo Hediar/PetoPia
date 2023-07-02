@@ -1,24 +1,10 @@
 import React, { useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase';
 
 const CardList = ({ fids }) => {
   const navigate = useNavigate();
-
-  // 삭제버튼 구현 중 fail
-  const deleteUserData = async (id) => {
-    if (window.confirm('정말로 삭제하시겠습니까?')) {
-      try {
-        await deleteDoc(doc(db, 'fids', id));
-        console.log('성공적으로 삭제되었습니다.');
-      } catch (error) {
-        console.error('사용자 삭제 중 오류 발생: ', error);
-      }
-    }
-  };
-
+  useEffect(() => {}, [fids]);
   return (
     <>
       {fids.map((card) => (
@@ -38,8 +24,6 @@ const CardList = ({ fids }) => {
                 <Fidcontext>
                   <TextTag>{card.contents}</TextTag>
                 </Fidcontext>
-                <DeleteButton onClick={() => {}}>삭제</DeleteButton>
-                <DeleteButton onClick={() => {}}>수정</DeleteButton>
               </TitleContent>
             </InnerFid>
           </Fidmainbox>
