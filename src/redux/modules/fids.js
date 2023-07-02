@@ -47,7 +47,6 @@ const fids = (state = initialState, action) => {
       return [...state, action.payload];
 
     case UPDATE_FIDS:
-      console.log('update', action.payload);
       return state.map((fid) => {
         if (fid.id === action.payload.id) {
           return action.payload;
