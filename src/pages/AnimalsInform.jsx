@@ -48,13 +48,15 @@ const AnimalsInform = ({ animal }) => {
 
   return (
     <Container>
-      <PageTitle>설명</PageTitle>
+      <PageTitle>우리에게 필요한 기본 지식 !</PageTitle>
       <Title>About: {about}</Title>
-      <Image id="imgId" src={imageUrl} alt="Image" />
-      <Title>- {tip1}</Title>
-      <Title>- {tip2}</Title>
-
-      <div></div>
+      <InnerContent>
+        <Image id="imgId" src={imageUrl} alt="Image" />
+        <div>
+          <h3>- {tip1}</h3>
+          <h3>- {tip2}</h3>
+        </div>
+      </InnerContent>
     </Container>
   );
 };
@@ -62,25 +64,30 @@ const AnimalsInform = ({ animal }) => {
 export default AnimalsInform;
 
 const Container = styled.div`
-  background-color: #f2f2f2;
-  padding: 20px;
-  margin: 10px;
+  padding: 30px;
+  margin: 20px;
 `;
-
-const Title = styled.h2`
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 10px;
-`;
-
-const Image = styled.img`
-  width: 20%;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
 const PageTitle = styled.h2`
   font-size: 24px;
   font-weight: bold;
+`;
+const Title = styled.h2`
+  font-size: 18px;
+  margin-top: 10px;
+  width: 100%;
+  border-bottom: 3px dashed rgb(221, 221, 221);
+  line-height: 20px;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+const InnerContent = styled.div`
+  display: flex;
+`;
+const Image = styled.img`
+  width: 30%;
+  height: auto;
+  object-fit: cover;
+  border: none;
+  border-radius: 18px;
 `;

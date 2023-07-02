@@ -20,36 +20,57 @@ function Main() {
 
   return (
     <>
+      <Header />
       <MainWrapper>
-        <Header />
-
-        <MainBox>
-          <div
-            style={{
-              margin: '30px'
-            }}
-          >
+        <CoreBox>
+          <MypageWrap>
             <BtnBest>인기글</BtnBest>
             <BtnBest>최신글</BtnBest>
             <BCTitle>사랑스런 친구들의 이야기</BCTitle>
-          </div>
-          <Cardsarea>
-            <CardList fids={fids} />
-          </Cardsarea>
+          </MypageWrap>
+          <SectionDiv>
+            <Section>
+              <CardList fids={fids} />
+            </Section>
+          </SectionDiv>
           <BottomCardTab />
-        </MainBox>
-
-        <Footer />
+        </CoreBox>
       </MainWrapper>
+      <Footer />
     </>
   );
 }
 
 export default Main;
 
-const Cardsarea = styled.div`
+const CoreBox = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px;
+`;
+
+const MypageWrap = styled.div`
+  width: 72%;
+  display: flex;
+  margin: 0 auto;
+  padding: 0px 20px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const SectionDiv = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
+const Section = styled.div`
+  width: 70%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 40px;
+  font-weight: bold;
 `;
 
 const BtnBest = styled.button`
@@ -73,6 +94,7 @@ const BCTitle = styled.h2`
   text-align: center;
   font-size: 2rem;
   margin: 0 auto;
-
+  margin-left: -10rem;
   justify-content: center;
+  z-index: -99;
 `;

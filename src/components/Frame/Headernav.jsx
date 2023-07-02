@@ -101,7 +101,7 @@ function Headernav() {
 export default React.memo(Headernav);
 
 const HeaderTop = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
   padding-top: 60px;
   display: flex;
@@ -111,8 +111,9 @@ const HeaderTop = styled.div`
 
 const ImgHeader = styled.div`
   width: 400px;
-  margin-left: 20px;
+  margin-left: 60px;
   text-align: left;
+  z-index: 999;
 `;
 
 const Hamburger = styled.div`
