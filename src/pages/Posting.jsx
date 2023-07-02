@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import Header from '../components/Frame/Header';
 import Footer from '../components/Frame/Footer';
 import FileUpload from './FileUpload';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth, db } from '../firebase';
 
 import shortid from 'shortid';
 import { useDispatch } from 'react-redux';
 import { addFids } from '../redux/modules/fids';
+import { useNavigate } from 'react-router-dom';
 
 function Posting() {
   const [newAbout, setNewAbout] = useState('');
@@ -21,6 +22,7 @@ function Posting() {
   const dispatch = useDispatch();
 
   const fidId = shortid.generate(); // 등록할 fid id
+  const navigate = useNavigate();
 
   const createUsers = async (event, newImgURL) => {
     event.preventDefault();
@@ -52,6 +54,7 @@ function Posting() {
     dispatch(addFids(newFid));
 
     alert('피드가 등록되었습니다!');
+    navigate('/');
   };
 
   // 카테고리 옵션 값 정의
@@ -73,6 +76,7 @@ function Posting() {
       <Header />
       <Body>
         <Tit>회원님의 소중한 이야기를 적어주세요.</Tit>
+        {/* <Board>{showUsers}</Board> */}
         <InputForm onSubmit={createUsers}>
           <InputBody>
             <TagI>
@@ -84,8 +88,6 @@ function Posting() {
                   </option>
                 ))}
               </Select>
-            </TagI>
-            <TagI>
               <TextareaT
                 type="text"
                 placeholder="제목을 입력해주세요."
@@ -123,8 +125,9 @@ const Body = styled.div`
 const Tit = styled.h2`
   display: flex;
   justify-content: center;
-  margin: 100px 0;
-  font-size: 2rem;
+  margin: 90px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const InputBody = styled.div`
@@ -145,22 +148,22 @@ const InputForm = styled.form`
   justify-content: center;
   margin-top: 10px;
 `;
-const TextareaT = styled.input`
-  width: 360px;
-  height: 30px;
+const Select = styled.select`
+  width: 350px;
+  height: 60px;
   border: 4px solid #eb9307;
   border-radius: 16px;
-  margin-top: 10px;
+  margin: 10px 10px 0 0;
   font-size: 20px;
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-const Select = styled.select`
-  width: 360px;
-  height: 60px;
+const TextareaT = styled.input`
+  width: 350px;
+  height: 30px;
   border: 4px solid #eb9307;
   border-radius: 16px;
-  margin-top: 10px;
+  margin: 10px 0 0 10px;
   font-size: 20px;
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
@@ -176,7 +179,6 @@ const TextareaC = styled.textarea`
   padding: 10px;
   box-shadow: 10px 5px 20px gray;
 `;
-
 const Tabs = styled.div`
   width: 230px;
   height: 200px;
@@ -203,4 +205,16 @@ const DeleteButton = styled.button`
     cursor: pointer;
     background-color: darkred;
   }
+`;
+
+const TabsTitle = styled.h1`
+  font-size: 20px;
+  font-weight: bold;
+`;
+const TabsP = styled.h1`
+  font-size: 16px;
+`;
+const ImgTag = styled.img`
+  width: 140px;
+  height: auto;
 `;

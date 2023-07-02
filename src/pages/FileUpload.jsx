@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { storage, auth } from '../firebase';
+import { storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 
@@ -25,7 +25,6 @@ function FileUpload({ onImageUpload, newFidId }) {
       await uploadBytes(imageRef, selectedFile);
 
       const downloadURL = await getDownloadURL(imageRef);
-      console.log(downloadURL);
       onImageUpload(e, downloadURL); // 이미지 URL 전달
     }
   };

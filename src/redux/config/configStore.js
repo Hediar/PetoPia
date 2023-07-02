@@ -1,12 +1,9 @@
 // 중앙 데이터 관리소 store 설정
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
-import currentuser from '../modules/currentuser';
 import fids from '../modules/fids';
 
 const rootReducer = combineReducers({
-  // modules key: value
-  currentuser,
   fids
 });
 

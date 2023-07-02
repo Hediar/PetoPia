@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router';
+import { styled } from 'styled-components';
+import { commonButton } from '../stylecomponents/Button';
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -71,36 +73,121 @@ function SignupPage() {
   };
 
   return (
-    <div className="App">
-      <h2>회원가입 페이지</h2>
-      <form>
-        <div>
-          <label>이메일:</label>
-          <input type="email" value={email} name="email" onChange={onChange} required />
-        </div>
-        <div>
-          <label>비밀번호:</label>
-          <input type="password" value={password} name="password" onChange={onChange} required />
-        </div>
-        <div>
-          <label>비밀번호 확인:</label>
-          <input type="password" value={confirmPassword} name="confirmPassword" onChange={onChange} required />
-        </div>
-        <div>
-          <label>닉네임:</label>
-          <input type="text" value={displayName} name="displayName" onChange={onChange} required />
-        </div>
-        <button onClick={signUp}>회원가입</button>
-        <button
-          onClick={() => {
-            navigate('/login');
-          }}
-        >
-          뒤로가기
-        </button>
-      </form>
-    </div>
+    <Wrap>
+      <Tit>Join us</Tit>
+      <FormTag>
+        <InputTag>
+          <Sub>E-Mail</Sub>
+          <Input type="email" value={email} name="email" onChange={onChange} required />
+        </InputTag>
+        <InputTagP>
+          <Sub>Password </Sub>
+          <Input type="password" value={password} name="password" onChange={onChange} required />
+        </InputTagP>
+        <InputTagC>
+          <Sub>Check Password </Sub>
+          <Input type="password" value={confirmPassword} name="confirmPassword" onChange={onChange} required />
+        </InputTagC>
+        <InputTagN>
+          <Sub>Nikname </Sub>
+          <Input type="text" value={displayName} name="displayName" onChange={onChange} required />
+        </InputTagN>
+        <Btns>
+          <Btn onClick={signUp}>회원가입</Btn>
+          <Btn
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            뒤로가기
+          </Btn>
+        </Btns>
+      </FormTag>
+    </Wrap>
   );
 }
 
 export default SignupPage;
+const Wrap = styled.div`
+  background-color: #fafcdc;
+  width: 900px;
+  margin: 0 auto;
+  margin-top: 6rem;
+  padding: 40px 10px 10px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px gray;
+`;
+const Tit = styled.h2`
+  width: 70%;
+  font-size: 3rem;
+  margin: 0 auto;
+  text-align: left;
+  font-weight: bold;
+`;
+const SubTit = styled.h2`
+  font-size: 1rem;
+  margin: 0 auto;
+  text-align: right;
+`;
+const Sub = styled.label`
+  font-size: 1.7rem;
+  margin: 10px;
+  text-align: left;
+`;
+const FormTag = styled.form`
+  width: 100%;
+  font-size: 1rem;
+  margin: 60px 0;
+  text-align: center;
+`;
+const InputTag = styled.div`
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+`;
+const InputTagP = styled.div`
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  margin-left: -42px;
+`;
+const InputTagC = styled.div`
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  margin-left: -118px;
+`;
+const InputTagN = styled.div`
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  margin-left: -30px;
+`;
+const SubInputTag = styled.div`
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  margin-left: -36px;
+`;
+const Input = styled.input`
+  font-size: 1.7rem;
+  width: 340px;
+  margin: 20px;
+  text-align: left;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid gray;
+  margin-top: 20px;
+`;
+
+const Btns = styled.div`
+  width: 78.5%;
+  margin: 20px 10px;
+  display: flex;
+  justify-content: flex-end;
+`;
+const Btn = styled(commonButton)`
+  margin: 20px 10px;
+  padding: 10px;
+  border-radius: 10px;
+`;

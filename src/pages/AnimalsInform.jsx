@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query } from 'firebase/firestore';
 import styled from 'styled-components';
-import CardList from '../components/CardList';
 import { db } from '../firebase';
 
 const AnimalsInform = ({ animal }) => {
@@ -22,14 +21,13 @@ const AnimalsInform = ({ animal }) => {
 
     fetchData();
   }, []);
-  // console.log(cardData);
+
   useEffect(() => {
     if (cardData) {
       const animalData = cardData.find((data) => data.id === animal);
 
       if (animalData) {
         setTargetData(animalData);
-        // console.log(animalData.tips);
       }
     }
   }, [cardData, animal]);

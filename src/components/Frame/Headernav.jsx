@@ -9,7 +9,6 @@ import { signOut } from '@firebase/auth';
 
 function Headernav() {
   const navigate = useNavigate();
-
   const prelocation = useLocation();
 
   // 로그인 상태에 따라 활성화 버튼
@@ -20,8 +19,8 @@ function Headernav() {
     alert('로그아웃 되었습니다.');
 
     await signOut(auth);
-
-    window.location.reload();
+    setButtonVisible(false);
+    navigate('/');
   };
 
   // 햄버거 버튼 제어변수
@@ -41,7 +40,7 @@ function Headernav() {
     if (loginCheck()) {
       setButtonVisible(true);
     }
-  }, []);
+  }, [ButtonVisible]);
 
   return (
     <Headerarea>
@@ -101,7 +100,7 @@ function Headernav() {
 export default React.memo(Headernav);
 
 const HeaderTop = styled.div`
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
   padding-top: 60px;
   display: flex;
@@ -111,8 +110,9 @@ const HeaderTop = styled.div`
 
 const ImgHeader = styled.div`
   width: 400px;
-  margin-left: 20px;
+  margin-left: 60px;
   text-align: left;
+  z-index: 999;
 `;
 
 const Hamburger = styled.div`

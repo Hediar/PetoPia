@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Frame/Footer';
-import { MainBox, MainWrapper } from '../stylecomponents/Wrapper';
-import Headernav from '../components/Frame/Headernav';
+import { MainWrapper } from '../stylecomponents/Wrapper';
+import Header from '../components/Frame/Header';
 import { styled } from 'styled-components';
 import { Modal, ModalBackground } from '../stylecomponents/Modal';
 import { commonButton } from '../stylecomponents/Button';
@@ -104,8 +104,7 @@ function MyPage() {
 
   return (
     <>
-      <Headernav />
-
+      <Header />
       <MainWrapper>
         <MypageWrap>
           <h1>My Page</h1>
@@ -114,11 +113,11 @@ function MyPage() {
         <MypageWrap>
           <h2>내가 작성한 게시글</h2>
         </MypageWrap>
-        <MainBox>
+        <SectionDiv>
           <Section>
             <CardList fids={myfids} />
           </Section>
-        </MainBox>
+        </SectionDiv>
       </MainWrapper>
 
       <Footer />
@@ -127,9 +126,9 @@ function MyPage() {
           <ModalBackground />
           <Modal>
             <h2>프로필 사진</h2>
-            <Myprofileimg src={photo} alt="avatar" />
-
             <Findimgfile>
+              <Myprofileimg src={photo} alt="avatar" />
+
               <label htmlFor="ex_file">파일 선택</label>
               <input
                 type="file"
@@ -159,19 +158,28 @@ function MyPage() {
 }
 
 export default MyPage;
-
+const SectionDiv = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`;
 const Section = styled.div`
-  display: flex;
-  /* justify-content: center;
-  text-align: center; */
-  margin: 30px;
+  // display: flex;
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 40px;
   font-weight: bold;
 `;
 
 const MypageWrap = styled.div`
+  width: 72%;
   display: flex;
-  width: 90%;
-  margin: 10px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 10px;
   padding: 0px 20px;
   align-items: center;
   justify-content: space-between;
@@ -257,4 +265,5 @@ const Myprofileimg = styled.img`
   border-width: 5px;
   border-color: gray;
   border-style: outset;
+  object-fit: cover;
 `;
