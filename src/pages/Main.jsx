@@ -58,7 +58,7 @@ const SectionDiv = styled.div`
   margin: 0 auto;
 `;
 const Section = styled.div`
-  width: 70%;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   justify-content: center;

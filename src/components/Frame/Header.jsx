@@ -40,10 +40,12 @@ function Header() {
 
 export default React.memo(Header);
 const FormTag = styled.div`
+  height: 120px;
   width: 100%;
   margin: 0 auto;
   margin-bottom: 20px;
   margin-top: -120px;
+  margin-left: 40px;
   padding: 10px;
   display: flex;
   align-items: center;

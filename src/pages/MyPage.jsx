@@ -161,10 +161,12 @@ export default MyPage;
 const SectionDiv = styled.div`
   width: 80%;
   margin: 0 auto;
+  height: 800px;
+  margin-bottom: 40px;
 `;
 const Section = styled.div`
   // display: flex;
-  width: 70%;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   justify-content: center;

@@ -57,7 +57,7 @@ const MainDrop = styled.div`
 `;
 const Dum = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   justify-content: center;
   margin: 40px 0;
 `;
@@ -74,7 +74,7 @@ const CImg = styled.img`
   border-radius: 18px;
 `;
 const TaxtTag = styled.p`
-  width: 98.4%;
+  width: 100%;
   height: 20%;
   position: absolute;
   bottom: 1.15rem;
