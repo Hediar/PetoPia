@@ -57,12 +57,11 @@ const DetailFeedPage = () => {
   // 회원인지 아닌지에 따른 변화
   useEffect(() => {
     setFid(selectedFid);
-
     if (!user) {
       setCuruser('nothing');
     } else {
+      setCuruser(user.email);
       if (curuser === fid.createUser) {
-        setCuruser(user.email);
         setcheckUser(true);
         // 수정을 위한 세팅
         setNewUpdateTitle(`${fid.title}`);
