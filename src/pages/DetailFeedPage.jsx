@@ -128,7 +128,7 @@ const MypageWrap = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-top: 80px;
-  margin-bottom: 140px;
+  margin-bottom: 142px;
   padding: 0px 20px;
 `;
 
