@@ -51,12 +51,11 @@ function SignupPage() {
             navigate('/login');
           })
           .catch((error) => {
-            console.error('displayName 업데이트 중 오류:', error);
+            alert('회원가입에 실패했습니다.');
           });
       } catch (error) {
         const errorCode = error.code;
 
-        console.log(errorCode);
         switch (errorCode) {
           case 'auth/invalid-email':
             alert('이메일을 입력해주세요');
