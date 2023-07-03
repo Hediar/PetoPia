@@ -80,6 +80,6 @@ Firebase를 활용해서 DB를 관리해주고 리덕스로 해당 정보 제어
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/> 
 <img src="https://img.shields.io/badge/firebase-FFCA28?style=flat&logo=firebase&logoColor=white"/> 
-<img src="https://img.shields.io/badge/vercel-FFCA28?style=flat&logo=vercel&logoColor=white"/>
+<img src="https://img.shields.io/badge/vercel-000000?style=flat&logo=vercel&logoColor=white"/>
 
 <br/><br/>
