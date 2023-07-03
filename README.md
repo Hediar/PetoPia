@@ -47,42 +47,52 @@ Firebase를 활용해서 DB를 관리해주고 리덕스로 해당 정보 제어
 
 #### Firestore에서 DB가져오기
 
-- 유저 글을 가져오고, 피드 정보 리스트를 불러옵니다.
+- 회원가입 한 유저의 글 (Fid)을 가져오고, 이 피드정보를 하나의 리스트로 불러와서 보여줍니다.
+- 현재 웹 페이지의 사이즈에 맞춰 피드의 사이즈가 조절이 됩니다.
 
-#### 회원 관리 페이지
+### 회원 가입 페이지
 
-- 회원 등록이 가능합니다.
-- 회원 로그인, 로그아웃이 가능합니다.
+- 신규 가입은 E-mail을 이용하여 회원 등록이 가능하게 구성하였습니다.
+- E-mail과 비밀번호 입력시 하단의 Error Message를 통해 Validation Check를 하였습니다.
+- 회원 로그인 & 로그아웃이 가능하며 상태 변경시 알림을 Alert 창으로 띄워줍니다.
+- 상단의 Logo와 버튼을 통해 클릭하면 언제든 Home으로 돌아갈 수 있습니다.
 
-#### 마이페이지
+### 게시글 작성 페이지
 
-- 자신이 만든 글을 불러옵니다.
-- 자신의 글을 삭제, 수정 가능합니다.
+- 게시글 작성시 Category를 본인이 설정하여 원하는 이미지와 함께 게시글을 작성할 수 있습니다.
+- 회원가입 시 설정한 Nick Name 과 Category가 피드에 함께 반영됩니다.
+
+### 마이페이지
+
+- 해당하는 회원이 작성한 글들만 정리해서 보여줍니다.
+- Profile을 수정하여 저장할 수 있습니다.
 
 ### 상세 페이지
 
-- Firestore에서 들어가있는 동물들의 사육 정보 불어옵니다.
-- 유저들이 등록해논 해당 동물 종의 피드글을 볼 수도 있습니다.
+- Category 내부 탭에 분류된 각 반려동물의 특징 및 설명 - Animal 클릭시 해당 정보만 보여줍니다.
+- 특징과 설명 아래에는 회원들이 작성한 해당 Category 관련 피드들을 순차적으로 볼 수 있습니다.
 
 ### 상세 피드 페이지
 
-- 유저들이 올려논 피드들을 볼 수 있습니다.
+- 회원분들이 작성한 게시글을 볼 수 있으며 이는 해당 회원이 아니면 수정과 삭제가 불가합니다.
+- 본인만 글을 삭제, 수정 가능하며 본인이 아니라면 버튼이 보이지 않습니다.
+- 어디서든 Logo를 클릭하면 Home으로 돌아갈 수 있습니다.
 
 ## :sunglasses:주요 파일
 
-#### -firebase.js: firebase 환경 변수 파일
+#### - firebase.js: firebase 환경 변수 파일
 
-#### -Posting.jsx: 글 작성 관련 페이지
+#### - Posting.jsx: 글 작성 관련 페이지
 
-#### -SignupPage.jsx: Firebase Authentication 회원 등록
+#### - SignupPage.jsx: Firebase Authentication 회원 등록
 
-#### -LoginPage.jsx: Firebase Authentication 로그인
+#### - LoginPage.jsx: Firebase Authentication 로그인
 
-#### -fids.js: Redux로 받아온 firestore db 제어
+#### - fids.js: Redux로 받아온 firestore db 제어
 
-#### -DetailFeedPage.jsx: 피드 상세정보 페이지
+#### - DetailFeedPage.jsx: 피드 상세정보 페이지
 
-#### -DetailPage.jsx: nav바 동물 메뉴 페이지
+#### - DetailPage.jsx: nav바 동물 메뉴 페이지
 
 <br/><br/>
 
