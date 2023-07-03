@@ -11,14 +11,12 @@ Firebase를 활용해서 DB를 관리해주고 리덕스로 해당 정보 제어
 
 ## 화면 구성
 
-| 메인 페이지                                                                                      |   피드 페이지    |
-| :----------------------------------------------------------------------------------------------- | :--------------: |
-| ![image](https://github.com/Hediar/PetoPia/assets/69897998/c0944829-26b0-4eb2-8374-d547d0ad0cac) |
-| ![image](https://github.com/Hediar/PetoPia/assets/69897998/9328e4d0-81bb-4bf2-bb9a-182541288882) |
+| 메인 페이지                                                                                      |                                           피드 페이지                                            |
+| :----------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------: |
+| ![image](https://github.com/Hediar/PetoPia/assets/69897998/c0944829-26b0-4eb2-8374-d547d0ad0cac) | ![image](https://github.com/Hediar/PetoPia/assets/69897998/9328e4d0-81bb-4bf2-bb9a-182541288882) |
 |                                                                                                  |
-| 마이페이지                                                                                       | 동물 상세 페이지 |
-| ![image](https://github.com/Hediar/PetoPia/assets/69897998/4832375b-5365-451a-9351-84cd80f92acd) |
-| ![image](https://github.com/Hediar/PetoPia/assets/69897998/bb011c35-761e-4a40-921a-5688216152c1) |
+| 마이페이지                                                                                       |                                         동물 상세 페이지                                         |
+| ![image](https://github.com/Hediar/PetoPia/assets/69897998/4832375b-5365-451a-9351-84cd80f92acd) | ![image](https://github.com/Hediar/PetoPia/assets/69897998/bb011c35-761e-4a40-921a-5688216152c1) |
 |                                                                                                  |
 
 ---
